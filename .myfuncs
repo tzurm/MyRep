@@ -1,0 +1,10 @@
+#
+# gcc compilation alias c89,c99,debug mode , release mode
+alias gd= 'gcc -ansi -pedantic-error -Wall -Wextra -g'
+alias gc= 'gcc -ansi -pedantic-error -Wall -Wextra -DNDEBUG -03'
+alias gd9= 'gcc -std=c99 -pedantic-error -Wall -Wextra -g'
+alias gd9= 'gcc -std=c99 -pedantic-error -Wall -Wextra -DNDEBUG -03'
+#
+# Valgrind alias
+alias vlg='valgrind --leak-check=yes --track --track-origins=yes'
+alias ts='sudo apt-get install'
