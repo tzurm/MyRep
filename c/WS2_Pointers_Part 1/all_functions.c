@@ -1,10 +1,4 @@
-
-#include <stdio.h>
-
-
-
-
-void Swap (int *a, int *b)
+void Swap(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
