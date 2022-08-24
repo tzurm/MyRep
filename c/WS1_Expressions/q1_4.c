@@ -1,4 +1,4 @@
-// Online C compiler to run C program online
+
 #include <stdio.h>
 
 double Power(int n) 
@@ -51,7 +51,7 @@ int main()
     switch(num)
     {
     	case 1: 
-    		printf("%s", hex);
+    		printf("%s \n", hex);
     		break;
         case 2:
         	printf("Enter num for n \n");
