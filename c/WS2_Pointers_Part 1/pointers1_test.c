@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "all_functions.h"
-#include "all_functions.c"
+#include "pointers1.h"
+#include "pointers1.c"
 
 
 int main() 
