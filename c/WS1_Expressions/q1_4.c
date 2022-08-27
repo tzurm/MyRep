@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 
 double Power(int n) 
