@@ -23,7 +23,8 @@ Status: approved
 */
 void printArray(int arr[], int length)
     {
-        for (int i=0; i<length;i++)  
+    	int i;
+        for (i=0; i<length;i++)  
             printf("%d " , arr[i]);
         printf("\n");
     }
@@ -38,7 +39,8 @@ Status: approved
 
 int Copy(int arr[] ,int arrcopy[],int n)
 {
-    for(int i=0;i<n;i++)
+	int i;
+    for(i=0;i<n;i++)
       arrcopy[i]=arr[i];
 }
 
@@ -85,11 +87,11 @@ void Swap_Size_t(size_t *num1, size_t *num2)
     *num2 = temp;
 }
 
-void Swap_Ptr(size_t *num1, size_t *num2)
+void Swap_Ptr(size_t **num1, size_t **num2)
 {
-    
-    size_t temp_num1 = *num1;
-    size_t temp_num2 = *num2;   
-    *num1 = temp_num2;
-    *num2 = temp_num1;
+    size_t temp_num1 = (size_t) *num1;
+    size_t temp_num2 = (size_t) *num2;   
+    Swap_Size_t(&temp_num1,&temp_num2);
+    *num1 = (size_t*)temp_num1;
+    *num2 = (size_t*)temp_num2;
 }

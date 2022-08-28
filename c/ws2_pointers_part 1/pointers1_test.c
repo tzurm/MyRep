@@ -38,14 +38,14 @@ int main()
     printf("\n***********  swap value  *********** \n");
     printf("BEFORE: num1: %lu  | num2: %lu \n",num1, num2);
     Swap_Size_t(&num1 ,&num2 );
-    printf("AFTER:  num1: %lu  | num2: %lu\n \n",num1, num2);
+    printf("AFTER: num1: %lu  | num2: %lu\n \n",num1, num2);
  
     printf("*********** swap address pointers *************\n");
     printf("BEFORE:\naddress of ptr num1: %lu \naddress of ptr num2: %lu\n",p_num1,p_num2 );
-    printf("BEFORE:  num1: %lu  | num2: %lu\n \n",num1, num2);
+    printf("num1: %lu  | num2: %lu\n \n",num1, num2);
     Swap_Ptr(&p_num1,&p_num2);
     printf("AFTER:\naddress of ptr num1: %lu \naddress of ptr num2: %lu\n",p_num1,p_num2  );
-    printf("AFTER:  num1: %lu  | num2: %lu\n \n",num1, num2);
+    printf("num1: %lu  | num2: %lu\n \n",num1, num2);
     
     return 0;
   }
