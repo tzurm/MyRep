@@ -2,39 +2,38 @@
 #include "strings.h"
 #include "strings.c"
 #include "string.h"
-
+#include <assert.h>
 
 int main() 
 {
 	int count1 = 0;
 	int count2 = 0;
-    char str_genric[]="tzur" ,one_letter[]="a" ,empty_str[]="" ;		/*StrLen */
-    printf("******string length function ******* \n");
+	char str[] = "test1";
+	char strabc[] = "abcde";
+	char strABC[] = "ABCDE";
+    char str_genric[]="tzur",one_letter[]="a" ,empty_str[]="",
+    empty_str1[]="", empty_str2[]="";	
+    printf("****** TESTS  StrLen function ******* \n");
 	count1 = StrLen(str_genric);
 	count2 = strlen(str_genric);
-    if(count1 == count2)
-            printf("the string is - %s - and the length is %d \n", str_genric,StrLen(str_genric));
-    else
-        printf("error \n");
+    assert(count1 == count2);
+            printf("str: %s , leng: %d \n", str_genric,StrLen(str_genric));
     count1 = StrLen(one_letter);
 	count2 = strlen(one_letter);    
-    if(count1==count2)
-            printf("the string is - %s -  and the length is %d \n", one_letter,StrLen(one_letter));
-    else
-        printf("error \n");
+    assert(count1==count2);
+            printf("str: %s , leng: %d \n", one_letter,StrLen(one_letter));
     count1 = StrLen(empty_str);
 	count2 = strlen(empty_str);     
-    if(count1==count2)
-            printf("the string is - %s - and the length is %d \n", empty_str,StrLen(empty_str));
-    else
-        printf("error \n");    
+    assert(count1==count2);
+            printf("str: %s , leng: %d \n", empty_str,StrLen(empty_str));
+    
      
- /* StrCmp */
-    printf("******string compare function ******* \n");
+/* StrCmp */
+    printf("\n****** TESTS  StrCmp function ******* \n");
 
     if (StrCmp(str_genric,str_genric)==strcmp(str_genric,str_genric))
    	 {
-   		 printf("string1: %s , string2: %s \n", str_genric, str_genric);
+   		 printf("str1: %s , str2: %s \n", str_genric, str_genric);
 	   	 if(0==StrCmp(str_genric,str_genric))
 	   	 	printf("test workd and they are the same \n");
 	   	 else 
@@ -47,13 +46,39 @@ int main()
    	 {
    		 printf("string1: %s , string2: %s \n", str_genric, one_letter);
 	   	 if(0==StrCmp(str_genric,one_letter))
-	   	 	printf("test workd and they are the same \n");
+	   	 	printf("are the same \n");
 	   	 else 
-	   		printf("test workd and they are NOT the same \n");
+	   		printf("NOT the same \n");
    	 }
    else
         printf("error \n"); 
         
-
+        
+        
+/* StrCpy */
+ 	printf("\n****** TESTS StrCpy function *******\n");
+ 	assert(StrCpy(empty_str1,str)==strcpy(empty_str1,str));
+ 		puts(StrCpy(empty_str1,str));
+	assert(StrCpy(empty_str1,one_letter)==strcpy(empty_str1,one_letter));
+ 		puts(StrCpy(empty_str1,one_letter));
+ 	assert(StrCpy(empty_str1,"")==strcpy(empty_str1,""));
+ 		puts(StrCpy(empty_str1,""));
+ 
+ 	
+/* StrNCpy */
+ printf("\n****** TESTS StrNCpy function *******\n");
+ 	printf("the string is copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",6));
+ 	printf("the string is copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",1));
+ 	printf("the string is copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",0));
+ 	
+/* StrNCmp */
+ 	printf("\n****** TESTS  StrCmp function ******* \n");
+	assert(StrNCmp(strabc,strABC,2)==strncmp(strabc,strABC,2));
+		{
+		if(StrNCmp(strabc,strABC,2)==0)
+			printf("is the same");
+		if(StrNCmp(strabc,strABC,2)!=0)
+			printf("not the same");
+	}
     return 0;
 }

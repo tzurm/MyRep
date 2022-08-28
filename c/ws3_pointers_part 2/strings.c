@@ -12,7 +12,7 @@ int StrLen(const char *str)
     return count;
 }
 
-/*  function to compare two strings (return 0 if equal) , limit to 300 chars */
+/*  function to compare two strings (return 0 if equal) */
 
 int StrCmp(const char* str1, const char* str2) /* read only  */
 {
@@ -23,4 +23,46 @@ int StrCmp(const char* str1, const char* str2) /* read only  */
     }
     return (const unsigned char)*str1 - (const unsigned char)*str2;
 }
+
+int StrNCmp( char* str1,  char* str2, int max) 
+{
+	int i=0;
+    while((*str1 || *str2) && i<max  )
+    {
+        str1++;
+        str2++;
+    }
+    return (const unsigned char)*str1 - (const unsigned char)*str2;
+}
+
+char *StrCpy( char *dest,  char* src) 
+{
+	char *temp=dest;
+    while ( *src ) 
+    {
+    	*dest = *src;
+        dest++;
+        src ++;
+    }
+    *dest=0;
+    return temp;
+}
+
+char *StrNCpy( char* dest, char* src, int length) 
+{
+	int i=0;
+	char *temp=dest;
+	
+    while (*src && (i < length)) 
+    {
+    	*dest=*src;
+        dest++;
+        src++;
+        i++;
+    }
+    *dest=0;
+    return temp;
+}
+
+
 
