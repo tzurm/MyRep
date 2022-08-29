@@ -121,5 +121,64 @@ char *StrCat(char *dest, char *src)
 
 
 
+const char* StrStr(const char* str1, const char* str2)
+{
+    while (*str1)
+    {
+        if ((*str1 == *str2) && StrCmp(str1, str2)) 
+        {
+            return str1;
+        }
+        ++str1;
+    }
+    return NULL;
+}
+
+/*  reverseString sub function for Palindrome*/
+void reverseString(char* str)
+{
+	int length, i;
+	char *begin_ptr, *end_ptr, temp;
+	length = strlen(str);
+	begin_ptr = str;
+	end_ptr = str;
+
+	/*  Move the end_ptr to the last character*/
+	for (i = 0; i < length - 1; i++)
+		end_ptr++;
+
+	/* Swap the char from start and end
+	 index using begin_ptr and end_ptr */
+	for (i = 0; i < length / 2; i++) 
+	{
+		/* swap character */
+		temp = *end_ptr;
+		*end_ptr = *begin_ptr;
+		*begin_ptr = temp;
+
+		/* update pointers positions */
+		begin_ptr++;
+		end_ptr--;
+	}
+}
+	/* bug! 
+void isPalindrome(char *string)
+{   
+    char *rev=string;
+    reverseString(rev);
+    printf("in function: %s\n", rev);
+    if ( StrCmp(rev,string) == 0 )
+    {
+		printf("\n%s is Palindrome", string);
+    }
+    else
+    {
+    	printf("\n%s is not Palindrome", string);
+    }
+}
+*/
+
+
+
 
 

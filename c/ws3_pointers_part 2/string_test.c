@@ -2,8 +2,11 @@
 
 int main() 
 {
+
 	const char linestring[] = "the lion sleeps tonight";
-	const char ch = 'l';
+	const char ch1 = 'l', ch2 = 'e';
+	char *pstr1 = "s";
+	char *pstr2 = "lion";
 	char strcat1[100] = "the lion", strcat2[] = " sleeps tonight";
 	int count1 = 0;
 	int count2 = 0;
@@ -34,9 +37,9 @@ int main()
    	 {
    		 printf("str1: %s , str2: %s \n", str_genric, str_genric);
 	   	 if(0==StrCmp(str_genric,str_genric))
-	   	 	printf("test workd and they are the same \n");
+	   	 	printf("strings are equal \n");
 	   	 else 
-	   		printf("test workd and they are NOT the same \n");
+	   		printf("strings are NOT equal \n");
    	 }
    else
         printf("error \n"); 
@@ -45,9 +48,9 @@ int main()
    	 {
    		 printf("string1: %s , string2: %s \n", str_genric, one_letter);
 	   	 if(0==StrCmp(str_genric,one_letter))
-	   	 	printf("are the same \n");
+	   	 	printf("strings are equal  \n");
 	   	 else 
-	   		printf("NOT the same \n");
+	   		printf("strings are NOT equal \n");
    	 }
    else
         printf("error \n"); 
@@ -78,9 +81,9 @@ int main()
 	assert(StrNCmp(strabc,strABC,2)==strncmp(strabc,strABC,2));
 	{
 		if(StrNCmp(strabc,strABC,2)==0)
-			printf("is the same");
+			printf("strings are equal");
 		if(StrNCmp(strabc,strABC,2)!=0)
-			printf("not the same");
+			printf("strings are NOT equal");
 	}
 	
 	printf("\n****** TESTS  StrCat function ******* \n");
@@ -89,8 +92,24 @@ int main()
    	
    	
  	printf("\n****** TESTS  StrChr function ******* \n");
-	printf("String after '%c' is - '%s'\n", ch, StrChr(linestring, ch));
+	printf("String after '%c' is - '%s'\n", ch1, StrChr(linestring, ch1));
+	printf("String after '%c' is - '%s'\n", ch2, StrChr(linestring, ch2));
+   	
+   	printf("\n****** TESTS  StrStr function ******* \n");
+   	printf("%s\n", StrStr(linestring, pstr1));
+   	printf("%s\n", StrStr(linestring, pstr2));
+   	
+   	printf("\n****** TESTS  reverse function ******* \n");
+   	printf("before: %s\n", strcat1);
+   	reverseString(strcat1);
+    printf("reverse: %s\n", strcat1);
+   	/*isPalindrome(spali);
+   	
+*/  	
+   	
    	
     return 0;
+    
+    
 }
 

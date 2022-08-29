@@ -27,4 +27,11 @@ char *StrChr(const char *str1, int ch);
 
 char *StrCat(char *dest, char *src);
 
+const char* StrStr(const char* str1, const char* str2);
+
+void reverseString(char* str);
+
+/*
+void isPalindrome(char *string);
+*/
 #endif
