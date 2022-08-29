@@ -2,6 +2,7 @@
 
 int main() 
 {
+	char strcat1[100] = "the lion", strcat2[] = " sleeps tonight";
 	int count1 = 0;
 	int count2 = 0;
 	char str[] = "test1";
@@ -69,8 +70,8 @@ int main()
  	
 /* StrNCmp */
  	printf("\n****** TESTS  StrNCmp function ******* \n");
-	printf("string : %d \n" ,StrNCmp(strabc,strABC,3));
-	printf("string : %d \n" ,strncmp(strabc,strABC,3));
+	printf("string : %d \n" ,StrNCmp(strabc,strABC,2));
+	printf("string : %d \n" ,strncmp(strabc,strABC,2));
 	
 	assert(StrNCmp(strabc,strABC,2)==strncmp(strabc,strABC,2));
 	{
@@ -79,6 +80,10 @@ int main()
 		if(StrNCmp(strabc,strABC,2)!=0)
 			printf("not the same");
 	}
+	
+	printf("\n****** TESTS  StrCat function ******* \n");
+   	puts(StrCat(strcat1, strcat2));
+   	puts(strcat(strcat1, ""));
     return 0;
 }
 

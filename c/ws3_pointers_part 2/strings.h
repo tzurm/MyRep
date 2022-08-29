@@ -25,5 +25,6 @@ int StrCaseCmp( char* str1,  char* str2);
 
 char *StrChr( char* str, char ch);
 
+char *StrCat(char *dest, char *src);
 
 #endif

@@ -27,8 +27,8 @@ int StrCmp(const char* str1, const char* str2) /* read only  */
 
 int StrNCmp( char* str1,  char* str2, int max) 
 {
-	int i=0;
-    while((!*str1) && (!*str2) && (*str1==*str2) && (i < max))
+	int i=1;
+    while((*str1 || *str2) && (i < max))
     {
         str1++;
         str2++;
@@ -92,6 +92,20 @@ char *StrChr( char* str, char ch)
     return (char*) str;
 }
 */
+
+char *StrCat(char *dest, char *src)
+{
+    char *temp=dest;
+    while (*dest)
+      dest++;
+    while (*dest += *src)
+    {
+        src++;
+        dest++;
+    }
+    return temp;
+}
+
 
 
 
