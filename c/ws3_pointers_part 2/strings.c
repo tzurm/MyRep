@@ -1,3 +1,4 @@
+#include "strings.h"
 
 /*  function return the length of the string */
 
@@ -27,13 +28,26 @@ int StrCmp(const char* str1, const char* str2) /* read only  */
 int StrNCmp( char* str1,  char* str2, int max) 
 {
 	int i=0;
-    while((*str1 || *str2) && i<max  )
+    while((!*str1) && (!*str2) && (*str1==*str2) && (i < max))
+    {
+        str1++;
+        str2++;
+        i++;
+    }
+    return (const unsigned char)*str1 - (const unsigned char)*str2;
+}
+
+int StrCaseCmp( char* str1,  char* str2) 
+{
+	
+    while(*str1=='\0' && (tolower(*str1) == tolower(*str2))) 
     {
         str1++;
         str2++;
     }
-    return (const unsigned char)*str1 - (const unsigned char)*str2;
+    return (unsigned char)*str1 - (unsigned char)*str2;
 }
+
 
 char *StrCpy( char *dest,  char* src) 
 {
@@ -63,6 +77,21 @@ char *StrNCpy( char* dest, char* src, int length)
     *dest=0;
     return temp;
 }
+/*
+char *StrChr( char* str, char ch) 
+{
+	
+    while (*str != ch) 
+    {
+    	if(*str=='\0') 
+    	{
+    		return null;
+    	}
+		++str;
+    }
+    return (char*) str;
+}
+*/
 
 
 

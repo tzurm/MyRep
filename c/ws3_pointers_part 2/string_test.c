@@ -1,15 +1,11 @@
-#include <stdio.h>
 #include "strings.h"
-#include "strings.c"
-#include "string.h"
-#include <assert.h>
 
 int main() 
 {
 	int count1 = 0;
 	int count2 = 0;
 	char str[] = "test1";
-	char strabc[] = "abcde";
+	char strabc[] = "ABcde";
 	char strABC[] = "ABCDE";
     char str_genric[]="tzur",one_letter[]="a" ,empty_str[]="",
     empty_str1[]="", empty_str2[]="";	
@@ -67,14 +63,17 @@ int main()
  	
 /* StrNCpy */
  printf("\n****** TESTS StrNCpy function *******\n");
- 	printf("the string is copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",6));
- 	printf("the string is copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",1));
- 	printf("the string is copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",0));
+ 	printf("string copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",6));
+ 	printf("string copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",1));
+ 	printf("string copied ,N lim: %s \n" ,StrNCpy(empty_str2,"test2",0));
  	
 /* StrNCmp */
- 	printf("\n****** TESTS  StrCmp function ******* \n");
+ 	printf("\n****** TESTS  StrNCmp function ******* \n");
+	printf("string : %d \n" ,StrNCmp(strabc,strABC,3));
+	printf("string : %d \n" ,strncmp(strabc,strABC,3));
+	
 	assert(StrNCmp(strabc,strABC,2)==strncmp(strabc,strABC,2));
-		{
+	{
 		if(StrNCmp(strabc,strABC,2)==0)
 			printf("is the same");
 		if(StrNCmp(strabc,strABC,2)!=0)
@@ -82,3 +81,4 @@ int main()
 	}
     return 0;
 }
+
