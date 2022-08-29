@@ -2,6 +2,8 @@
 
 int main() 
 {
+	const char linestring[] = "the lion sleeps tonight";
+	const char ch = 'l';
 	char strcat1[100] = "the lion", strcat2[] = " sleeps tonight";
 	int count1 = 0;
 	int count2 = 0;
@@ -84,6 +86,11 @@ int main()
 	printf("\n****** TESTS  StrCat function ******* \n");
    	puts(StrCat(strcat1, strcat2));
    	puts(strcat(strcat1, ""));
+   	
+   	
+ 	printf("\n****** TESTS  StrChr function ******* \n");
+	printf("String after '%c' is - '%s'\n", ch, StrChr(linestring, ch));
+   	
     return 0;
 }
 
