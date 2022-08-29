@@ -5,6 +5,7 @@ int main()
 
 	const char linestring[] = "the lion sleeps tonight";
 	const char ch1 = 'l', ch2 = 'e';
+	char *p="";
 	char *pstr1 = "s";
 	char *pstr2 = "lion";
 	char strcat1[100] = "the lion", strcat2[] = " sleeps tonight";
@@ -86,25 +87,30 @@ int main()
 			printf("strings are NOT equal");
 	}
 	
+	printf("\n****** TESTS  StrChr function ******* \n");
+	printf("String after '%c' is - '%s'\n", ch1, StrChr(linestring, ch1));
+	printf("String after '%c' is - '%s'\n", ch2, StrChr(linestring, ch2));
+	
+	printf("\n****** TESTS  StrDup function ******* \n");
+	p = StrDup(linestring);
+    puts(p);
+    free(p);
+	
 	printf("\n****** TESTS  StrCat function ******* \n");
    	puts(StrCat(strcat1, strcat2));
    	puts(strcat(strcat1, ""));
    	
-   	
- 	printf("\n****** TESTS  StrChr function ******* \n");
-	printf("String after '%c' is - '%s'\n", ch1, StrChr(linestring, ch1));
-	printf("String after '%c' is - '%s'\n", ch2, StrChr(linestring, ch2));
-   	
+    	
    	printf("\n****** TESTS  StrStr function ******* \n");
    	printf("%s\n", StrStr(linestring, pstr1));
    	printf("%s\n", StrStr(linestring, pstr2));
-   	
+   	 
+   
    	printf("\n****** TESTS  reverse function ******* \n");
    	printf("before: %s\n", strcat1);
    	reverseString(strcat1);
     printf("reverse: %s\n", strcat1);
    	/*isPalindrome(spali);
-   	
 */  	
    	
    	

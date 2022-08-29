@@ -105,6 +105,17 @@ char *StrChr(const char *str1, int ch)
     }
     return (char *)str1;
 }
+/* create dynamic on heap at size of the original  */
+char *StrDup(const char *src) 
+{
+    char *dest = malloc(strlen(src) + 1);  
+    if (dest == NULL)
+    {
+        return NULL;          
+    }
+    strcpy(dest, src);                     
+    return dest;                            
+}
 
 char *StrCat(char *dest, char *src)
 {
@@ -133,6 +144,7 @@ const char* StrStr(const char* str1, const char* str2)
     }
     return NULL;
 }
+
 
 /*  reverseString sub function for Palindrome*/
 void reverseString(char* str)

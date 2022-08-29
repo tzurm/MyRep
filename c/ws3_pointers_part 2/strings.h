@@ -25,6 +25,8 @@ char *StrNCpy( char* dest, char* src, int length);
 
 char *StrChr(const char *str1, int ch);
 
+char *StrDup(const char *src); 
+
 char *StrCat(char *dest, char *src);
 
 const char* StrStr(const char* str1, const char* str2);
