@@ -52,11 +52,15 @@ int StrNCmp( char* str1,  char* str2, int max)
     }
     return (const unsigned char)*str1 - (const unsigned char)*str2;
 }
-
-int StrCaseCmp( char* str1,  char* str2) 
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
+int StrCaseCmp( char *str1,  char *str2) 
 {
 	
-    while(*str1=='\0' && (tolower(*str1) == tolower(*str2))) 
+    while(*str1 && (tolower(*str1) == tolower(*str2))) 
     {
         str1++;
         str2++;
@@ -65,7 +69,7 @@ int StrCaseCmp( char* str1,  char* str2)
 }
 
 
-char *StrCpy( char *dest,  char* src) 
+char *StrCpy( char *dest,  char *src) 
 {
 	char *temp=dest;
     while ( *src ) 
@@ -78,7 +82,7 @@ char *StrCpy( char *dest,  char* src)
     return temp;
 }
 
-char *StrNCpy( char* dest, char* src, int length) 
+char *StrNCpy( char *dest, char *src, int length) 
 {
 	int i=0;
 	char *temp=dest;
@@ -130,9 +134,13 @@ char *StrCat(char *dest, char *src)
     return temp;
 }
 
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
 
-
-const char* StrStr(const char* str1, const char* str2)
+const char *StrStr(const char *str1, const char *str2)
 {
     while (*str1)
     {
@@ -147,7 +155,7 @@ const char* StrStr(const char* str1, const char* str2)
 
 
 /*  reverseString sub function for Palindrome*/
-void reverseString(char* str)
+void reverseString(char *str)
 {
 	int length, i;
 	char *begin_ptr, *end_ptr, temp;

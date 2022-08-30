@@ -93,8 +93,8 @@ int main()
 	
 	printf("\n****** TESTS  StrDup function ******* \n");
 	p = StrDup(linestring);
-    puts(p);
-    free(p);
+	puts(p);
+	free(p);
 	
 	printf("\n****** TESTS  StrCat function ******* \n");
    	puts(StrCat(strcat1, strcat2));
