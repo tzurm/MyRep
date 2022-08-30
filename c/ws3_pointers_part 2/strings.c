@@ -5,7 +5,7 @@
 
 /* date: 27.8
 writer: Tzur
-review: Micael
+review: michael
 Status: approved
 */
 
@@ -24,7 +24,7 @@ size_t StrLen(const char *str)
 
 /* date: 27.8
 writer: Tzur
-review: Micael
+review: michael
 Status: approved
 */
 
@@ -45,23 +45,23 @@ writer: Tzur
 review: Andrey
 Status: approved
 */
-int StrNCmp( char* str1,  char* str2, int max) 
+int StrNCmp(const char* str1,const char* str2, size_t max) 
 {
-	int i=1;
+	size_t i=1;
     while((*str1 || *str2) && (i < max))
     {
         ++str1;
         ++str2;
         ++i;
     }
-    return (const unsigned char)*str1 - (const unsigned char)*str2;
+    return ((unsigned char)*str1 - (unsigned char)*str2);
 }
 /* date: 30.8
 writer: Tzur
 review: Alex
 Status: approved
 */
-int StrCaseCmp( char *str1,  char *str2) 
+int StrCaseCmp (char *str1, char *str2)
 {
 	
     while(*str1 && (tolower(*str1) == tolower(*str2))) 
@@ -69,7 +69,7 @@ int StrCaseCmp( char *str1,  char *str2)
         ++str1;
         ++str2;
     }
-    return (unsigned char)*str1 - (unsigned char)*str2;
+    return ((unsigned char)*str1 - (unsigned char)*str2);
 }
 
 /* date: 30.8
@@ -77,7 +77,7 @@ writer: Tzur
 review: Alex
 Status: approved
 */
-char *StrCpy( char *dest,  char *src) 
+char *StrCpy (char *dest,  char *src) 
 {
 	char *temp=dest;
     while ( *src ) 
@@ -95,21 +95,22 @@ writer: Tzur
 review: Alex
 Status: approved
 */
-char *StrNCpy( char *dest, char *src, int length) 
+char *StrNCpy( char *dest, char *src, size_t length) 
 {
-	int i=0;
+	size_t i=0;
 	char *temp=dest;
 	
     while (*src && (i < length)) 
     {
     	*dest=*src;
-        dest++;
+        ++dest;
         ++src;
         ++i;
     }
-    *dest=0;
+    *dest='\0';
     return temp;
 }
+
 /* date: 30.8
 writer: Tzur
 review: Alex
@@ -124,7 +125,7 @@ char *StrChr(const char *str1, int ch)
             return NULL;
         }
     }
-    return (char *)str1;
+    return (char*)str1;
 }
 
 /* date: 30.8
@@ -133,7 +134,7 @@ review: Alex
 Status: approved
 */
 /* create dynamic on heap at size of the original  */
-char *StrDup(const char *src) 
+char *StrDup(const char *src)
 {
     char *dest = malloc(StrLen(src) + 1);  
     if (NULL == dest )
@@ -142,22 +143,39 @@ char *StrDup(const char *src)
     }
     strcpy(dest, src); 
                         
-    return dest;                            
+    return (char*)dest;                            
 }
 /* date: 30.8
 writer: Tzur
 review: Alex
 Status: approved
 */
-char *StrCat(char *dest, char *src)
+char *StrCat(char *dest, const char *src)
 {
     char *temp=dest;
     while (*dest)
-      dest++;
+      ++dest;
     while (*dest += *src)
     {
-        src++;
-        dest++;
+        ++src;
+        ++dest;
+    }
+    return temp;
+}
+
+char *StrNCat(char *dest, const char *src, size_t n)
+{
+	size_t i = 0;
+    char *temp=dest;
+    while (*dest)
+    {
+      ++dest;
+    }
+    while ((*dest += *src) && (i < n))
+    {
+        ++src;
+        ++dest;
+        ++i;
     }
     return temp;
 }
@@ -168,13 +186,13 @@ review: Alex
 Status: approved
 */
 
-const char *StrStr(const char *str1, const char *str2)
+char *StrStr(const char *str1, const char *str2)
 {
     while (*str1)
     {
         if ((*str1 == *str2) && StrCmp(str1, str2)) 
         {
-            return str1;
+            return (char*)str1;
         }
         ++str1;
     }
@@ -200,51 +218,41 @@ size_t StrSpn(const char *str1, const char *str2)
 }
 
 
-/*  reverseString sub function for Palindrome*/
-void reverseString(char *str)
-{
-	int length, i;
-	char *begin_ptr, *end_ptr, temp;
-	length = StrLen(str);
-	begin_ptr = str;
-	end_ptr = str;
 
-	/*  Move the end_ptr to the last character*/
-	for (i = 0; i < length - 1; i++)
-		end_ptr++;
-
-	/* Swap the char from start and end
-	 index using begin_ptr and end_ptr */
-	for (i = 0; i < length / 2; i++) 
+/* date: 30.8
+writer: Tzur
+review: Mark
+Status: approved
+*/
+void IsPalindrome(char *string)
+{   
+	int i=0;
+	char temp = '\0';
+	int length=StrLen(string);
+	char *original=StrDup(string);
+	char *rev = StrDup(string);
+	
+		while ( i < (length/2) )
 	{
-		/* swap character */
-		temp = *end_ptr;
-		*end_ptr = *begin_ptr;
-		*begin_ptr = temp;
-
-		/* update pointers positions */
-		begin_ptr++;
-		end_ptr--;
+		temp = *(rev + i);
+		*(rev + i) = *(rev + length -(i + 1));
+		*(rev + length -(i + 1))=temp;
+		++i;
+	}
+	/* backstage:
+	printf("original string: %s\n", original);
+	printf("rev string: %s\n", rev);
+	printf("compare: %d\n",strcmp(original,rev) ); 
+	*/
+	if ( 0 == strcmp(original,rev) )
+	{
+		printf("'%s' is Palindrome", original);
+	}
+	else
+	{
+	    printf("'%s' is not Palindrome", original);
 	}
 }
-	void IsPalindrome(char *string)
-	{   
-		char *original=StrDup(string);
-		char *rev = string;
-		reverseString(rev);
-		/* backstage:
-		printf("original string: %s\n", original);
-		printf("rev string: %s\n", rev);
-		printf("\ncompare: %d\n",strcmp(original,rev) ); */
-		if ( 0 == strcmp(original,rev) )
-		{
-			printf("'%s' is Palindrome", string);
-		}
-		else
-		{
-		    printf("'%s' is not Palindrome", string);
-		}
-	}
 
 
 

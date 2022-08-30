@@ -4,18 +4,22 @@ int main()
 
 	const char linestring[] = "the lion sleeps tonight";
 	const char ch1 = 'l', ch2 = 'e';
-	char strpali[]="AAAAAAAAAAAA";
 	char *p="";
+	char *strpali = "dady";
 	char *pstr1 = "s";
-	char *pstr2 = "lion";
+	char pstr2[] = {'l','i','o','n','\0'};
 	char strcat1[100] = "the lion", strcat2[] = " sleeps tonight";
+	char strcat3[100] = "the lion", strcat4[] = " sleeps tonight";
+	char strncat1[100] = "first 8 letter: ", strncat2[] = "the lion";
+	char strncat3[100] = "first 8 letter: ", strncat4[] = "the lion";
 	char str[] = "test1";
 	char strabc[] = "ABcde";
 	char strABC[] = "ABCDE";
     char str_genric[]="tzur",one_letter[]="a" ,empty_str[]="",
     empty_str1[]="", empty_str2[]="";	
+      
     printf("****** TESTS  StrLen function ******* \n");
-    printf("str: %s , leng: %lu \n", str_genric,StrLen(str_genric));
+    printf("str: %s , leng: %lu \n", strpali,StrLen(strpali));
     printf("str: %s , leng: %lu \n", one_letter,StrLen(one_letter));
 	printf("str: %s , leng: %lu \n", empty_str,StrLen(empty_str));
     
@@ -67,26 +71,35 @@ int main()
 	
 	printf("\n****** TESTS  StrCat function ******* \n");
    	puts(StrCat(strcat1, strcat2));
-   	puts(strcat(strcat1, ""));
+   	puts(StrCat(strcat3, strcat4));
    	
-   	printf("\n****** TESTS  StrStr function ******* \n");
+   	printf("\n****** TESTS  StrNCat function ******* \n");
+   	puts(StrNCat(strncat1, strncat2, 8));
+	puts(StrNCat(strncat3, strncat4, 8));
+   	printf("\n***************************************** ");
+   	printf("\n****** TESTS  StrStr function *********** \n");
+	printf("*****************************************\n"); 
    	printf("%s\n", StrStr(linestring, pstr1));
    	printf("%s\n", StrStr(linestring, pstr2));
-   	 
-   	printf("\n****** TESTS  StrSpn function ******* \n");
+   	
+   	printf("\n***************************************** ");
+   	printf("\n****** TESTS  StrSpn function *********** \n");
+	printf("*****************************************\n"); 
+
    	printf("Length str matching : %lu\n", StrSpn("sleep","the lion sleeps") ); 
 	printf("Length str matching : %lu\n", strspn("sleep","the lion sleeps") ); 
-   
-   	printf("\n****** TESTS  Reverse function ******* \n");
-   	printf("before: %s\n", strcat1);
-   	reverseString(strcat1);
-    printf("reverse: %s\n", strcat1);
-   	
-   	
-	printf("\n****** TESTS  Pali function ******* \n");
- 	IsPalindrome(strpali);
 
-
+   	printf("\n***************************************** ");
+	printf("\n****** TESTS  Palindrome function ******* \n");
+	printf("*****************************************\n");
+ 	IsPalindrome("dad");
+ 	printf("\n");
+	IsPalindrome("Dad");
+	printf("\n");
+	IsPalindrome("a");
+	printf("\n");
+	IsPalindrome("\"live on time , emit no evil\"");
+	printf("\n");
    	
     return 0;
     

@@ -13,26 +13,27 @@ size_t StrLen(const char *str);
 
 int StrCmp(const char* str1, const char* str2);
 
-int StrNCmp( char* str1,  char* str2, int max);
+int StrNCmp(const char* str1,const char* str2, size_t max);
 
-int StrCaseCmp( char* str1,  char* str2);
+int StrCaseCmp (char *str1, char *str2);
 
 char *StrCpy( char *dest, char* src);
 
-char *StrNCpy( char* dest, char* src, int length);
+char *StrNCpy( char *dest, char *src, size_t length);
 
 char *StrChr(const char *str1, int ch);
 
-char *StrDup(const char *src); 
+char *StrDup(const char *src);
 
-char *StrCat(char *dest, char *src);
+char *StrCat(char *dest, const char *src);
+
+char *StrNCat(char *dest, const char *src, size_t n);
+
+char *StrStr(const char *str1, const char *str2);
 
 size_t StrSpn(const char *str1, const char *str2);
 
-const char* StrStr(const char* str1, const char* str2);
-
-void reverseString(char* str);
-
+char *ReverseString(char *str);
 
 void IsPalindrome(char *string);
 
