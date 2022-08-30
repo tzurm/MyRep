@@ -29,6 +29,8 @@ char *StrDup(const char *src);
 
 char *StrCat(char *dest, char *src);
 
+size_t StrSpn(const char *str1, const char *str2);
+
 const char* StrStr(const char* str1, const char* str2);
 
 void reverseString(char* str);

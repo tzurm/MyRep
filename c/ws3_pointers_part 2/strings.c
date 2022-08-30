@@ -68,7 +68,11 @@ int StrCaseCmp( char *str1,  char *str2)
     return (unsigned char)*str1 - (unsigned char)*str2;
 }
 
-
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
 char *StrCpy( char *dest,  char *src) 
 {
 	char *temp=dest;
@@ -82,6 +86,11 @@ char *StrCpy( char *dest,  char *src)
     return temp;
 }
 
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
 char *StrNCpy( char *dest, char *src, int length) 
 {
 	int i=0;
@@ -97,7 +106,11 @@ char *StrNCpy( char *dest, char *src, int length)
     *dest=0;
     return temp;
 }
-
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
 char *StrChr(const char *str1, int ch) 
 {
     while (*str1 != (char) ch) 
@@ -109,6 +122,12 @@ char *StrChr(const char *str1, int ch)
     }
     return (char *)str1;
 }
+
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
 /* create dynamic on heap at size of the original  */
 char *StrDup(const char *src) 
 {
@@ -120,7 +139,11 @@ char *StrDup(const char *src)
     strcpy(dest, src);                     
     return dest;                            
 }
-
+/* date: 30.8
+writer: Tzur
+review: Alex
+Status: approved
+*/
 char *StrCat(char *dest, char *src)
 {
     char *temp=dest;
@@ -151,6 +174,24 @@ const char *StrStr(const char *str1, const char *str2)
         ++str1;
     }
     return NULL;
+}
+/* date: 30.8
+writer: Tzur
+review: Andrey
+Status: approved
+*/
+size_t StrSpn(const char *str1, const char *str2)
+{
+	size_t size = 0;
+	if((str1 == NULL) || (str2 == NULL))
+    {
+    	return size;
+    }
+    while(*str1 && strchr(str2,*str1++))
+	{
+		size++;
+	}	
+	return size;	
 }
 
 

@@ -105,11 +105,17 @@ int main()
    	printf("%s\n", StrStr(linestring, pstr1));
    	printf("%s\n", StrStr(linestring, pstr2));
    	 
+   	
+   	printf("\n****** TESTS  StrSpn function ******* \n");
+   	printf("Length str matching : %lu\n", StrSpn("sleep","the lion sleeps") ); 
+	printf("Length str matching : %lu\n", strspn("sleep","the lion sleeps") ); 
    
    	printf("\n****** TESTS  reverse function ******* \n");
    	printf("before: %s\n", strcat1);
    	reverseString(strcat1);
     printf("reverse: %s\n", strcat1);
+   	
+   	
    	/*isPalindrome(spali);
 */  	
    	
