@@ -1,4 +1,5 @@
 #include "strings.h"
+#include <assert.h>
 
 /*  function return the length of the string */
 
@@ -8,15 +9,15 @@ review: Micael
 Status: approved
 */
 
-int StrLen(const char *str)
+size_t StrLen(const char *str)
 {
-    int count = 0;
-    while(*str!='\0')
+    const char *runner = str;
+    assert (NULL != str);
+ 	while( '\0' != *runner)
     {
-        count++;
-        str++;
+        ++runner;
     }
-    return count;
+    return (size_t)(runner - str);
 }
 
 /*  function to compare two strings (return 0 if equal) */
@@ -29,13 +30,16 @@ Status: approved
 
 int StrCmp(const char* str1, const char* str2) 
 {
-    while(*str1 && (*str1 == *str2)) /*  continue until *str1 is pointer to value & str1=str2  */
+	assert (NULL != str1);
+	assert (NULL != str2);
+    while(*str1 && (*str1 == *str2))
     {
-        str1++;
-        str2++;
+        ++str1;
+        ++str2;
     }
-    return (const unsigned char)*str1 - (const unsigned char)*str2;
+    return (*str1 - *str2);
 }
+
 /* date: 29.8
 writer: Tzur
 review: Andrey
@@ -46,9 +50,9 @@ int StrNCmp( char* str1,  char* str2, int max)
 	int i=1;
     while((*str1 || *str2) && (i < max))
     {
-        str1++;
-        str2++;
-        i++;
+        ++str1;
+        ++str2;
+        ++i;
     }
     return (const unsigned char)*str1 - (const unsigned char)*str2;
 }
@@ -62,8 +66,8 @@ int StrCaseCmp( char *str1,  char *str2)
 	
     while(*str1 && (tolower(*str1) == tolower(*str2))) 
     {
-        str1++;
-        str2++;
+        ++str1;
+        ++str2;
     }
     return (unsigned char)*str1 - (unsigned char)*str2;
 }
@@ -82,7 +86,7 @@ char *StrCpy( char *dest,  char *src)
         dest++;
         src ++;
     }
-    *dest=0;
+    *dest='\0';
     return temp;
 }
 
@@ -100,8 +104,8 @@ char *StrNCpy( char *dest, char *src, int length)
     {
     	*dest=*src;
         dest++;
-        src++;
-        i++;
+        ++src;
+        ++i;
     }
     *dest=0;
     return temp;
@@ -131,12 +135,13 @@ Status: approved
 /* create dynamic on heap at size of the original  */
 char *StrDup(const char *src) 
 {
-    char *dest = malloc(strlen(src) + 1);  
-    if (dest == NULL)
+    char *dest = malloc(StrLen(src) + 1);  
+    if (NULL == dest )
     {
         return NULL;          
     }
-    strcpy(dest, src);                     
+    strcpy(dest, src); 
+                        
     return dest;                            
 }
 /* date: 30.8
@@ -183,13 +188,13 @@ Status: approved
 size_t StrSpn(const char *str1, const char *str2)
 {
 	size_t size = 0;
-	if((str1 == NULL) || (str2 == NULL))
+	if((NULL == str1) || (NULL == str2))
     {
     	return size;
     }
-    while(*str1 && strchr(str2,*str1++))
+    while(*str1 && StrChr(str2,*str1++))
 	{
-		size++;
+		++size;
 	}	
 	return size;	
 }
@@ -200,7 +205,7 @@ void reverseString(char *str)
 {
 	int length, i;
 	char *begin_ptr, *end_ptr, temp;
-	length = strlen(str);
+	length = StrLen(str);
 	begin_ptr = str;
 	end_ptr = str;
 
@@ -222,23 +227,24 @@ void reverseString(char *str)
 		end_ptr--;
 	}
 }
-	/* bug! 
-void isPalindrome(char *string)
-{   
-    char *rev=string;
-    reverseString(rev);
-    printf("in function: %s\n", rev);
-    if ( StrCmp(rev,string) == 0 )
-    {
-		printf("\n%s is Palindrome", string);
-    }
-    else
-    {
-    	printf("\n%s is not Palindrome", string);
-    }
-}
-*/
-
+	void IsPalindrome(char *string)
+	{   
+		char *original=StrDup(string);
+		char *rev = string;
+		reverseString(rev);
+		/* backstage:
+		printf("original string: %s\n", original);
+		printf("rev string: %s\n", rev);
+		printf("\ncompare: %d\n",strcmp(original,rev) ); */
+		if ( 0 == strcmp(original,rev) )
+		{
+			printf("'%s' is Palindrome", string);
+		}
+		else
+		{
+		    printf("'%s' is not Palindrome", string);
+		}
+	}
 
 
 

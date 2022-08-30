@@ -3,15 +3,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <stddef.h>
 #include <strings.h>
 #include <string.h>
-
-#include <assert.h>
 #include <ctype.h>
 
 
-int StrLen(const char *str);
+size_t StrLen(const char *str);
 
 int StrCmp(const char* str1, const char* str2);
 
@@ -35,7 +33,7 @@ const char* StrStr(const char* str1, const char* str2);
 
 void reverseString(char* str);
 
-/*
-void isPalindrome(char *string);
-*/
+
+void IsPalindrome(char *string);
+
 #endif
