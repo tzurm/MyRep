@@ -1,10 +1,12 @@
 #include "strings.h"
 int main() 
 {
-
 	const char linestring[] = "the lion sleeps tonight";
+	const char linestring1[] = "the lion sleeps tonight";
+	const char linestring2[] = "the lion";
 	const char ch1 = 'l', ch2 = 'e';
-	char *p="";
+	char *p1="";
+	char *p2="";
 	char *strpali = "dady";
 	char *pstr1 = "s";
 	char pstr2[] = {'l','i','o','n','\0'};
@@ -65,9 +67,12 @@ int main()
 	printf("String after '%c' is - '%s'\n", ch2, StrChr(linestring, ch2));
 	
 	printf("\n****** TESTS  StrDup function ******* \n");
-	p = StrDup(linestring);
-	puts(p);
-	free(p);
+	p1 = StrDup(linestring1);
+	p2 = StrDup(linestring2);
+	puts(p1);
+	free(p1);
+	puts(p2);
+	free(p2);
 	
 	printf("\n****** TESTS  StrCat function ******* \n");
    	puts(StrCat(strcat1, strcat2));
@@ -101,8 +106,8 @@ int main()
 	IsPalindrome("\"live on time , emit no evil\"");
 	printf("\n");
    	
-    return 0;
-    
-    
+   
+ 
+     return 0;
 }
 

@@ -142,7 +142,6 @@ char *StrDup(const char *src)
         return NULL;          
     }
     strcpy(dest, src); 
-                        
     return (char*)dest;                            
 }
 /* date: 30.8
@@ -224,35 +223,26 @@ writer: Tzur
 review: Mark
 Status: approved
 */
-void IsPalindrome(char *string)
+
+void IsPalindrome(char *str1)
 {   
-	int i=0;
-	char temp = '\0';
-	int length=StrLen(string);
-	char *original=StrDup(string);
-	char *rev = StrDup(string);
-	
-		while ( i < (length/2) )
+	int i=0 , ispali=1;
+	int length=strlen(str1);
+	while (( i < (length/2)) &&  (*(str1 + i) == *(str1 + length -(i + 1))))
 	{
-		temp = *(rev + i);
-		*(rev + i) = *(rev + length -(i + 1));
-		*(rev + length -(i + 1))=temp;
+		ispali=0;
 		++i;
 	}
-	/* backstage:
-	printf("original string: %s\n", original);
-	printf("rev string: %s\n", rev);
-	printf("compare: %d\n",strcmp(original,rev) ); 
-	*/
-	if ( 0 == strcmp(original,rev) )
+	if (0 == ispali)
 	{
-		printf("'%s' is Palindrome", original);
+		printf("'%s' is Palindrome", str1);
 	}
 	else
 	{
-	    printf("'%s' is not Palindrome", original);
+	    printf("'%s' is not Palindrome", str1);
 	}
 }
+
 
 
 

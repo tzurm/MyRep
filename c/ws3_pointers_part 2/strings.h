@@ -33,8 +33,6 @@ char *StrStr(const char *str1, const char *str2);
 
 size_t StrSpn(const char *str1, const char *str2);
 
-char *ReverseString(char *str);
-
-void IsPalindrome(char *string);
+void IsPalindrome(char *str1);
 
 #endif
