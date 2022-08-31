@@ -1,12 +1,11 @@
 #ifndef __STRING_H__
 #define __STRING_H__
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <strings.h>
-#include <string.h>
-#include <ctype.h>
+#include <stdio.h>		/* use for  printf */
+#include <stdlib.h>		/* use for  malloc */
+#include <stddef.h>		/* use for  size t */
+#include <string.h>		/* string lib */
+#include <ctype.h>		/* use for tolower */
 
 
 size_t StrLen(const char *str);
