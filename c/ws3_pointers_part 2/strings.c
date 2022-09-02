@@ -1,5 +1,6 @@
-#include "strings.h"
 #include <assert.h>
+#include "strings.h"
+
 
 /*  function return the length of the string */
 
@@ -45,25 +46,35 @@ writer: Tzur
 review: Andrey
 Status: approved
 */
-int StrNCmp(const char* str1,const char* str2, size_t max) 
+int StrNCmp(const char *str1, const char *str2, size_t max)
 {
-	size_t i=1;
-    while((*str1 || *str2) && (i < max))
+	assert (NULL != str1);
+	assert (NULL != str2);
+    while( 0 < max &&  *str1 && (*str1 == *str2))
     {
-        ++str1;
-        ++str2;
-        ++i;
+       	++str1;
+       	++str2;
+ 		--max;
     }
-    return ((unsigned char)*str1 - (unsigned char)*str2);
+    if(max==0)
+    {
+    	return 0;
+    }
+    return *str1 - *str2;
+    
 }
+
+
+
 /* date: 30.8
 writer: Tzur
 review: Alex
 Status: approved
 */
-int StrCaseCmp (char *str1, char *str2)
+int StrCaseCmp (const char *str1, const char *str2)
 {
-	
+	assert (NULL != str1);
+	assert (NULL != str2);
     while(*str1 && (tolower(*str1) == tolower(*str2))) 
     {
         ++str1;
@@ -77,9 +88,11 @@ writer: Tzur
 review: Alex
 Status: approved
 */
-char *StrCpy (char *dest,  char *src) 
+char *StrCpy (char *dest, const char *src) 
 {
 	char *temp=dest;
+	assert (NULL != src);
+	
     while ( *src ) 
     {
     	*dest = *src;
@@ -95,19 +108,21 @@ writer: Tzur
 review: Alex
 Status: approved
 */
-char *StrNCpy( char *dest, char *src, size_t length) 
+char *StrNCpy (char *dest, const char *src, size_t length) 
 {
-	size_t i=0;
-	char *temp=dest;
 	
-    while (*src && (i < length)) 
+	char *temp=dest;
+	assert (NULL != src);
+	
+    while (*src && (0 < length)) 
     {
     	*dest=*src;
         ++dest;
         ++src;
-        ++i;
+        --length;
     }
     *dest='\0';
+    
     return temp;
 }
 
@@ -116,8 +131,9 @@ writer: Tzur
 review: Alex
 Status: approved
 */
-char *StrChr(const char *str1, int ch) 
+char *StrChr (const char *str1, int ch) 
 {
+	assert (NULL != str1);
     while (*str1 != (char) ch) 
     {
         if (!*str1++) 
@@ -137,6 +153,8 @@ Status: approved
 char *StrDup(const char *src)
 {
     char *dest = malloc(StrLen(src) + 1);  
+    assert (NULL != src);
+    
     if (NULL == dest )
     {
         return NULL;          
@@ -152,6 +170,9 @@ Status: approved
 char *StrCat(char *dest, const char *src)
 {
     char *temp=dest;
+    
+    assert (NULL != src);
+    
     while (*dest)
       ++dest;
     while (*dest += *src)
@@ -164,8 +185,11 @@ char *StrCat(char *dest, const char *src)
 
 char *StrNCat(char *dest, const char *src, size_t n)
 {
-	size_t i = 0;
+	size_t i = 1;
     char *temp=dest;
+    
+    assert (NULL != src);
+    
     while (*dest)
     {
       ++dest;
@@ -187,16 +211,19 @@ Status: approved
 
 char *StrStr(const char *str1, const char *str2)
 {
-    while (*str1)
+    size_t len = StrLen(str2);
+    while( 0 != StrNCmp(str1, str2, len) &&'\0' != *str1)
     {
-        if ((*str1 == *str2) && StrCmp(str1, str2)) 
-        {
-            return (char*)str1;
-        }
         ++str1;
+    }
+    if( 0 == StrNCmp(str1, str2, len))
+    {
+        return (char*)(str1);
     }
     return NULL;
 }
+
+
 /* date: 30.8
 writer: Tzur
 review: Andrey
@@ -205,6 +232,11 @@ Status: approved
 size_t StrSpn(const char *str1, const char *str2)
 {
 	size_t size = 0;
+	
+	assert (NULL != str1);
+	assert (NULL != str2);
+	
+	
 	if((NULL == str1) || (NULL == str2))
     {
     	return size;
@@ -224,24 +256,30 @@ review: Mark
 Status: approved
 */
 
-void IsPalindrome(char *str1)
+void IsPalindrome(char *str)
 {   
 	int i=0 , ispali=1;
-	int length=strlen(str1);
-	while (( i < (length/2)) &&  (*(str1 + i) == *(str1 + length -(i + 1))))
+	int length=strlen(str);
+	
+	assert (NULL != str);
+	
+	while (( i < (length/2)) &&  (*(str + i) == *(str + length -(i + 1))))
 	{
 		ispali=0;
 		++i;
 	}
 	if (0 == ispali)
 	{
-		printf("'%s' is Palindrome", str1);
+		printf("'%s' is Palindrome", str);
 	}
 	else
 	{
-	    printf("'%s' is not Palindrome", str1);
+	    printf("'%s' is not Palindrome", str);
 	}
 }
+
+/* fix strstr
+*/
 
 
 

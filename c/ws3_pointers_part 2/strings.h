@@ -14,11 +14,11 @@ int StrCmp(const char* str1, const char* str2);
 
 int StrNCmp(const char* str1,const char* str2, size_t max);
 
-int StrCaseCmp (char *str1, char *str2);
+int StrCaseCmp (const char *str1, const char *str2);
 
-char *StrCpy( char *dest, char* src);
+char *StrCpy (char *dest, const char *src);
 
-char *StrNCpy( char *dest, char *src, size_t length);
+char *StrNCpy( char *dest, const char *src, size_t length);
 
 char *StrChr(const char *str1, int ch);
 
@@ -32,6 +32,6 @@ char *StrStr(const char *str1, const char *str2);
 
 size_t StrSpn(const char *str1, const char *str2);
 
-void IsPalindrome(char *str1);
+void IsPalindrome(char *str);
 
 #endif
