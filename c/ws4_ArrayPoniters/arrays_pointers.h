@@ -1,5 +1,5 @@
-#ifndef __STRING_H__
-#define __STRING_H__
+#ifndef __ARRAY_POINTER_H__
+#define __ARRAY_POINTER_H__
 
 #include <stdio.h>		/* use for  printf */
 #include <stdlib.h>		/* use for  malloc */
@@ -8,12 +8,18 @@
 #include <ctype.h>		/* use for tolower */
 
 
-void PrintDataTypes ();
+void PrintDataTypes();
 
-int Yosef(int n);
+size_t Yosefr(size_t n);
 
-void Print2d (int arr[2][4], int i, int j);
+size_t Yosef(size_t n , size_t *p);
+
+void Print2d(int arr[2][4], int i, int j);
 
 void SumRows(int arr[2][4], int i, int j);
+
+char *ToLow(char *src);
+
+void PrintEnv();
 
 #endif

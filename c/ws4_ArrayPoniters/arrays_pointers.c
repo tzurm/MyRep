@@ -2,7 +2,7 @@
 #include <assert.h>
 
 
-void PrintDataTypes ()
+void PrintDataTypes()
 {
     size_t a = sizeof(int);
     size_t b = sizeof (unsigned int);
@@ -29,19 +29,43 @@ void PrintDataTypes ()
     printf("\nsize of unsigned long: %lu" , k);
 }
 
-int Yosef(int n)
+size_t Yosefr(size_t n)
 {
     if (n == 1)
     {
         return 1;
     }
     else
-    {
-        return ((Yosef(n - 1) + 1) % n) + 1;
-    }
+	{
+    	return ((Yosefr(n - 1) + 1) % n) + 1;
+	}
 }
 
-void Print2d (int arr[2][4], int i, int j)
+size_t Yosef(size_t n , size_t *p)
+{ 
+    size_t i = 0;
+    size_t j = 0;
+    
+    /* enter the index to value */
+    for(i=0 ; i < n-1 ;++i)
+    {
+        p[i] = i+1;
+    }
+    p[n]=0;
+    
+    i=0;
+    
+    while( p[i] != i)
+    {
+        j=p[i];
+        p[i] = p[j];
+        i = p[j];
+    }
+    
+    return i+1;
+}
+
+void Print2d(int arr[2][4], int i, int j)
 {
 	printf("\nTwo Dimensional array elements:\n");
 	for(i=0; i<2; i++) 
@@ -59,17 +83,52 @@ void Print2d (int arr[2][4], int i, int j)
 
 void SumRows(int arr[2][4], int i, int j)
 {
-    int sump[2];
+  
     int rows, columns;
     for(rows = 0; rows < i; rows++)
     {
         int sum = 0;
         for(columns = 0; columns < j; columns++)
         {
-            sum = sum + arr[rows][columns];
+            sum += arr[rows][columns];
         }
-        sump[rows]=sum;
+      
         printf("Sum of a rows num %d  =  %d \n",rows+1, sum );
         
     }
+ }
+
+char *ToLow(char *src)
+{
+    char *des=src;
+    while('\0' != *des) 
+    {
+        *des=tolower(*des);
+        ++des;
+    
+    }
+    return des;
 }
+
+void PrintEnv()
+{
+	extern char **environ;
+	char **buffer = environ;
+	
+	while ('\0' != **buffer)
+   {
+         printf("%s\n", *buffer);
+         ++buffer;
+   }
+   
+	/*
+	while ('\0' != **buffer)
+	{
+		puts(ToLow(*buffer));
+		++buffer;
+	}
+	*/
+}
+
+  
+

@@ -2,38 +2,85 @@
 #define row 2
 #define column 4
 
+void PrintDataTypesTest();
+
+void YosefTest();
+
+void SumRowsTest();
+
+void EnvpTest();
+
 int main() 
 {
-
-	int arr[row][column] = 
- 	{
-		{10, 20, 30, 30},
-		{1, 2, 3, 3}
-	};
 	
 	printf("\n***************************************** ");
-   	printf("\n***** TESTS  PrintDataTypes function **** \n");
+	printf("\n***** TESTS  PrintDataTypes function **** \n");
 	printf("*****************************************\n"); 
 	
-	PrintDataTypes();
-	printf("\n");
- 
+	PrintDataTypesTest();
+	
 	printf("\n***************************************** ");
    	printf("\n***** TESTS  Yosef function ************* \n");
 	printf("*****************************************\n"); 
-	  
- 	printf("n=10, The last alive is %d\n", Yosef(10));
-    printf("n=50, The last alive is %d\n", Yosef(50));
-    printf("n=100, The last alive is %d\n", Yosef(100));
- 	
- 	
+	
+	YosefTest();
+	
 	printf("\n***************************************** ");
    	printf("\n***** TESTS  SumRows function *********** \n");
 	printf("*****************************************\n"); 
 	
-    Print2d(arr, row, column);
-    SumRows(arr, row, column);
+	SumRowsTest();
 	
-     return 0;
+	printf("\n***************************************** ");
+   	printf("\n***** TESTS  EnvpTest function *********** \n");
+	printf("*****************************************\n"); 
+	
+	EnvpTest();
+	
+	
+	return 0;
 }
+
+	
+	void PrintDataTypesTest()
+	{
+		
+		PrintDataTypes();
+		printf("\n");
+	}
+ 
+	
+	
+	void YosefTest()
+	{
+		size_t n100[100]={0};
+		size_t n50[50]={0};
+		size_t n1[1]={0};
+		
+	 	printf("n=100, The lucky one %lu\n", Yosef(100,n100));
+	 	printf("n=50, The lucky one %lu\n", Yosef(50,n50));
+	 	printf("n=1, The lucky one %lu\n", Yosef(1,n1));
+	 	
+	}
+	 	
+ 	
+
+	void SumRowsTest()
+	{
+		int arr[2][4] = 
+	 	{
+			{10, 20, 30, 30},
+			{1, 2, 3, 3}
+		};
+		
+		Print2d(arr, row, column);
+   		SumRows(arr, row, column);
+	}
+   
+   	void EnvpTest()
+   	{
+   		 PrintEnv();
+   	}
+	
+     
 
