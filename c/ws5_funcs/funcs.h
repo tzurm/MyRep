@@ -6,6 +6,9 @@
 
 
 
-void pressed();
+void Spress();
+
+void Ipress();
+
 
 #endif
