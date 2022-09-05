@@ -2,6 +2,12 @@
 #include <assert.h>
 #define ESC 27
 
+/* date: 5.9
+writer: Tzur
+review: Arye
+Status: approved
+*/
+
 void Spress()
 {
  	char c='\0';
@@ -32,6 +38,11 @@ void Spress()
  	system("stty icanon echo");
 }
 
+/* date: 5.9
+writer: Tzur
+review: Arye
+Status: approved
+*/
 
 void Ipress()
 {
@@ -46,13 +57,18 @@ void Ipress()
     	
 		if ('A' == c)
 		{ 
-					printf("A-pressed \n");
+			printf("A-pressed \n");
 		}
 		
-		if ('T' == c)
+		else if ('T' == c)
 		{ 		
-					printf("T-pressed \n");
+			printf("T-pressed \n");
 		}
+		else
+		{
+			printf("Press  again \n" );
+		}
+		
 		scanf("%c", &c);
     }
  	system("stty icanon echo");
