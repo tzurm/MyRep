@@ -1,7 +1,4 @@
-#include <stdio.h>
 #include "pointers1.h"
-#include "pointers1.c"
-
 
 int main() 
 {
@@ -17,7 +14,8 @@ int main()
     size_t *p_num2 = &num2;			/* Size_t swap value */
     
     /* Swap */
-    int a=5,b=9;
+    int a=5 , b=9 ;
+    
     printf("***********  Swap  *********** \n");
     printf("The values before swapping: \n");
     printf("num1: %d  num2: %d \n", a, b);
@@ -41,10 +39,10 @@ int main()
     printf("AFTER: num1: %lu  | num2: %lu\n \n",num1, num2);
  
     printf("*********** swap address pointers *************\n");
-    printf("BEFORE:\naddress of ptr num1: %lu \naddress of ptr num2: %lu\n",p_num1,p_num2 );
+    printf("BEFORE:\naddress ptr num1: %lu \naddress ptr num2: %lu\n",p_num1,p_num2 );
     printf("num1: %lu  | num2: %lu\n \n",num1, num2);
     Swap_Ptr(&p_num1,&p_num2);
-    printf("AFTER:\naddress of ptr num1: %lu \naddress of ptr num2: %lu\n",p_num1,p_num2  );
+    printf("AFTER:\naddress ptr num1: %lu \naddress ptr num2: %lu\n",p_num1,p_num2  );
     printf("num1: %lu  | num2: %lu\n \n",num1, num2);
     
     return 0;

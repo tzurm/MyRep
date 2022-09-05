@@ -37,11 +37,14 @@ review: Michael
 Status: approved
 */
 
-int Copy(int arr[] ,int arrcopy[],int n)
+void Copy(int arr[] ,int arrcopy[],size_t n)
 {
-	int i;
-    for(i=0;i<n;i++)
-      arrcopy[i]=arr[i];
+	assert(  NULL ! = arr)
+	assert( NULL ! = arrcopy)
+	while(0<len--)
+	{
+		*(arr++) = *(arrcopy++);
+	}
 }
 
 /*  function return the length of the string */
@@ -79,6 +82,11 @@ int StrCmp(const char* str1, const char* str2) /* read only  */
     return (const unsigned char)*str1 - (const unsigned char)*str2;
 }
 
+/* date: 28.8
+writer: Tzur
+review: Andrey
+Status: approved
+*/
 
 void Swap_Size_t(size_t *num1, size_t *num2)
 {
@@ -87,11 +95,14 @@ void Swap_Size_t(size_t *num1, size_t *num2)
     *num2 = temp;
 }
 
-void Swap_Ptr(size_t **num1, size_t **num2)
+/* date: 28.8
+writer: Tzur
+review: Andrey
+Status: approved
+*/
+
+
+void Swap_Ptr(size_t num1, size_t num2)
 {
-    size_t temp_num1 = (size_t) *num1;
-    size_t temp_num2 = (size_t) *num2;   
-    Swap_Size_t(&temp_num1,&temp_num2);
-    *num1 = (size_t*)temp_num1;
-    *num2 = (size_t*)temp_num2;
+    Swap_Size_t((size_t*),(size_t*) num2);
 }
