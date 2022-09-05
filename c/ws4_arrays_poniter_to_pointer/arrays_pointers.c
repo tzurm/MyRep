@@ -109,7 +109,7 @@ char *ToLow(char *src)
         ++des;
     
     }
-    return des;
+    return src;
 }
 
 void PrintEnv()
@@ -117,19 +117,14 @@ void PrintEnv()
 	extern char **environ;
 	char **buffer = environ;
 	
-	while ('\0' != **buffer)
-   {
-         printf("%s\n", *buffer);
-         ++buffer;
-   }
-   
-	/*
-	while ('\0' != **buffer)
+	
+	while ('\0' != *buffer)
 	{
-		puts(ToLow(*buffer));
+		printf("%s\n" ,ToLow(*buffer));
 		++buffer;
 	}
-	*/
+	printf("end of file\n");
+	
 }
 
   
