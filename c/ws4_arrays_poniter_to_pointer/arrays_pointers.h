@@ -16,7 +16,7 @@ size_t Yosef(size_t n , size_t *p);
 
 void Print2d(int arr[2][4], int i, int j);
 
-void SumRows(int arr[2][4], int i, int j);
+void SumRows(int arr[2][4] , size_t *sumarr , int i, int j);
 
 char *ToLow(char *src);
 
