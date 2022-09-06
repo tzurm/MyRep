@@ -32,10 +32,7 @@ void Spressed()
 				printf("T-pressed \n");
 				break;
 		   	}
-			default:
-			{
-		        printf("Error! \n");
-			}
+			
 		}	
 		scanf("%c", &c);
     }
@@ -54,7 +51,7 @@ void Ipressed()
  	char c='\0';
     system("stty  -icanon -echo");
     
-    printf("Enter A  or T  , Esc to exit");
+    printf("Enter A  or T  , Esc to exit\n");
    	scanf("%c", &c);
    	
     while(c != ESC) 
@@ -65,13 +62,9 @@ void Ipressed()
 			printf("A-pressed \n");
 		}
 		
-		else if ('T' == c)
+		if ('T' == c)
 		{ 		
 			printf("T-pressed \n");
-		}
-		else
-		{
-			printf("Press  again \n" );
 		}
 		
 		scanf("%c", &c);
@@ -109,7 +102,7 @@ void Lpressed()
 	
 	system("stty -icanon -echo");
 	
-	printf("Enter A  or T  , Esc to exit");
+	printf("Enter A  or T  , Esc to exit\n");
 	scanf("%c", &c);
 	
 	while(c != ESC)
