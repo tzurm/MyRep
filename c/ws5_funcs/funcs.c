@@ -23,19 +23,24 @@ void Spressed()
 		{
 
 			case 'A':
-					printf("A-pressed \n");
-			break;
-					
+			{
+				printf("A-pressed \n");
+				break;
+			}		
 			case 'T':
-					printf("T-pressed \n");
-			break;
-		   
+			{		
+				printf("T-pressed \n");
+				break;
+		   	}
 			default:
+			{
 		        printf("Error! \n");
-		}
+			}
+		}	
 		scanf("%c", &c);
     }
  	system("stty icanon echo");
+
 }
 
 /* date: 5.9
