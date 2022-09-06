@@ -2,26 +2,33 @@
 #define row 2
 #define column 4
 
-void Spress();
+void Spressed();
 
-void Ipress();
+void Ipressed();
+
+void Lpressed();
 
 int main() 
 
 {
 	
 	printf("\n***************************************** ");
-	printf("\n*** TESTS  PressedAT Switch function **** \n");
+	printf("\n*** TESTS  Switch function **** \n");
 	printf("*****************************************\n"); 
 	
-	Spress();
+	Spressed();
 	
 	printf("\n***************************************** ");
-   	printf("\n*** TESTS  PressedAT If /Else function ** \n");
+   	printf("\n*** TESTS  If /Else function ** \n");
 	printf("*****************************************\n"); 
 	
-	Ipress();
+	Ipressed();
 	
+	printf("\n***************************************** ");
+   	printf("\n*** TESTS  LUT e function ** \n");
+	printf("*****************************************\n"); 
+	
+	Lpressed();
 
 	
 	

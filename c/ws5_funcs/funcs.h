@@ -10,5 +10,10 @@ void Spress();
 
 void Ipress();
 
+void Print(char c);
+
+void Dummy(char c);
+
+void Lpressed();
 
 #endif
