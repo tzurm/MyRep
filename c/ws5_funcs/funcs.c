@@ -10,11 +10,11 @@ Status: approved
 
 void Spressed()
 {
- 	char c='\0';
+	char c='\0';
     system("stty  -icanon -echo");
     
     printf("Enter A  or T  , Esc to exit\n");
-   	scanf("%c", &c);
+	scanf("%c", &c);
    	
     while(c != ESC) 
     {
@@ -83,6 +83,14 @@ void Dummy(char c)
 	c=c;
 }
 
+
+
+/* date: 6.9
+writer: Tzur
+review: Slava
+Status: approved
+*/
+
 void Lpressed()
 {
 	char c = '\0';
@@ -93,19 +101,19 @@ void Lpressed()
 	arrayfun letter[256]={0};
 	
 	
-	for(i = 0; i < 256; i++)
+	for(i = 0; i < 256; ++i)
 	{
 		letter[i]=Dummy;
 	}
-	letter[65] = Print;
-	letter[84] = Print;
+	letter['A'] = Print;
+	letter['T'] = Print;
 	
 	system("stty -icanon -echo");
 	
 	printf("Enter A  or T  , Esc to exit\n");
-	scanf("%c", &c);
+	c=getchar();
 	
-	while(c != ESC)
+	while (c != ESC)
 	{
 	
 		letter[(unsigned)c](c);
