@@ -14,7 +14,7 @@ void Spressed()
     system("stty  -icanon -echo");
     
     printf("Enter A  or T  , Esc to exit\n");
-	scanf("%c", &c);
+	c=getchar();
    	
     while(c != ESC) 
     {
@@ -34,7 +34,7 @@ void Spressed()
 		   	}
 			
 		}	
-		scanf("%c", &c);
+		c=getchar();
     }
  	system("stty icanon echo");
 
@@ -52,7 +52,7 @@ void Ipressed()
     system("stty  -icanon -echo");
     
     printf("Enter A  or T  , Esc to exit\n");
-   	scanf("%c", &c);
+   	c=getchar();
    	
     while(c != ESC) 
     {
@@ -67,7 +67,7 @@ void Ipressed()
 			printf("T-pressed \n");
 		}
 		
-		scanf("%c", &c);
+		c=getchar();
     }
  	system("stty icanon echo");
 }
