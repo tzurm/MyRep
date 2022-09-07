@@ -14,6 +14,8 @@ int main()
 	
     Ex1();
     
+    printf("\n");
+    
 
 	
 	
