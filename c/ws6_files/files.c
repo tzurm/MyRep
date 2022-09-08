@@ -1,6 +1,4 @@
 #include "files.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
 
 /* date: 6.9
@@ -8,9 +6,6 @@ writer: Tzur
 review: Mark
 Status: approved
 */
-
-
-
 
 void Print (int a)
 {
@@ -39,12 +34,14 @@ void Ex1 ()
     {
     	(arr[i].p)(arr[i].number);
     }
+ }
+ 
     
 
 
 void Remove(char *file)
  {
- 	
+ 
  	if (remove(file) == 0) 
     {
         printf("The file is deleted successfully.\n");
@@ -53,6 +50,7 @@ void Remove(char *file)
     {
         printf("Not found.\n");
     }
+    
  }
  
  
@@ -98,7 +96,6 @@ void Remove(char *file)
   	char *buffer ;
   	long len_src = 0;
   	
-  	
     FILE *src = fopen(filename, "r");		/* open src file   */
     FILE *temp = fopen("temp_file", "w+");	/* open temp file  */
 	
@@ -112,14 +109,11 @@ void Remove(char *file)
     fread(buffer, 1, len_src, src);
     fwrite(buffer, 1, len_src, temp);
     free(buffer);
-
  
     fclose(src);
-    
     remove(filename);
 
     fclose(temp);
-    
     rename("temp_file", filename);
 }
 

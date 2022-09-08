@@ -94,7 +94,7 @@ void SumRows(int arr[2][4] , size_t *sumarr , int i, int j)
 {
   	
     int rows=0, columns=0;
-    assert (sumarr == NULL);
+   
     for(rows = 0; rows < i; ++rows)
     {
         
@@ -129,7 +129,7 @@ void PrintEnv()
 	char **buffer = environ;
 	
 	
-	while ('\0' != *buffer)
+	while (*buffer)
 	{
 		printf("%s\n" ,ToLow(*buffer));
 		++buffer;

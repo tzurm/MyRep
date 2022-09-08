@@ -42,53 +42,54 @@ int main()
 }
 
 	
-	void PrintDataTypesTest()
-	{
+void PrintDataTypesTest()
+{
 		
-		PrintDataTypes();
-		printf("\n");
-	}
+	PrintDataTypes();
+	printf("\n");
+}
  
 	
 	
-	void YosefTest()
-	{
-		size_t n100[100] = {0};
-		size_t n50[50] = {0};
-		size_t n1[1] = {0};
+void YosefTest()
+{
+	size_t n100[100] = {0};
+	size_t n50[50] = {0};
+	size_t n1[1] = {0};
 		
-	 	printf("n=100, The lucky one %lu\n", Yosef(100,n100));
-	 	printf("n=50, The lucky one %lu\n", Yosef(50,n50));
-	 	printf("n=1, The lucky one %lu\n", Yosef(1,n1));
+	printf("n=100, The lucky one %lu\n", Yosef(100,n100));
+	printf("n=50, The lucky one %lu\n", Yosef(50,n50));
+	 printf("n=1, The lucky one %lu\n", Yosef(1,n1));
 	 	
-	}
+}
 	 	
  	
 
-	void SumRowsTest()
-	{
-		int i=0;
-		size_t arrsum[2] = {0};
-		int arr[2][4] = 
-	 	{
-			{10, 20, 30, 30},
-			{1, 2, 3, 3}
-		};
+void SumRowsTest()
+{
+	int i=0;
+	size_t arrsum[2] = {0};
+	int arr[2][4] = 
+ 	{
+		{10, 20, 30, 30},
+		{1, 2, 3, 3}
+	};
 		
-		Print2d(arr, ROW, COLUMN);
-   		SumRows(arr, arrsum ,ROW, COLUMN);
+	Print2d(arr, ROW, COLUMN);
+   	SumRows(arr, arrsum ,ROW, COLUMN);
    		
-   		/*print new array */
-   		for(i=0 ; i < 2 ; i++)
-   		{
-			printf("%lu\n", arrsum[i]);
-   		}
-	}
-   
-   	void EnvpTest()
+   	/*print new array */
+   	for(i=0 ; i < 2 ; i++)
    	{
-   		 PrintEnv();
+		printf("%lu\n", arrsum[i]);
    	}
+}
+   
+   
+void EnvpTest()
+{
+	PrintEnv();
+}
 	
      
 
