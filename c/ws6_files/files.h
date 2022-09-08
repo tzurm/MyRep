@@ -1,9 +1,9 @@
 #ifndef __FILES_H__
 #define __FILES_H__
 
-#include <stdio.h>		/* use for  printf */
-#include <stdlib.h>		/* use for  malloc */
-#include <string.h>
+#include <stdio.h>		/* printf */
+#include <stdlib.h>		/* remove  */
+#include <string.h>		/* strcmp  */
 
 
 
@@ -11,13 +11,28 @@ void Print (int a);
 
 void Ex1 ();
 
-void Remove(char *file);
-
-int Count(char *file);
+ int Remove(char *file ,char *dummy);
  
-void Append (char *file , char *str);
+int Count(char *file , char *dummy);
   
-void TopLine(const char *filename, const char *str);
+int Exit(char *file , char *str);
+ 
+int Append(char *file , char *str);
+ 
+int AppendBegin(char *filename, char *str);
+  
+int RemoveCmp(char *str);
+   
+int CountCmp(char *str);
+    
+int ExitCmp(char *str);
+     
+int AppendBeginCmp(char *str);
+      
+int AppendCmp(char *str);
+ 
+void ex2 ( char *filename);
+ 
 
 
 #endif

@@ -127,14 +127,22 @@ void PrintEnv()
 {
 	extern char **environ;
 	char **buffer = environ;
-	
+	char **env = environ;
 	
 	while (*buffer)
 	{
 		printf("%s\n" ,ToLow(*buffer));
 		++buffer;
 	}
-	printf("end of file\n");
+	printf("**********end of file*****\n");
+	
+	while (*env)
+	{
+		printf("%s\n" ,(*env));
+		++env;
+	}
+	printf("**********end of file*****\n");
+	
 	
 }
 
