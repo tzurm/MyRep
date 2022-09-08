@@ -37,6 +37,12 @@ void Ex1 ()
     }
  }
  
+ /* date: 8.9
+writer: Tzur
+review: Roman
+Status: approved
+*/
+ 
 int Remove(char *file ,char *dummy)
 {
 	(void)dummy;
@@ -48,10 +54,10 @@ int Remove(char *file ,char *dummy)
     else 
     {
         printf("Not found.\n");
-        return 1;
+        return ERROR;
     }
     
-    return 0;
+    return SUCCESS;
  }
  
  
@@ -81,7 +87,7 @@ int Count(char *file , char *dummy)
 	
 	printf("lines: %d " , count);
 	
- 	return 0;
+ 	return SUCCESS;
  }
  
 int Exit(char *file , char *str)
@@ -89,7 +95,7 @@ int Exit(char *file , char *str)
  	(void)file;
  	(void)str;
  	exit(1);
- 	return 1;
+ 	return SUCCESS;
 }
  
  
@@ -99,7 +105,7 @@ int Append(char *file , char *str)
  	
  	FILE *file_p = fopen(file , "a");
 	if(file_p == NULL)
-		return 1;
+		return ERROR;
 	
 
  	fputs(str , file_p);
@@ -107,7 +113,7 @@ int Append(char *file , char *str)
  	
  	fclose(file_p);
  	
- 	return 0;
+ 	return SUCCESS;
 }
  
 int AppendBegin(char *filename, char *str)
@@ -138,7 +144,7 @@ int AppendBegin(char *filename, char *str)
     rename("temp_file", filename);
     printf("Append to the top.");
     
-    return 0;
+    return SUCCESS;
 }
 
 
@@ -163,16 +169,16 @@ int AppendBeginCmp(char *str)
 {
  	if(*str == '<')
  	{
- 		return 0;
+ 		return SUCCESS;
  	}
- 	return 1;
+ 	return ERROR;
 }
  
   
 int AppendCmp(char *str)
 {
  	(void)str;
- 	return 0;
+ 	return SUCCESS;
 }
  
 void ex2 ( char *filename)
@@ -183,14 +189,7 @@ void ex2 ( char *filename)
 	int i=0;
 	int flag = 1;
 	FILE *fp = NULL;
-	struct unit
-			
-		{
-			char *str;
-			int (*cmp_fun)(char *);
-			int (*operation_fun)(char * , char *);
-		  
-		};
+	
 		
 	struct  unit handler[5];
 		

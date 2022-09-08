@@ -5,6 +5,20 @@
 #include <stdlib.h>		/* remove  */
 #include <string.h>		/* strcmp  */
 
+struct unit
+			
+		{
+			char *str;
+			int (*cmp_fun)(char *);
+			int (*operation_fun)(char * , char *);
+		  
+		};
+
+enum change 
+{
+	SUCCESS = 0,
+	ERROR = 1
+};
 
 
 void Print (int a);
