@@ -48,12 +48,12 @@ size_t Yosef(size_t n , size_t *p)
    assert(n > 0);
     
     /* enter the index to value */
-    for(i = 0; i < n - 1; ++i)
+    for(i = 0; i < n ; ++i)
     {
         p[i] = i + 1;
     }
     
-    p[n] = 0;
+    p[n-1] = 0;
     
     i = 0;
     

@@ -14,7 +14,6 @@ int main()
 
 	printf("\n*********** TESTS  Ex1 function *********** \n\n");
 	
-	
 	Ex1_Test();
    
 	printf("\n\n\n*********** TESTS  Ex2 function *********** \n\n");

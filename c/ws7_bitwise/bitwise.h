@@ -8,7 +8,7 @@
 /* Ex1 */
 long Pow2 (unsigned int x, unsigned int y);
 
-/* Ex2 */
+/* Ex22 */
 
 /* Ex3 */
 

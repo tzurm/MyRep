@@ -59,7 +59,7 @@ void YosefTest()
 		
 	printf("n=100, The lucky one %lu\n", Yosef(100,n100));
 	printf("n=50, The lucky one %lu\n", Yosef(50,n50));
-	 printf("n=1, The lucky one %lu\n", Yosef(1,n1));
+	printf("n=1, The lucky one %lu\n", Yosef(1,n1));
 	 	
 }
 	 	
