@@ -8,7 +8,9 @@
 /* Ex1 */
 long Pow2 (unsigned int x, unsigned int y);
 
-/* Ex22 */
+/* Ex2 */
+int  Ex2Loop  (unsigned int num);
+int  Ex2V2  (unsigned int num);
 
 /* Ex3 */
 

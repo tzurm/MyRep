@@ -34,14 +34,26 @@ int main()
 void Ex1_Test()
 {
 	unsigned int x = 3 , y = 4;
-	printf("input: x= %d, y= %d, x^(2^4) output: %ld\n" ,x ,y , Pow2(x,y));
-	printf("input: x=2 , y=2 output: %ld\n" , Pow2(2,2));
+	printf("input: x= %d, y= %d, output: %ld\n" ,x ,y , Pow2(x,y));
+	printf("input: x=2 , y=2, output: %ld\n" , Pow2(2,2));
 
 }
 
 void Ex2_Test()
 {
-	printf("ex2");
+	/* v1 */
+	(1 == Ex2Loop(256)) ?  printf("256 is pow of 2\n" ) :
+	printf("256 isn't pow of 2\n" );
+	(1 == Ex2Loop(39)) ?  printf("39 is pow of 2\n" ) :
+   	printf("39 isn't pow of 2\n" );
+   	
+   	/* v2 */
+	(1 == Ex2V2(2)) ?  printf("2 is pow of 2\n" ) :
+	printf("2 isn't pow of 2\n" );
+	(1 == Ex2V2(3)) ?  printf("3 is pow of 2\n" ) :
+   	printf("3 isn't pow of 2\n" );
+   	
+   	
 }
 
 void Ex7_Test()

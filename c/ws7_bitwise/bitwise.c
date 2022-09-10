@@ -2,10 +2,36 @@
 #include <assert.h>
 
 
-
+/* ex1 */
 long Pow2 (unsigned int x, unsigned int y)
 {
 	return x<<y;
+}
+
+/* Ex2 */
+
+int  Ex2Loop  (unsigned int num)
+{
+    unsigned int i = 0;
+    for(i = 1 ; i < num ; ++i )
+    {
+        if (num == (unsigned)(1 << i))
+        {
+         
+            return 1;
+        }   
+    }
+    return 0;
+}
+
+int  Ex2V2  (unsigned int num)
+{
+  if(0 == (num & (num-1)))
+  {
+     return 1;
+  } 
+  return 0;
+ 
 }
 
 
