@@ -37,7 +37,7 @@ int  Ex2V2  (unsigned int num)
 }
 
 
-/* ex4 */
+/* ex4  +ex9*/
 /* input: num , output: count bits on (1)
 explain:  
 count += num &1 - check and count if the last bit is 1
@@ -74,8 +74,22 @@ void Bit3( unsigned int *arr , size_t len)
     printf("\n");
 }
 
+/* Ex5 ByteMirror */
 
-/* Ex7 */
+unsigned char ByteMirror(unsigned char byte) 
+{
+   byte = (byte & 0xF0) >> 4 | (byte & 0x0F) << 4;
+   byte = (byte & 0xCC) >> 2 | (byte & 0x33) << 2;
+   byte = (byte & 0xAA) >> 1 | (byte & 0x55) << 1;
+   return byte;
+}
+
+
+/* Ex7
+explain:
+num != (num >> 4) << 4
+32 !=	(32/16 *16)=32
+check if the num is dived by 16	 if not --num, and start over */
 int Div16 (unsigned int num)
 {
     while ( num != (num >> 4) << 4 )
@@ -95,5 +109,16 @@ void SwapXor (int *num1 , int *num2)
    *num1 = *num1 ^ *num2;
  
 }
+/* Ex9  without loop , need to understand */
+int CountCheckBit (unsigned int i)
+{
+
+	 i = i - ((i >> 1) & 0x55555555);       
+     i = (i & 0x33333333) + ((i >> 2) & 0x33333333); 
+     i = (i + (i >> 4)) & 0x0F0F0F0F;      
+     return (i * 0x01010101) >> 24; 
+}
+
+
 
 
