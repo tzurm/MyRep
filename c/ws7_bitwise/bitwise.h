@@ -16,6 +16,8 @@ int  Ex2V2  (unsigned int num);
 
 /* Ex4 */
 
+unsigned int CountBit( unsigned int num);
+void Bit3( unsigned int *arr , size_t len);
 
 /* Ex7 */
 int Div16 (unsigned int num);
