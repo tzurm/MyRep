@@ -13,7 +13,7 @@ int  Ex2Loop  (unsigned int num);
 int  Ex2V2  (unsigned int num);
 
 /* Ex3 */
-
+int AddOne( int num);
 
 /* Ex4  + Ex9 with loop*/
 unsigned int CountBit( unsigned int num);
@@ -22,6 +22,14 @@ void Bit3( unsigned int *arr , size_t len);
 
 /*Ex5 */
 unsigned char ByteMirror(unsigned char byte);
+
+
+/*Ex6 */
+unsigned char Bit2and6( unsigned char num);
+
+unsigned char Bit2or6( unsigned char num);
+
+
 
 /* Ex7 */
 int Div16 (unsigned int num);

@@ -3,10 +3,10 @@
 
 void Ex1_Test();
 void Ex2_Test();
-
+void Ex3_Test();
 void Ex4_Test();
 void Ex5_Test();
-
+void Ex6_Test();
 void Ex7_Test();
 void Ex8_Test();
 void Ex9_Test();
@@ -22,14 +22,23 @@ int main()
   
  	Ex2_Test();
  	
+ 	printf("\n***** TESTS  Ex3 Add one ******************************** \n\n");
+  
+ 	Ex3_Test();
+ 	
  	printf("\n***** TESTS  Ex4 3Bits ********************************** \n\n");
   
  	Ex4_Test();
  	
- 	printf("\n***** TESTS  Ex5 check ByteMirror *********************** \n\n");
+ 	printf("\n***** TESTS  Ex5 Check ByteMirror *********************** \n\n");
   
  	Ex5_Test();
 
+	printf("\n***** TESTS  Ex6 2,6 bits on **************************** \n\n");
+  
+ 	Ex6_Test();
+	
+	
 	printf("\n***** TESTS  Ex7 Div16 ********************************** \n\n");
   
  	Ex7_Test();
@@ -63,7 +72,7 @@ void Ex2_Test()
 	unsigned int arr[] = {0, 256, 3 , 16};
 	size_t len = sizeof(arr)/sizeof (arr[0]);
 	
-	printf("\nLoop Version\n");
+	printf("Loop Version\n");
 	for (i = 0 ; i < len ; ++i)
 	{
 		(1 == Ex2Loop(arr[i])) ?  printf(" %d is pow of 2 \n" ,arr[i]) :
@@ -80,6 +89,21 @@ void Ex2_Test()
 
    	
 }
+
+
+void Ex3_Test()
+{
+	size_t i = 0;
+	int arr[] = {22, -100, 0 , 1000000, -1};
+	size_t len = sizeof(arr)/sizeof (arr[0]);
+	
+	for (i = 0 ; i < len ; ++i)
+	{
+		printf("%d+1 = %d \n" ,arr[i], AddOne(arr[i]));
+	} 
+}
+
+
 
 void Ex4_Test()
 {
@@ -102,9 +126,25 @@ void Ex5_Test()
 		printf("input:  %d\n" , ByteMirror(arr[i]));
 	}
 	
-    
-
 }
+
+void Ex6_Test()
+{	
+	size_t i = 0;
+	/* 34 = 100010		32=100000	10= 1010	-1=1111111111111111	 */
+	int arr[] = {34, 32, 0 , 10, -1};
+	size_t len = sizeof(arr)/sizeof (arr[0]);
+	
+	printf("1 true , 0 flase \n\n");
+	for (i = 0 ; i < len ; ++i)
+	{
+		
+		printf("AND input: %d , output: %d\n" , arr[i] ,Bit2and6(arr[i]) );
+		printf("OR input: %d , output: %d\n" , arr[i] ,Bit2or6(arr[i]) );		
+	} 
+}
+
+
 
 
 void Ex7_Test()
@@ -126,9 +166,14 @@ void Ex7_Test()
 void Ex8_Test()
 {
 	int num1 = -2 , num2 = -3;
+	int num3 = 0 , num4 = -99;
 	printf("Before: num1: %d , num2: %d\n" ,num1 , num2);
 	SwapXor(&num1 , &num2);
-	printf("After:  num1: %d , num2: %d\n" ,num1 , num2);
+	printf("After:  num1: %d , num2: %d\n\n" ,num1 , num2);
+	
+	printf("Before: num1: %d , num2: %d\n" ,num3 , num4);
+	SwapXor(&num3 , &num4);
+	printf("After:  num1: %d , num2: %d\n" ,num3 , num4);
  
 }
 
