@@ -60,16 +60,17 @@ void Ex1_Test()
 {	
 	
 	unsigned int x = 3 , y = 4;
-	printf("input: x= %d, y= %d, output: %ld\n" ,x ,y , Pow2(x,y));
-	printf("input: x=2 , y=2, output: %ld\n" , Pow2(2,2));
-
+	printf("input: x = %d, y = %d, output: %ld\n" ,x ,y , Pow2(x,y));
+	printf("input: x = 2 , y = 2, output: %ld\n" , Pow2(2,2));
+	printf("input: x = 0 , y = 2, output: %ld\n" , Pow2(0,2));
+	printf("input: x = 3 , y = 0, output: %ld\n" , Pow2(3,0));
 }
 
 void Ex2_Test()
 {
 
 	size_t i = 0;
-	unsigned int arr[] = {0, 256, 3 , 16};
+	unsigned int arr[] = {0, 256, 3 , 16, 1073741824};
 	size_t len = sizeof(arr)/sizeof (arr[0]);
 	
 	printf("Loop Version\n");
@@ -118,12 +119,12 @@ void Ex4_Test()
 void Ex5_Test()
 {
 	size_t i = 0;
-	unsigned int arr[] = {7, 77, 0 , 81 , 53 , 44};
+	unsigned int arr[] = {7, 77, 0 , 81 , 53 , 44 , 1};
 	size_t len = sizeof(arr)/sizeof (arr[0]);
 	
 	for (i=0 ; i < len ; ++i)
 	{
-		printf("input:  %d\n" , ByteMirror(arr[i]));
+		printf("input: %d , output: %d\n" , arr[i], ByteMirror(arr[i]));
 	}
 	
 }

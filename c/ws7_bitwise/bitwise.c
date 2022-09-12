@@ -13,7 +13,8 @@ long Pow2 (unsigned int x, unsigned int y)
 int  Ex2Loop  (unsigned int num)
 {
     unsigned int i = 0;
-    for(i = 1 ; i < num ; ++i )
+  
+    for(i = 1 ; i < 33 ; ++i )
     {
         if (num == (unsigned)(1 << i))
         {
@@ -28,11 +29,14 @@ int  Ex2V2  (unsigned int num)
 {
 	/*power of two always should be 1 and zero after that 10=2 , 100=4 1000=8..
 	 0 == (100 and 011 = 000  )*/
-  if(0 == (num & (num-1)))
-  {
-     return 1;
-  } 
-  return 0;
+	if ( 0 == num )
+		return 0;
+	
+	if(0 == (num & (num-1)))
+	{
+		return 1;
+ 	} 
+	return 0;
  
 }
 
@@ -47,7 +51,8 @@ int AddOne( int num)
 {
 	/*pseudo code
 	search for first 0 bit
-		-change 1 bit to 0
+		- change 1 bit to 0
+		- scan the next bit
 	when done , flip the 0 bit to 1 
 	*/
 	
@@ -130,7 +135,7 @@ unsigned char ByteMirror(unsigned char byte)
 unsigned char Bit2and6( unsigned char num)
 {
 	/*   	 00000010 		 00100000 */
-	return ((num & 0x2) && (num & 0x20));
+	return ((num & 0x2)	 && (num & 0x20));
 
 }
 
@@ -138,8 +143,13 @@ unsigned char Bit2or6( unsigned char num)
 {
 	/*   	 00000010 		 00100000 */
 	return ((num & 0x2) || (num & 0x20));
+}
+
+void Bit3swap5( unsigned int num)
+{
 
 }
+
 
 
 /* Ex7
@@ -159,6 +169,7 @@ int Div16 (unsigned int num)
 
 
 /* Ex8  swap with bitwise*/
+
 void SwapXor (int *num1 , int *num2)
 {
     
@@ -168,6 +179,7 @@ void SwapXor (int *num1 , int *num2)
  
 }
 /* Ex9  without loop , need to understand */
+
 int CountCheckBit (unsigned int i)
 {
 
