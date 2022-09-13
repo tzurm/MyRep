@@ -10,6 +10,7 @@ void Ex6_Test();
 void Ex7_Test();
 void Ex8_Test();
 void Ex9_Test();
+void Ex10_Test();
 
 int main() 
 
@@ -51,6 +52,12 @@ int main()
 	printf("\n***** TESTS  Ex9 Count ********************************** \n\n");
   
  	Ex9_Test();
+ 	
+ 	
+ 	printf("\n***** TESTS  Ex10 Float print *************************** \n\n");
+  
+ 	Ex10_Test();
+ 	
 	
 	return 0;
 	
@@ -141,7 +148,8 @@ void Ex6_Test()
 	{
 		
 		printf("AND input: %d , output: %d\n" , arr[i] ,Bit2and6(arr[i]) );
-		printf("OR input: %d , output: %d\n" , arr[i] ,Bit2or6(arr[i]) );		
+		printf("OR input: %d , output: %d\n" , arr[i] ,Bit2or6(arr[i]) );
+		printf("OR input: %d , output: %d\n" , arr[i] ,Bit3swap5(arr[i]) );		
 	} 
 }
 
@@ -197,6 +205,20 @@ void Ex9_Test()
 		printf("%d have bits on: %d\n" , arr[i], CountBit(arr[i]));
 	} 
 }	
+
+void Ex10_Test()
+{
+	size_t i = 0;
+	float arr[] = {7.5, 3, 5.6 , 10, -1};
+	size_t len = sizeof(arr)/sizeof (arr[0]);
+	
+	for (i = 0 ; i < len ; ++i)
+	{
+		FloatBitPrint(arr[i]);
+	} 
+}
+
+
 
 
 

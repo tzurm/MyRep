@@ -29,6 +29,7 @@ unsigned char Bit2and6( unsigned char num);
 
 unsigned char Bit2or6( unsigned char num);
 
+unsigned char Bit3swap5( unsigned int num);
 
 
 /* Ex7 */
@@ -41,5 +42,8 @@ void SwapXor ( int *num1 , int *num2);
 
 /* Ex9 without loop */
 int CountCheckBit (unsigned int num);
+
+/* Ex10 */
+void FloatBitPrint( float num);
 
 #endif

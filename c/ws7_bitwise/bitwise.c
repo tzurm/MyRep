@@ -1,19 +1,28 @@
 #include "bitwise.h"
 #include <assert.h>
 
-
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
 /* Ex1 */
 long Pow2 (unsigned int x, unsigned int y)
 {
 	return x<<y;
 }
 
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
+
 /* Ex2 */
 
 int  Ex2Loop  (unsigned int num)
 {
     unsigned int i = 0;
-  
     for(i = 1 ; i < 33 ; ++i )
     {
         if (num == (unsigned)(1 << i))
@@ -24,6 +33,7 @@ int  Ex2Loop  (unsigned int num)
     }
     return 0;
 }
+
 
 int  Ex2V2  (unsigned int num)
 {
@@ -67,7 +77,11 @@ int AddOne( int num)
 	return num;
 }
 
-
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
 
 /* Ex4  +Ex9*/
 /* input: num , output: count bits on (1)
@@ -86,6 +100,12 @@ unsigned int CountBit( unsigned int num)
     return count;
 }
 
+
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
 /* input: arr of num , output: print the num with only 3 bits on */
 
 void Bit3( unsigned int *arr , size_t len)
@@ -108,6 +128,12 @@ void Bit3( unsigned int *arr , size_t len)
     printf("\n");
 }
 
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
+
 /* Ex5 ByteMirror 
 						explain for swap 8 bits
 	b7 b6 b5 b4  b3 b2 b1 b0
@@ -129,6 +155,11 @@ unsigned char ByteMirror(unsigned char byte)
    return byte;
 }
 
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
 
 /* Ex6 */
 
@@ -145,12 +176,23 @@ unsigned char Bit2or6( unsigned char num)
 	return ((num & 0x2) || (num & 0x20));
 }
 
-void Bit3swap5( unsigned int num)
+unsigned char Bit3swap5( unsigned int num)
 {
-
+	char a = 0;
+	
+	a = (((num << 2) & 16) | ((num >> 2) & 4));
+	num &= 235; /* 1110 1011 */
+	
+	num |= a;
+	
+	return num;
 }
 
-
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
 
 /* Ex7
 explain:
@@ -167,6 +209,11 @@ int Div16 (unsigned int num)
   return num;
 }
 
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
 
 /* Ex8  swap with bitwise*/
 
@@ -178,16 +225,72 @@ void SwapXor (int *num1 , int *num2)
    *num1 = *num1 ^ *num2;
  
 }
+
+
+ /* date: 12.9
+writer: Tzur
+review: Ziv
+Status: approved
+*/
+
 /* Ex9  without loop , need to understand */
 
-int CountCheckBit (unsigned int i)
-{
+int CountCheckBit (unsigned int num)
+{ 
+	int a1 = 0;	/*nibble 1*/
+	int a2 = 0;	/*nibble 2*/
+	int a3 = 0;	/*nibble 3*/
+	int a4 = 0;	/*nibble 4*/
+	int a5 = 0;	/*nibble 5*/
+	int a6 = 0;	/*nibble 6*/
+	int a7 = 0;	/*nibble 7*/
+	int a8 = 0;	/*nibble 8*/
+	
+	a1 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a2 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a3 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a4 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a5 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a6 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a7 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	num >>= 4;
+	a8 = (num >> 3 & 1) + (num >> 2 & 1) + (num >> 1 & 1) + (num & 1);
+	
+	return (a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8);
 
-	 i = i - ((i >> 1) & 0x55555555);       
-     i = (i & 0x33333333) + ((i >> 2) & 0x33333333); 
-     i = (i + (i >> 4)) & 0x0F0F0F0F;      
-     return (i * 0x01010101) >> 24; 
 }
+
+ /* date: 12.9
+writer: Tzur
+review: Mark
+Status: approved
+*/
+
+/* Ex10  */
+void FloatBitPrint( float num)
+{
+	int count = 0;
+	unsigned int number;
+	unsigned int x =  *(unsigned int *) &num;
+	printf("original: %f , uint: %u \n" ,num, x);
+	
+	
+	for(count = 31; count > -1; --count)
+	{
+		number = x >> count;
+		number = number & 1;
+		printf("%u", (number));
+	}
+	printf("\n");
+
+}
+
 
 
 
