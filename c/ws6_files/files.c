@@ -2,6 +2,14 @@
 #include "files.h"
 #define MAX_INPUT 500
 
+struct unit		
+{
+	char *str;
+	int (*cmp_fun)(char *);
+	int (*operation_fun)(char * , char *);  
+};
+
+
 /* date: 6.9
 writer: Tzur
 review: Mark
@@ -47,14 +55,14 @@ int Remove(char *file ,char *dummy)
 {
 	(void)dummy;
  	 
- 	if (remove(file) == 0) 
+ 	if (0 == remove(file)) 
     {
         printf("The file is deleted successfully.\n");
     } 
     else 
     {
         printf("Not found.\n");
-        return ERROR;
+        return REMOVE_FILE_ERROR;
     }
     
     return SUCCESS;
@@ -71,8 +79,6 @@ int Count(char *file , char *dummy)
  	
  	file_p = fopen(file , "r");
  	ch = getc(file_p);
-	
-	
 	
 	while(ch != EOF)
 	{

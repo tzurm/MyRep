@@ -5,18 +5,12 @@
 #include <stdlib.h>		/* remove  */
 #include <string.h>		/* strcmp  */
 
-struct unit		
-{
-	char *str;
-	int (*cmp_fun)(char *);
-	int (*operation_fun)(char * , char *);  
-};
-
 enum change 
 {
 	SUCCESS = 0,
 	ERROR = 1,
-	USER_INPUT_EXIT = -1
+	USER_INPUT_EXIT = -1,
+	REMOVE_FILE_ERROR = -2
 };
 
 
