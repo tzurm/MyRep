@@ -10,7 +10,10 @@ enum change
 	SUCCESS = 0,
 	ERROR = 1,
 	USER_INPUT_EXIT = -1,
-	REMOVE_FILE_ERROR = -2
+	REMOVE_FILE_ERROR = -2,
+	CLOSE_FILE_ERROR = -3,
+	OPEN_FILE_ERROR = -4
+	
 };
 
 

@@ -54,30 +54,30 @@ Status: approved
 int Remove(char *file ,char *dummy)
 {
 	(void)dummy;
- 	 
+
  	if (0 == remove(file)) 
     {
         printf("The file is deleted successfully.\n");
+        return SUCCESS;
     } 
-    else 
-    {
-        printf("Not found.\n");
-        return REMOVE_FILE_ERROR;
-    }
-    
-    return SUCCESS;
+    printf("Not found.\n");
+    return REMOVE_FILE_ERROR;
  }
  
  
 int Count(char *file , char *dummy)
 {
- 	
+ 
  	FILE *file_p = NULL;
  	char ch = '.';
  	int count = 0;
  	(void)dummy;
  	
  	file_p = fopen(file , "r");
+ 	if (NULL == file_p) 
+	{
+    	return OPEN_FILE_ERROR;
+    }
  	ch = getc(file_p);
 	
 	while(ch != EOF)
@@ -90,9 +90,6 @@ int Count(char *file , char *dummy)
 	}
 	
 	fclose(file_p);
-	/*
-	
-	 check if close */
 	
 	printf("lines: %d " , count);
 	
@@ -110,20 +107,19 @@ int Exit(char *file , char *str)
  
 int Append(char *file , char *str)
 {
- 	/*  add assert  */
+ 	
  	FILE *file_p = fopen(file , "a");
-	if(file_p == NULL)
-		return ERROR;
-	
+ 	assert(NULL != file);
+ 	assert(NULL != str);
+	if (NULL == file_p) 
+	{
+    	return OPEN_FILE_ERROR;
+    }
 
  	fputs(str , file_p);
  	fputs("\n" , file_p);
- 	/*	
-	 check if close */
- 	
+ 
  	fclose(file_p);
- 	/*
-	 check if close */
  	
  	return SUCCESS;
 }
@@ -133,8 +129,16 @@ int AppendBegin(char *filename, char *str)
 	char *buffer ;
 	long len_src = 0;
   	
-    FILE *src = fopen(filename, "r");		/* open src file   */
-    FILE *temp = fopen("temp_file", "w+");	/* open temp file  */
+    FILE *src = fopen(filename, "r");
+	FILE *temp = fopen("temp_file", "w+");
+	if (NULL == src) 
+	{
+    	return OPEN_FILE_ERROR;
+    }
+    if (NULL == temp) 
+	{
+    	return OPEN_FILE_ERROR;
+    }
 	
 	fputs(str+1 , temp);					/* write to temp file */
 	fputs("\n" , temp);
@@ -227,14 +231,12 @@ void ex2 ( char *filename)
 		scanf("%s", input);
 		for(i = 0; i < 5; ++i)
 		{
-			if(0 == handler[i].cmp_fun(input))	 /* cmp function */
+			if(0 == handler[i].cmp_fun(input))
 			{	
-				status = handler[i].operation_fun(filename, input); /* start fun */
+				status = handler[i].operation_fun(filename, input); 
 				break;
 			}
-			
 		}
-
 		fclose(fp);
 	}
 	while (status == SUCCESS);
