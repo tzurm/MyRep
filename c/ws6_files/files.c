@@ -58,7 +58,7 @@ int Remove(char *file ,char *dummy)
  	if (0 == remove(file)) 
     {
         printf("The file is deleted successfully.\n");
-    } 
+    } gii
     else 
     {
         printf("Not found.\n");
