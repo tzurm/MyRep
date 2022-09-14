@@ -1,6 +1,6 @@
 #include "files.h"
 #include <assert.h>
-#define N 50
+#define N 500
 
 /* date: 6.9
 writer: Tzur
@@ -66,7 +66,7 @@ int Count(char *file , char *dummy)
  	
  	FILE *file_p = NULL;
  	char ch = '.';
- 	int count=0;
+ 	int count = 0;
  	(void)dummy;
  	
  	file_p = fopen(file , "r");
@@ -186,7 +186,7 @@ void ex2 ( char *filename)
 
 	char input[N] ;
 	
-	int i=0;
+	int i = 0;
 	int flag = 1;
 	FILE *fp = NULL;
 	
@@ -210,9 +210,6 @@ void ex2 ( char *filename)
 		handler[2].operation_fun = Exit;
 		handler[3].operation_fun = AppendBegin;
 		handler[4].operation_fun = Append;
-
-
-	/* filename = fopen("test.txt" , "a"); */
 	
 	printf("Enter somthing... \n");
 	
@@ -220,7 +217,7 @@ void ex2 ( char *filename)
 	{
 		fp=fopen(filename , "a");
 		scanf("%s", input);
-		for(i = 0; i < 4; i++)
+		for(i = 0; i < 4; ++i)
 		{
 
 			if(0 == handler[i].cmp_fun(input))	 /* cmp function */
@@ -229,11 +226,13 @@ void ex2 ( char *filename)
 				flag = 0;
 			}
 		}
+		
 		if( 1 == flag )
 		{
 			handler[4].operation_fun(filename, input); /* Default append */
 		
 		}
+		
 		flag = 1;
 		fclose(fp);
 	}

@@ -5,14 +5,12 @@
 #include <stdlib.h>		/* remove  */
 #include <string.h>		/* strcmp  */
 
-struct unit
-			
-		{
-			char *str;
-			int (*cmp_fun)(char *);
-			int (*operation_fun)(char * , char *);
-		  
-		};
+struct unit		
+{
+	char *str;
+	int (*cmp_fun)(char *);
+	int (*operation_fun)(char * , char *);  
+};
 
 enum change 
 {
@@ -25,7 +23,7 @@ void Print (int a);
 
 void Ex1 ();
 
- int Remove(char *file ,char *dummy);
+int Remove(char *file ,char *dummy);
  
 int Count(char *file , char *dummy);
   

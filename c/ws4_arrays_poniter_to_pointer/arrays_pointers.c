@@ -1,5 +1,5 @@
-#include "arrays_pointers.h"
 #include <assert.h>
+#include "arrays_pointers.h"
 
 /* date: 30.8
 writer: Tzur
