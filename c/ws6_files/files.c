@@ -90,6 +90,9 @@ int Count(char *file , char *dummy)
 	}
 	
 	fclose(file_p);
+	/*
+	
+	 check if close */
 	
 	printf("lines: %d " , count);
 	
@@ -107,7 +110,7 @@ int Exit(char *file , char *str)
  
 int Append(char *file , char *str)
 {
- 	
+ 	/*  add assert  */
  	FILE *file_p = fopen(file , "a");
 	if(file_p == NULL)
 		return ERROR;
@@ -115,8 +118,12 @@ int Append(char *file , char *str)
 
  	fputs(str , file_p);
  	fputs("\n" , file_p);
+ 	/*	
+	 check if close */
  	
  	fclose(file_p);
+ 	/*
+	 check if close */
  	
  	return SUCCESS;
 }
@@ -132,7 +139,6 @@ int AppendBegin(char *filename, char *str)
 	fputs(str+1 , temp);					/* write to temp file */
 	fputs("\n" , temp);
 	
-    fseek(src, 0, SEEK_END);				/* size of src and */
     len_src = ftell(src);
     rewind(src);							/* set the pointer to start */
 
@@ -141,7 +147,6 @@ int AppendBegin(char *filename, char *str)
     fwrite(buffer, 1, len_src, temp);
     free(buffer);
 
- 
     fclose(src);
     remove(filename);
 
