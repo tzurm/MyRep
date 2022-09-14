@@ -15,7 +15,8 @@ struct unit
 enum change 
 {
 	SUCCESS = 0,
-	ERROR = 1
+	ERROR = 1,
+	USER_INPUT_EXIT = -1
 };
 
 

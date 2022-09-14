@@ -1,6 +1,6 @@
-#include "files.h"
 #include <assert.h>
-#define N 500
+#include "files.h"
+#define MAX_INPUT 500
 
 /* date: 6.9
 writer: Tzur
@@ -182,11 +182,9 @@ int AppendCmp(char *str)
  
 void ex2 ( char *filename)
 {
-
-	char input[N] ;
-	
+	int status = SUCCESS;
+	char input[MAX_INPUT];
 	int i = 0;
-	int flag = 1;
 	FILE *fp = NULL;
 	
 		
@@ -216,26 +214,19 @@ void ex2 ( char *filename)
 	{
 		fp=fopen(filename , "a");
 		scanf("%s", input);
-		for(i = 0; i < 4; ++i)
+		for(i = 0; i < 5; ++i)
 		{
-
 			if(0 == handler[i].cmp_fun(input))	 /* cmp function */
 			{	
-				handler[i].operation_fun(filename, input); /* start fun */
-				flag = 0;
+				status = handler[i].operation_fun(filename, input); /* start fun */
+				break;
 			}
+			
 		}
-		
-		if( 1 == flag )
-		{
-			handler[4].operation_fun(filename, input); /* Default append */
-		
-		}
-		
-		flag = 1;
+
 		fclose(fp);
 	}
-	while (1);
+	while (status == SUCCESS);
 }
  
  
