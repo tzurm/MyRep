@@ -30,7 +30,10 @@ void Ex1_Test()
 	
 void Ex2_Test()
 {
-	ex2("temp_f.txt");
+	char c[] = "";
+	printf("Enter name file \n\n");
+	scanf("%s", c);
+	ex2(c);
 }
 
 

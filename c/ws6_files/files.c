@@ -99,7 +99,6 @@ int Exit(char *file , char *str)
 }
  
  
- 
 int Append(char *file , char *str)
 {
  	
@@ -118,8 +117,8 @@ int Append(char *file , char *str)
  
 int AppendBegin(char *filename, char *str)
 {
-  	char *buffer ;
-  	long len_src = 0;
+	char *buffer ;
+	long len_src = 0;
   	
     FILE *src = fopen(filename, "r");		/* open src file   */
     FILE *temp = fopen("temp_file", "w+");	/* open temp file  */
