@@ -104,8 +104,6 @@ int fun()
 }
 
 
-
-
 int main() 
 {
     init_struct();
