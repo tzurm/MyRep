@@ -33,9 +33,8 @@ static void *PrintString(void* data)
 /**********************************************/
 
 void *AddInt(void* data, int input)
-{
-	input += (int)data ;
-	data = (void*)input;
+{	
+	data += *(int*)&input;
 }
 
 void *AddFloat(void* data, int input)
@@ -77,27 +76,33 @@ void *FreeHeap(void* data)
 
 int init_struct()
 {
+	handler arr[3];
 
-handler arr[3];
-
-arr[0].data = 3;
-arr[0].print = PrintInt;
-arr[0].add = AddInt;
-arr[0].free_heap = FreeDummy;
-
-
-arr[1].data = 3.3;
-arr[1].print = PrintFloat;
-arr[1].add = AddFloat;
-arr[1].free_heap = FreeDummy;
+	arr[0].data = 3;
+	arr[0].print = PrintInt;
+	arr[0].add = AddInt;
+	arr[0].free_heap = FreeDummy;
 
 
-arr[2].data = "Three";
-arr[2].print = PrintString;
-arr[2].add = AddString;
-arr[2].free_heap = FreeHeap;
+	arr[1].data = 3.3;
+	arr[1].print = PrintFloat;
+	arr[1].add = AddFloat;
+	arr[1].free_heap = FreeDummy;
 
+
+	arr[2].data = "Three";
+	arr[2].print = PrintString;
+	arr[2].add = AddString;
+	arr[2].free_heap = FreeHeap;
 }
+
+int fun()
+{
+	int input = 5;
+	init_struct();
+	
+}
+
 
 
 

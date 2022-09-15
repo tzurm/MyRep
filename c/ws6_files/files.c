@@ -2,12 +2,12 @@
 #include "files.h"
 #define MAX_INPUT 500
 
-struct unit		
+typedef struct Unit		
 {
 	char *str;
 	int (*cmp_fun)(char *);
 	int (*operation_fun)(char * , char *);  
-};
+} Unit ;
 
 
 /* date: 6.9
@@ -203,25 +203,25 @@ void ex2 ( char *filename)
 	FILE *fp = NULL;
 	
 		
-	struct  unit handler[5];
+	Unit handler[5];
 		
-		handler[0].str = "-remove";
-		handler[1].str = "-count";
-		handler[2].str = "-exit";
-		handler[3].str = "-beginLine";
-		handler[4].str = "-append";
+	handler[0].str = "-remove";
+	handler[1].str = "-count";
+	handler[2].str = "-exit";
+	handler[3].str = "-beginLine";
+	handler[4].str = "-append";
+	
+	handler[0].cmp_fun = RemoveCmp;
+	handler[1].cmp_fun = CountCmp;
+	handler[2].cmp_fun = ExitCmp;
+	handler[3].cmp_fun = AppendBeginCmp;
+	handler[4].cmp_fun = AppendCmp;
 		
-		handler[0].cmp_fun = RemoveCmp;
-		handler[1].cmp_fun = CountCmp;
-		handler[2].cmp_fun = ExitCmp;
-		handler[3].cmp_fun = AppendBeginCmp;
-		handler[4].cmp_fun = AppendCmp;
-			
-		handler[0].operation_fun = Remove;
-		handler[1].operation_fun = Count;
-		handler[2].operation_fun = Exit;
-		handler[3].operation_fun = AppendBegin;
-		handler[4].operation_fun = Append;
+	handler[0].operation_fun = Remove;
+	handler[1].operation_fun = Count;
+	handler[2].operation_fun = Exit;
+	handler[3].operation_fun = AppendBegin;
+	handler[4].operation_fun = Append;
 	
 	printf("Enter somthing... \n");
 	
