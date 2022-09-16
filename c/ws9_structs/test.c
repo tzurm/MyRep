@@ -3,110 +3,125 @@
 #include <assert.h>		
 #include <string.h>	
 
+/* h file */
 typedef struct handler
 {
-    void *data;
-    void (*print)(void *);
-    void (*add)(void *, int);
-    void (*free_heap)(void *);
+    void *data,
+    int *print(void *),
+    void *add(void *, int),
+    int *free_heap(void *)
 
-} handler;
+}handler;
 
-
-/**********************************************/
-
-static void *PrintInt(void* data)
+enum status 
 {
-	printf("%d" , (int)(data));
+	SUCCESS,
+	ERROR
 }
 
-static void *PrintFloat(void* data)
+
+/********************************************/
+/*					PRINT					*/
+/********************************************/
+
+int PrintInt(void* data)
 {
-	printf("%f" , (float*)(data));
+	printf("%d" , *(int*)&(data));
+	return SUCCESS;
 }
 
-static void *PrintString(void* data)
+int PrintFloat(void* data)
+{
+	printf("%f" , *(float*)&(data));
+	return SUCCESS;
+}
+
+int PrintString(void* data)
 {
 	printf("%s" , (char*)(data));
+	return SUCCESS;
 }
 
-/**********************************************/
+/********************************************/
+/*					ADD						*/
+/********************************************/
 
 void *AddInt(void* data, int input)
 {	
-	data += *(int*)&input;
+	*(int*)&data += *(int*)&input;
 }
 
 void *AddFloat(void* data, int input)
 {
-	(float)input += (float)data ;
-	data = (void*)input;
+	*(float*)&data += *(float*)&input;
 }
 
 void *AddString(void* data , int input)
 {
 	 size_t len_data = strlen(data);
-	 char temp=(char)input;
-	 size_t len_input = strlen(temp);
+	 size_t len_input = strlen((char*)&input);
 	 char *buffer = malloc(len_data + len_input);
 	 
-	 *buffer = strcat(data, temp);
+	 buffer = strcat(data, (char*)&input);
 	 if(NULL == buffer)
 	 {
 	 	printf("Error!");
 	 }
-	 *data = *buffer;
+	 data = buffer;
 	 free(buffer);
 }
 
-/**********************************************/
+/********************************************/
+/*					FREE					*/
+/********************************************/
 
-void *FreeDummy(void* data)
+static int *FreeDummy(void* data)
 {
-	void(*data);
+	data=data;
+	return SUCCESS;
 }
 
-void *FreeHeap(void* data)
+static int *FreeHeap(void* data)
 {
-	void(*data);
-	free(*data);
+	data=data;
+	free(data);
+	return SUCCESS;
 }
 
 /**********************************************/
 
-int init_struct()
+void MultiArrayElemnts()
 {
-	handler arr[3];
+	int status = SUCCESS;
+	int input = 5;
+	
+	handler arr[3]={};
 
-	arr[0].data = 3;
+	*(int*)&arr[0].data = 3;
 	arr[0].print = PrintInt;
 	arr[0].add = AddInt;
 	arr[0].free_heap = FreeDummy;
 
-
-	arr[1].data = 3.3;
+	*(float*)&arr[1].data = 3.3;
 	arr[1].print = PrintFloat;
 	arr[1].add = AddFloat;
 	arr[1].free_heap = FreeDummy;
 
-
-	arr[2].data = "Three";
+	*(char**)&arr[2].data = "Three";
 	arr[2].print = PrintString;
 	arr[2].add = AddString;
 	arr[2].free_heap = FreeHeap;
-}
 
-int fun()
-{
-	int input = 5;
-	init_struct();
 	
 }
 
 
+
+
 int main() 
 {
-    init_struct();
+	
+    MultiArrayElemnts();
     
 
     return 0;
