@@ -99,7 +99,7 @@ void MultiArrayElemnts()
 	int status = SUCCESS;
 	int input = 5;
 	
-	handler arr[3]={0};
+	handler arr[3];
 
 	*(int*)&arr[1].data = 3;
 	arr[0].print = PrintInt;
