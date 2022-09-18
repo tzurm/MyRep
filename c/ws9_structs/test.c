@@ -2,8 +2,7 @@
 #include <stdlib.h>		/* malloc */
 #include <assert.h>		
 #include <string.h>		/*strlen */
-
-
+#define SIZE 100
 #define LEN 3
 
 /* h file */
@@ -36,7 +35,7 @@ int PrintInt(void* data)
 
 int PrintFloat(void* data)
 {
-	printf(" %.3f " , *(float*)&(data));
+	printf(" %.2f " , *(float*)&(data));
 	
 	return SUCCESS;
 }
@@ -58,7 +57,6 @@ int AddInt(void *data, int input)
 {	
 	*(int*)data += input;
 
-	printf("data %d \n" , *(int*)(data));
 	
 	return SUCCESS;
 }
@@ -67,7 +65,6 @@ int AddFloat(void *data, int input)
 {
 	
 	*(float*)data += input;
-	printf("data %.3f \n" , *(float*)&(data));
 	
 	return SUCCESS;
 }
@@ -75,15 +72,19 @@ int AddFloat(void *data, int input)
 int AddString(void *data , int input)
 {
 	char *buffer=NULL;
-	char user_text[100] = { 0 };
-	
+	char user_input[SIZE] = { 0 };
 	size_t len_data = strlen(data);
 	
-	sprintf(user_text, "%d", input);
-	
-	len_data += strlen(user_text) + 1;
+	sprintf(user_input, "%d", input);
+	len_data += strlen(user_input) + 1;
 	buffer = realloc(data, len_data);
-	buffer = strcat((char*)data, user_text);
+	/* buffer = (char*)malloc(len_data); */
+	if(NULL == buffer)
+	 {
+	 	return ERROR;
+	 }
+
+	buffer = strcat(data, user_input);
     data = buffer;
     
 	return SUCCESS;
@@ -101,7 +102,6 @@ static int FreeDummy(void* data)
 
 static int FreeHeap(void* data)
 {
-	data=data;
 	free(data);
 	return SUCCESS;
 }
@@ -160,7 +160,7 @@ int AddArr(handler *arr ,size_t len , int input)
 {
 	size_t i = 0;
 	
-	for( i = 0; i < 2; ++i)
+	for( i = 0; i < len; ++i)
 	{
 		arr[i].add(&arr[i].data,input);
 	}
@@ -175,7 +175,7 @@ int FreeArr(handler *arr ,size_t len)
 	
 	for( i = 0; i < len; ++i)
 	{
-		arr[i].free_heap(arr[i].data);
+		arr[i].free_heap(&arr[i].data);
 	}
 	
 	return SUCCESS;
@@ -192,7 +192,8 @@ void MultiArrayElemnts()
 	InitArray(arr);
 	PrintArr(arr, LEN);
 	AddArr(arr, LEN, input); 
-	/* FreeArr(arr, LEN); */	 
+	
+	/*FreeArr(arr, LEN); */
 	PrintArr(arr, LEN);
 	
 	printf("\nall done\n");
