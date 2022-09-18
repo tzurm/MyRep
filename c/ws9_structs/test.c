@@ -48,17 +48,19 @@ int PrintString(void* data)
 /****************************************************************************/
 
 
-int *AddInt(void* data, int input)
+int AddInt(void* data, int input)
 {	
 	*(int*)&data += *(int*)&input;
+	return SUCCESS;
 }
 
-int *AddFloat(void* data, int input)
+int AddFloat(void* data, int input)
 {
 	*(float*)&data += *(float*)&input;
+	return SUCCESS;
 }
 
-int *AddString(void* data , int input)
+int AddString(void* data , int input)
 {
 	 size_t len_data = strlen(data);
 	 size_t len_input = strlen((char*)&input);
@@ -71,19 +73,20 @@ int *AddString(void* data , int input)
 	 }
 	 data = buffer;
 	 free(buffer);
+	 return SUCCESS;
 }
 
 /****************************************************************************/
 /*									FREE									*/
 /****************************************************************************/
 
-static int *FreeDummy(void* data)
+static int FreeDummy(void* data)
 {
 	data=data;
 	return SUCCESS;
 }
 
-static int *FreeHeap(void* data)
+static int FreeHeap(void* data)
 {
 	data=data;
 	free(data);
