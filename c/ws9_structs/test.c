@@ -74,16 +74,11 @@ int AddFloat(void *data, int input)
 
 int AddString(void *data , int input)
 {
-	char *buffer=" ";
+	char *buffer=NULL;
 	char user_text[100] = { 0 };
 	size_t len_data = strlen(data);
 	sprintf(user_text, "%d", input);
 	len_data += strlen(user_text) + 1;
-	buffer = (char*)malloc(len_data);
-	if(NULL == buffer)
-	{
-		printf("Error!");
-	}
 	strcat((char*)data, user_text);
 
 	return SUCCESS;
@@ -154,7 +149,7 @@ int AddArr(handler *arr ,size_t len , int input)
 	
 	for( i = 0; i < len; ++i)
 	{
-		arr[i].add(&arr[i].data,input);
+		arr[i].add(arr[i].data,input);
 	}
 	
 	return SUCCESS;
@@ -165,7 +160,7 @@ int FreeArr(handler *arr ,size_t len)
 {
 	size_t i = 0;
 	
-	for( i = 0; i < 2; ++i)
+	for( i = 0; i < len; ++i)
 	{
 		arr[i].free_heap(arr[i].data);
 	}
