@@ -56,9 +56,9 @@ int PrintString(void* data)
 
 int AddInt(void *data, int input)
 {	
-	
-	*(int*)&data += input;
-	printf("data %d \n" , *(int*)&(data));
+	*(int*)data += input;
+
+	printf("data %d \n" , *(int*)(data));
 	
 	return SUCCESS;
 }
@@ -66,7 +66,7 @@ int AddInt(void *data, int input)
 int AddFloat(void *data, int input)
 {
 	
-	*(float*)&data += input;
+	*(float*)data += input;
 	printf("data %.3f \n" , *(float*)&(data));
 	
 	return SUCCESS;
@@ -76,11 +76,16 @@ int AddString(void *data , int input)
 {
 	char *buffer=NULL;
 	char user_text[100] = { 0 };
+	
 	size_t len_data = strlen(data);
+	
 	sprintf(user_text, "%d", input);
+	
 	len_data += strlen(user_text) + 1;
-	strcat((char*)data, user_text);
-
+	buffer = realloc(data, len_data);
+	buffer = strcat((char*)data, user_text);
+    data = buffer;
+    
 	return SUCCESS;
 }
 
@@ -107,6 +112,14 @@ static int FreeHeap(void* data)
 
 static int InitArray(handler *arr)
 {
+	char str[6] = {0};
+	str[0] = 't' ;
+	str[1] = 'h' ;
+	str[2] = 'r' ;
+	str[3] = 'e' ;
+	str[4] = 'e' ;
+	str[5] = '\0';
+	
 	
 	*(int*)&arr[0].data = 3;
 	arr[0].print = PrintInt;
@@ -119,7 +132,7 @@ static int InitArray(handler *arr)
 	arr[1].free_heap = FreeDummy;
 
 	
-	arr[2].data = "Three";
+	arr[2].data = str;
 	arr[2].print = PrintString;
 	arr[2].add = AddString;
 	arr[2].free_heap = FreeHeap;
@@ -147,9 +160,9 @@ int AddArr(handler *arr ,size_t len , int input)
 {
 	size_t i = 0;
 	
-	for( i = 0; i < len; ++i)
+	for( i = 0; i < 2; ++i)
 	{
-		arr[i].add(arr[i].data,input);
+		arr[i].add(&arr[i].data,input);
 	}
 	
 	return SUCCESS;
