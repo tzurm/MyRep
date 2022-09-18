@@ -6,12 +6,12 @@
 /* h file */
 typedef struct handler
 {
-    void *data,
-    int *print(void *),
-    void *add(void *, int),
-    int *free_heap(void *)
+    void *data;
+    int (*print)(void *);
+    int (*add)(void *, int);
+    int (*free_heap)(void *);
 
-}handler;
+} handler;
 
 enum status 
 {
@@ -20,9 +20,9 @@ enum status
 }
 
 
-/********************************************/
-/*					PRINT					*/
-/********************************************/
+/****************************************************************************/
+/*									PRINT									*/
+/****************************************************************************/
 
 int PrintInt(void* data)
 {
@@ -42,21 +42,23 @@ int PrintString(void* data)
 	return SUCCESS;
 }
 
-/********************************************/
-/*					ADD						*/
-/********************************************/
 
-void *AddInt(void* data, int input)
+/****************************************************************************/
+/*									ADD										*/
+/****************************************************************************/
+
+
+int *AddInt(void* data, int input)
 {	
 	*(int*)&data += *(int*)&input;
 }
 
-void *AddFloat(void* data, int input)
+int *AddFloat(void* data, int input)
 {
 	*(float*)&data += *(float*)&input;
 }
 
-void *AddString(void* data , int input)
+int *AddString(void* data , int input)
 {
 	 size_t len_data = strlen(data);
 	 size_t len_input = strlen((char*)&input);
@@ -71,9 +73,9 @@ void *AddString(void* data , int input)
 	 free(buffer);
 }
 
-/********************************************/
-/*					FREE					*/
-/********************************************/
+/****************************************************************************/
+/*									FREE									*/
+/****************************************************************************/
 
 static int *FreeDummy(void* data)
 {
@@ -88,16 +90,18 @@ static int *FreeHeap(void* data)
 	return SUCCESS;
 }
 
-/**********************************************/
+/****************************************************************************/
+/*									MultiArrayElemnts						*/
+/****************************************************************************/
 
 void MultiArrayElemnts()
 {
 	int status = SUCCESS;
 	int input = 5;
 	
-	handler arr[3]={};
+	handler arr[3]={0};
 
-	*(int*)&arr[0].data = 3;
+	*(int*)&arr[1].data = 3;
 	arr[0].print = PrintInt;
 	arr[0].add = AddInt;
 	arr[0].free_heap = FreeDummy;
@@ -105,12 +109,16 @@ void MultiArrayElemnts()
 	*(float*)&arr[1].data = 3.3;
 	arr[1].print = PrintFloat;
 	arr[1].add = AddFloat;
-	arr[1].free_heap = FreeDummy;
+	arr[1].free_heap = &FreeDummy;
 
 	*(char**)&arr[2].data = "Three";
 	arr[2].print = PrintString;
 	arr[2].add = AddString;
 	arr[2].free_heap = FreeHeap;
+
+	
+	printf("input : %d" ,input);
+
 
 	
 }
