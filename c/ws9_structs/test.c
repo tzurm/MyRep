@@ -1,7 +1,9 @@
 #include <stdio.h>		/* printf,*/
 #include <stdlib.h>		/* malloc */
 #include <assert.h>		
-#include <string.h>	
+#include <string.h>		/*strlen */
+
+
 #define LEN 3
 
 /* h file */
@@ -14,11 +16,11 @@ typedef struct handler
 
 } handler;
 
-enum status 
+enum status  
 {
-	SUCCESS,
+	SUCCESS ,
 	ERROR
-};
+} ;
 
 
 /****************************************************************************/
@@ -74,7 +76,7 @@ int AddString(void *data , int input)
 {
 	 size_t len_data = strlen(data);
 	 size_t len_input = strlen((char*)&input);
-	 char *buffer = malloc(len_data + len_input);
+	 char *buffer = (char*)malloc(len_data + len_input);
 	 
 	 buffer = strcat(data, (char*)&input);
 	 if(NULL == buffer)
@@ -110,7 +112,7 @@ static int FreeHeap(void* data)
 
 static int InitArray(handler *arr)
 {
-
+	
 	*(int*)&arr[0].data = 3;
 	arr[0].print = PrintInt;
 	arr[0].add = AddInt;
@@ -152,7 +154,7 @@ int AddArr(handler *arr ,size_t len , int input)
 	
 	for( i = 0; i < len; ++i)
 	{
-		arr[i].add(*(arr[i].data),input);
+		arr[i].add(&arr[i].data,input);
 	}
 	
 	return SUCCESS;
@@ -163,14 +165,13 @@ int FreeArr(handler *arr ,size_t len)
 {
 	size_t i = 0;
 	
-	for( i = 0; i < len; ++i)
+	for( i = 0; i < 2; ++i)
 	{
 		arr[i].free_heap(arr[i].data);
 	}
 	
 	return SUCCESS;
 }
-
 
 
 
@@ -182,14 +183,13 @@ void MultiArrayElemnts()
 	
 	InitArray(arr);
 	PrintArr(arr, LEN);
-	AddArr(arr, LEN, input);
-	/*	FreeArr(arr, LEN);	 */
+	AddArr(arr, LEN, input); 
+	/* FreeArr(arr, LEN); */	 
 	PrintArr(arr, LEN);
 	
 	printf("\nall done\n");
 	
 }
-
 
 
 
