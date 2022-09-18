@@ -64,7 +64,8 @@ int AddInt(void *data, int input)
 int AddFloat(void *data, int input)
 {
 	
-	*(float*)&data += *(float*)&input;
+	*(float*)&data += input;
+	printf("data %.3f \n" , *(float*)&(data));
 	
 	return SUCCESS;
 }
@@ -118,7 +119,7 @@ static int InitArray(handler *arr)
 	*(float*)&arr[1].data = 3.3;
 	arr[1].print = PrintFloat;
 	arr[1].add = AddFloat;
-	arr[1].free_heap = &FreeDummy;
+	arr[1].free_heap = FreeDummy;
 
 	
 	arr[2].data = "Three";
@@ -149,9 +150,9 @@ int AddArr(handler *arr ,size_t len , int input)
 {
 	size_t i = 0;
 	
-	for( i = 0; i < 2; ++i)
+	for( i = 0; i < len; ++i)
 	{
-		arr[i].add(*(&arr[i].data),input);
+		arr[i].add(*(arr[i].data),input);
 	}
 	
 	return SUCCESS;
