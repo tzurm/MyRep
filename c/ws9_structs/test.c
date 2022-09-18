@@ -48,19 +48,21 @@ int PrintString(void* data)
 /****************************************************************************/
 
 
-int AddInt(void* data, int input)
+int AddInt(void *data, int input)
 {	
+	
 	*(int*)&data += input;
+	
 	return SUCCESS;
 }
 
-int AddFloat(void* data, int input)
+int AddFloat(void *data, int input)
 {
 	*(float*)&data += *(float*)&input;
 	return SUCCESS;
 }
 
-int AddString(void* data , int input)
+int AddString(void *data , int input)
 {
 	 size_t len_data = strlen(data);
 	 size_t len_input = strlen((char*)&input);
