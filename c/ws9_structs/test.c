@@ -2,6 +2,7 @@
 #include <stdlib.h>		/* malloc */
 #include <assert.h>		
 #include <string.h>	
+#define LEN 3
 
 /* h file */
 typedef struct handler
@@ -27,18 +28,21 @@ enum status
 int PrintInt(void* data)
 {
 	printf(" %d " , *(int*)&(data));
+	
 	return SUCCESS;
 }
 
 int PrintFloat(void* data)
 {
 	printf(" %.3f " , *(float*)&(data));
+	
 	return SUCCESS;
 }
 
 int PrintString(void* data)
 {
 	printf(" %s \n" , (char*)(data));
+	
 	return SUCCESS;
 }
 
@@ -52,13 +56,16 @@ int AddInt(void *data, int input)
 {	
 	
 	*(int*)&data += input;
+	printf("data %d \n" , *(int*)&(data));
 	
 	return SUCCESS;
 }
 
 int AddFloat(void *data, int input)
 {
+	
 	*(float*)&data += *(float*)&input;
+	
 	return SUCCESS;
 }
 
@@ -75,6 +82,7 @@ int AddString(void *data , int input)
 	 }
 	 data = buffer;
 	 free(buffer);
+	 
 	 return SUCCESS;
 }
 
@@ -125,37 +133,38 @@ static int InitArray(handler *arr)
 /*						print,add,free array								*/
 /****************************************************************************/
 
-int PrintArr(handler* arr ,size_t len)
+int PrintArr(handler *arr ,size_t len)
 {
 	size_t i = 0;
 	
 	for( i = 0; i < len; ++i)
 	{
-		(*arr[i].print)(arr[i].data);
+		arr[i].print(arr[i].data);
 	}
 	
 	return SUCCESS;
 }
 
-int AddArr(handler* arr ,size_t len , int input)
+int AddArr(handler *arr ,size_t len , int input)
 {
 	size_t i = 0;
 	
 	for( i = 0; i < 2; ++i)
 	{
-		(*arr[i].add)((arr[i].data),input);
+		arr[i].add(*(&arr[i].data),input);
 	}
 	
 	return SUCCESS;
 }
 
-int FreeArr(handler* arr ,size_t len)
+
+int FreeArr(handler *arr ,size_t len)
 {
 	size_t i = 0;
 	
-	for( i = 0; i < 2; ++i)
+	for( i = 0; i < len; ++i)
 	{
-		(*arr[i].free_heap)(arr[i].data);
+		arr[i].free_heap(arr[i].data);
 	}
 	
 	return SUCCESS;
@@ -168,13 +177,13 @@ void MultiArrayElemnts()
 {
 
 	int input = 10;
-	handler arr[5];
+	handler arr[LEN];
 	
 	InitArray(arr);
-	PrintArr(arr, 3);
-	AddArr(arr, 3 , input); 		/* 	not working	*/
-	/*	FreeArr(arr, 3);	 */
-	PrintArr(arr, 3);
+	PrintArr(arr, LEN);
+	AddArr(arr, LEN, input);
+	/*	FreeArr(arr, LEN);	 */
+	PrintArr(arr, LEN);
 	
 	printf("\nall done\n");
 	
