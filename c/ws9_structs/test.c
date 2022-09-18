@@ -17,7 +17,7 @@ enum status
 {
 	SUCCESS,
 	ERROR
-}
+};
 
 
 /****************************************************************************/
@@ -26,19 +26,19 @@ enum status
 
 int PrintInt(void* data)
 {
-	printf("%d" , *(int*)&(data));
+	printf(" %d " , *(int*)&(data));
 	return SUCCESS;
 }
 
 int PrintFloat(void* data)
 {
-	printf("%f" , *(float*)&(data));
+	printf(" %.3f " , *(float*)&(data));
 	return SUCCESS;
 }
 
 int PrintString(void* data)
 {
-	printf("%s" , (char*)(data));
+	printf(" %s \n" , (char*)(data));
 	return SUCCESS;
 }
 
@@ -50,7 +50,7 @@ int PrintString(void* data)
 
 int AddInt(void* data, int input)
 {	
-	*(int*)&data += *(int*)&input;
+	*(int*)&data += input;
 	return SUCCESS;
 }
 
@@ -94,17 +94,13 @@ static int FreeHeap(void* data)
 }
 
 /****************************************************************************/
-/*									MultiArrayElemnts						*/
+/*								init MultiArrayElemnts						*/
 /****************************************************************************/
 
-void MultiArrayElemnts()
+static int InitArray(handler *arr)
 {
-	int status = SUCCESS;
-	int input = 5;
-	
-	handler arr[3];
 
-	*(int*)&arr[1].data = 3;
+	*(int*)&arr[0].data = 3;
 	arr[0].print = PrintInt;
 	arr[0].add = AddInt;
 	arr[0].free_heap = FreeDummy;
@@ -114,15 +110,71 @@ void MultiArrayElemnts()
 	arr[1].add = AddFloat;
 	arr[1].free_heap = &FreeDummy;
 
-	*(char**)&arr[2].data = "Three";
+	
+	arr[2].data = "Three";
 	arr[2].print = PrintString;
 	arr[2].add = AddString;
 	arr[2].free_heap = FreeHeap;
-
 	
-	printf("input : %d" ,input);
+	return SUCCESS;
+} 
+
+/****************************************************************************/
+/*						print,add,free array								*/
+/****************************************************************************/
+
+int PrintArr(handler* arr ,size_t len)
+{
+	size_t i = 0;
+	
+	for( i = 0; i < len; ++i)
+	{
+		(*arr[i].print)(arr[i].data);
+	}
+	
+	return SUCCESS;
+}
+
+int AddArr(handler* arr ,size_t len , int input)
+{
+	size_t i = 0;
+	
+	for( i = 0; i < 2; ++i)
+	{
+		(*arr[i].add)((arr[i].data),input);
+	}
+	
+	return SUCCESS;
+}
+
+int FreeArr(handler* arr ,size_t len)
+{
+	size_t i = 0;
+	
+	for( i = 0; i < 2; ++i)
+	{
+		(*arr[i].free_heap)(arr[i].data);
+	}
+	
+	return SUCCESS;
+}
 
 
+
+
+void MultiArrayElemnts()
+{
+
+	int input = 10;
+	handler arr[5];
+	
+	InitArray(arr);
+	PrintArr(arr, 3);
+	AddArr(arr, 3 , input); 		/* 	not working	*/
+	/*	FreeArr(arr, 3);	 */
+	PrintArr(arr, 3);
+	
+	printf("\nall done\n");
 	
 }
 
