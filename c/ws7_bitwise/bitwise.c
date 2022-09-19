@@ -273,7 +273,7 @@ void FloatBitPrint( float num)
 	int count = 0;
 	unsigned int number;
 	unsigned int x =  *(unsigned int *) &num;
-	printf("original: %f , uint: %u \n" ,num, x);
+	printf("original: %.2f, uint: %u \n" ,num, x);
 	
 	for(count = 31; count > -1; --count)
 	{
