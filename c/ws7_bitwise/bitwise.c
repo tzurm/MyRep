@@ -55,16 +55,16 @@ writer: Tzur
 review: Slava
 Status: approved
 */
-
+/*	pseudo: 							*
+ *	search for first 0 bit				*
+ *		- change 1 bit to 0				*
+ *		- scan the next bit				*
+ *	when done , flip the 0 bit to 1		*/
+	
 /* Ex3 */
 int AddOne( int num)
 {
-	/*pseudo code
-	search for first 0 bit
-		- change 1 bit to 0
-		- scan the next bit
-	when done , flip the 0 bit to 1 
-	*/
+	
 	
 	int mask = 1;
 	while (0 != (num & mask))
@@ -83,11 +83,11 @@ review: Ziv
 Status: approved
 */
 
-/* Ex4  +Ex9*/
-/* input: num , output: count bits on (1)
-explain:  
-count += num &1 - check and count if the last bit is 1
-num>>=1 - change the num like 0110 >> 1  -> 1100  */
+/* Ex4  +Ex9*/	
+/* input: num , output: count bits on (1)					*
+ * explain:  												*
+ * count += num &1 - check and count if the last bit is 1	*
+ * num>>=1 - change the num like 0110 >> 1  -> 1100 		*/
 
 unsigned int CountBit( unsigned int num)
 {
@@ -134,17 +134,7 @@ review: Ziv
 Status: approved
 */
 
-/* Ex5 ByteMirror 
-						explain for swap 8 bits
-	b7 b6 b5 b4  b3 b2 b1 b0
-	1  0  1  0	 1  1  0  0   			1  0  1  0 	 1  1  0  0
-& 	1  1  1  1   0  0  0  0			 &	0  0  0  0	 1  1  1  1
->>4	1  0  1  0   0  0  0  0			<<4	0  0  0  0   1  1  0  0
-	0  0  0  0   1  0  1  0			 	1  1  0  0   0  0  0  0
-
-						0  0  0  0   1  0  1  0
-					|	1  1  0  0   0  0  0  0
-						1  1  0  0   1  0  1  0					*/
+/* Ex5 ByteMirror */
 
 unsigned char ByteMirror(unsigned char byte) 
 {			/*11110000 */
@@ -193,12 +183,11 @@ writer: Tzur
 review: Ziv
 Status: approved
 */
-
-/* Ex7
-explain:
-num != (num >> 4) << 4
-32 !=	(32/16 *16)=32
-check if the num is dived by 16	 if not --num, and start over */
+/*	Ex7																	*
+*	pseudo: check if num is equal to num*16/16 if not check for (num-1)	*
+*	example:															*
+*	num != (num >> 4) << 4												*
+*	32 !=	(32/16 *16)=32												*/
 
 int Div16 (unsigned int num)
 {

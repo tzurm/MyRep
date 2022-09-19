@@ -66,7 +66,12 @@ void Ex6_Test()
 	};
 	struct my_struct s1;
 	
+	char arr[5]={'0'};
+	char arr2[100];
+	
     printf("Size type: %ld \n", SIZEOF_TYPE(s1));
+    printf("Size type: %ld \n", SIZEOF_TYPE(arr));
+    printf("Size type: %ld \n", SIZEOF_TYPE(arr2));
    
 }
 
@@ -77,8 +82,13 @@ void Ex7_Test()
 	  int my_int;
 	  char my_char;
 	} s1;
+	
+	char arr[5]={'0'};
+	char arr2[5];
 
     printf("Size var: %ld \n", SIZEOF_VAR(s1));
+    printf("Size var: %ld \n", SIZEOF_VAR(arr));
+    printf("Size var: %ld \n", SIZEOF_VAR(arr2));
    
 }
 

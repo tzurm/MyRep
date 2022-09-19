@@ -4,6 +4,7 @@
 #include <string.h>		/*strlen */
 #define SIZE 100
 #define LEN 3
+/* ziv aprroved */
 
 /* h file */
 typedef struct handler
@@ -68,7 +69,7 @@ int AddFloat(void *data, int input)
 	
 	return SUCCESS;
 }
-
+ /*ziv: need to change to struct */ 
 int AddString(void *data , int input)
 {
 	char *buffer=NULL;
@@ -158,9 +159,11 @@ int PrintArr(handler *arr ,size_t len)
 
 int AddArr(handler *arr ,size_t len , int input)
 {
+	
 	size_t i = 0;
 	
-	for( i = 0; i < len; ++i)
+	len=len;
+	for( i = 0; i < 2; ++i)
 	{
 		arr[i].add(&arr[i].data,input);
 	}
