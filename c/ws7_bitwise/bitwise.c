@@ -9,7 +9,7 @@ Status: approved
 /* Ex1 */
 long Pow2 (unsigned int x, unsigned int y)
 {
-	return x<<y;
+	return (long)x<<y;
 }
 
  /* date: 12.9
@@ -110,7 +110,7 @@ Status: approved
 */
 /* input: arr of num , output: print the num with only 3 bits on */
 
-void Bit3( unsigned int *arr , size_t len)
+void Bit3(const unsigned int *arr, size_t len)
 {
 	size_t i = 0;
 	unsigned int temp = 0;
@@ -128,8 +128,6 @@ void Bit3( unsigned int *arr , size_t len)
 			printf(" %d |" , temp);
     	}
     }
-    
-    printf("\n");
 }
 
  /* date: 12.9
@@ -141,7 +139,7 @@ Status: approved
 /* Ex5 ByteMirror */
 
 unsigned char ByteMirror(unsigned char byte) 
-{			/*11110000 */
+{	/*			11110000 			00001111 			*/
    byte = (byte & 0xF0) >> 4 | (byte & 0x0F) << 4;
    byte = (byte & 0xCC) >> 2 | (byte & 0x33) << 2;
    byte = (byte & 0xAA) >> 1 | (byte & 0x55) << 1;
@@ -156,14 +154,14 @@ Status: approved
 
 /* Ex6 */
 
-unsigned char Bit2and6( unsigned char num)
+unsigned char IsBit2and6( unsigned char num)
 {
 	/*   	 00000010 		 00100000 */
 	return ((num & 0x2)	 && (num & 0x20));
 
 }
 
-unsigned char Bit2or6( unsigned char num)
+unsigned char IsBit2or6( unsigned char num)
 {
 	/*   	 00000010 		 00100000 */
 	return ((num & 0x2) || (num & 0x20));
@@ -212,9 +210,12 @@ Status: approved
 
 void SwapXor (int *num1 , int *num2)
 {
-   *num1 = *num1 ^ *num2;
-   *num2 = *num1 ^ *num2;
-   *num1 = *num1 ^ *num2;
+	if(num1 != num2)
+	{
+		*num1 = *num1 ^ *num2;
+		*num2 = *num1 ^ *num2;
+		*num1 = *num1 ^ *num2;
+	}
 }
 
 
@@ -268,10 +269,10 @@ Status: approved
 *	cast float to int												*
 *	run as size of float 4*8										*
 *		-print the last bit											*/
-void FloatBitPrint( float num)
+void FloatBitPrint(const float num)
 {
 	int count = 0;
-	unsigned int number;
+	unsigned int number = 0;
 	unsigned int x =  *(unsigned int *) &num;
 	printf("original: %.2f, uint: %u \n" ,num, x);
 	
@@ -281,8 +282,6 @@ void FloatBitPrint( float num)
 		number = number & 1;
 		printf("%u", (number));
 	}
-	
-	printf("\n");
 
 }
 

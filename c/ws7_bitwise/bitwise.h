@@ -18,16 +18,16 @@ int AddOne( int num);
 /* Ex4  + Ex9 with loop*/
 unsigned int CountBit( unsigned int num);
 /* Ex4 */
-void Bit3( unsigned int *arr , size_t len);
+void Bit3(const unsigned int *arr, size_t len);
 
 /*Ex5 */
 unsigned char ByteMirror(unsigned char byte);
 
 
 /*Ex6 */
-unsigned char Bit2and6( unsigned char num);
+unsigned char IsBit2and6( unsigned char num);
 
-unsigned char Bit2or6( unsigned char num);
+unsigned char IsBit2or6( unsigned char num);
 
 unsigned char Bit3swap5( unsigned int num);
 

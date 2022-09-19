@@ -147,8 +147,8 @@ void Ex6_Test()
 	for (i = 0 ; i < len ; ++i)
 	{
 		
-		printf("AND input: %d , output: %d\n" , arr[i] ,Bit2and6(arr[i]) );
-		printf("OR input: %d , output: %d\n" , arr[i] ,Bit2or6(arr[i]) );
+		printf("AND input: %d , output: %d\n" , arr[i] ,IsBit2and6(arr[i]) );
+		printf("OR input: %d , output: %d\n" , arr[i] ,IsBit2or6(arr[i]) );
 		printf("OR input: %d , output: %d\n" , arr[i] ,Bit3swap5(arr[i]) );		
 	} 
 }
