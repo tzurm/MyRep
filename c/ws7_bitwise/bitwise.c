@@ -183,11 +183,12 @@ writer: Tzur
 review: Ziv
 Status: approved
 */
-/*	Ex7																	*
-*	pseudo: check if num is equal to num*16/16 if not check for (num-1)	*
-*	example:															*
-*	num != (num >> 4) << 4												*
-*	32 !=	(32/16 *16)=32												*/
+/*	Ex7																*
+*	pseudo:															*
+*	check if num is equal to num*16/16 if not check for (num-1)		*
+*	example:														*
+*	num != (num >> 4) << 4											*
+*	32 !=	(32/16 *16)=32											*/
 
 int Div16 (unsigned int num)
 {
@@ -261,7 +262,11 @@ review: Mark
 Status: approved
 */
 
-/* Ex10  */
+/*	Ex10															*
+*	pseudo:															*
+*	cast float to int												*
+*	run as size of float 4*8										*
+*		-print the last bit											*/
 void FloatBitPrint( float num)
 {
 	int count = 0;
