@@ -27,10 +27,10 @@ int  Ex2Loop  (unsigned int num)
     {
         if (num == (unsigned)(1 << i))
         {
-         
             return 1;
         }   
     }
+    
     return 0;
 }
 
@@ -46,6 +46,7 @@ int  Ex2V2  (unsigned int num)
 	{
 		return 1;
  	} 
+ 	
 	return 0;
  
 }
@@ -64,9 +65,8 @@ Status: approved
 /* Ex3 */
 int AddOne( int num)
 {
-	
-	
 	int mask = 1;
+	
 	while (0 != (num & mask))
 	{
 		num &= ~mask;
@@ -92,11 +92,13 @@ Status: approved
 unsigned int CountBit( unsigned int num)
 {
     unsigned int count = 0;
+    
     while ( 0 != num )
     {
         count += num & 1;
         num >>= 1;
     }
+    
     return count;
 }
 
@@ -113,6 +115,7 @@ void Bit3( unsigned int *arr , size_t len)
 	size_t i = 0;
 	unsigned int temp = 0;
     unsigned int count = 0;
+    
     printf("the number with only 3 bit on:\n");
     while ( i < len )
     {
@@ -125,6 +128,7 @@ void Bit3( unsigned int *arr , size_t len)
 			printf(" %d |" , temp);
     	}
     }
+    
     printf("\n");
 }
 
@@ -139,7 +143,6 @@ Status: approved
 unsigned char ByteMirror(unsigned char byte) 
 {			/*11110000 */
    byte = (byte & 0xF0) >> 4 | (byte & 0x0F) << 4;
-
    byte = (byte & 0xCC) >> 2 | (byte & 0x33) << 2;
    byte = (byte & 0xAA) >> 1 | (byte & 0x55) << 1;
    return byte;
@@ -172,7 +175,6 @@ unsigned char Bit3swap5( unsigned int num)
 	
 	a = (((num << 2) & 16) | ((num >> 2) & 4));
 	num &= 235; /* 1110 1011 */
-	
 	num |= a;
 	
 	return num;
@@ -192,11 +194,12 @@ Status: approved
 
 int Div16 (unsigned int num)
 {
-    while ( num != (num >> 4) << 4 )
-  {
-    -- num;
-  }  
-  return num;
+	while ( num != (num >> 4) << 4 )
+	{
+		-- num;
+	}
+	
+	return num;
 }
 
  /* date: 12.9
@@ -209,11 +212,9 @@ Status: approved
 
 void SwapXor (int *num1 , int *num2)
 {
-    
    *num1 = *num1 ^ *num2;
    *num2 = *num1 ^ *num2;
    *num1 = *num1 ^ *num2;
- 
 }
 
 
@@ -274,13 +275,13 @@ void FloatBitPrint( float num)
 	unsigned int x =  *(unsigned int *) &num;
 	printf("original: %f , uint: %u \n" ,num, x);
 	
-	
 	for(count = 31; count > -1; --count)
 	{
 		number = x >> count;
 		number = number & 1;
 		printf("%u", (number));
 	}
+	
 	printf("\n");
 
 }
