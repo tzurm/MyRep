@@ -28,10 +28,10 @@ int main()
 void Ex1_Memset()
 {
 	
-	char str1[50];
-	char str2[50];
-	char str3[50];
-	char str4[50];
+	char str1[50] = {0} ;
+	char str2[50] = {0} ;
+	char str3[50] = {0} ;
+	char str4[50] = {0} ;
 	
 	strcpy(str1,"abcdefeg");
 	strcpy(str2,"abcdefeg");
