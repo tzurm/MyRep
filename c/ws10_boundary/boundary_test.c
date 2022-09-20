@@ -3,8 +3,8 @@
 
 void Ex1_Memset();
 void Ex1_Memcpy();
-/*void Ex1_Memmove();
-*/
+void Ex1_Memmove();
+
 
 int main() 
 
@@ -18,9 +18,9 @@ int main()
  	Ex1_Memcpy();
  
  	printf("\n***** TESTS  Memmove ************************************ \n\n");
-  /*
+  
  	Ex1_Memmove();
- */
+ 
 	return(0);
 }	
  	
@@ -95,6 +95,30 @@ void Ex1_Memcpy()
     printf("After:	%s\n", dest2);
 	
 }
+
+void Ex1_Memmove()
+{
+	const char src1[4] = "123";
+    char dest1[50] = {0};
+    
+    const char src2[4] = "123";
+    char dest2[50] = {0};
+    
+    printf("Test_1 \n");
+    printf("my memcpy \n");
+    strcpy(dest1,"random string");
+    printf("Before:	%s\n", dest1);
+    Memmove(dest1, src1, 3);
+    printf("After:	%s\n", dest1);
+    
+    printf("\noriginal memcpy \n");
+    strcpy(dest2,"random string");
+    printf("Before:	%s\n", dest2);
+    memmove(dest2, src2, 3);
+    printf("After:	%s\n", dest2);
+	
+}
+
 
 
 
