@@ -3,7 +3,7 @@
 #include "boundary.h"
 #define WORDSIZE sizeof(size_t *)
 
-
+/*  Approve by Alex 20.9*/
 /*	pseudo
  *	set byte by byte until aligned 					*
  *	initialize the array (size of word) to char		*					 
@@ -26,7 +26,7 @@ static void *SetByte(void *s, int c)
 void *Memset(void *s, int c, size_t n)
 {
     char *ptr_s = (char*)s;
-    size_t arr[WORDSIZE] = {0};
+    char arr[WORDSIZE] = {0};
     size_t i = 0;
      
     while( (0 < n) && (0 != ((size_t)&ptr_s % WORDSIZE)) )
@@ -40,6 +40,7 @@ void *Memset(void *s, int c, size_t n)
     for ( i = 0 ; i < WORDSIZE ; ++i )
     {
     	arr[i] = (char)c;
+
 	}
     
     while( WORDSIZE <= n ) 
@@ -58,38 +59,39 @@ void *Memset(void *s, int c, size_t n)
 	
     return s;
 }
-
+/*  Approve by Ziv 20.9*/
 /*	pseudo							 						*				
  *	while wordsize < num			 						*
- *		copy word to dest									*		
+ *		copy src to dest									*		
  *	set the rest if needed byte by byte						*/
 
-void *Memcpy(void *dest,const void *src, size_t n)
+void *Memcpy(void *dest,const void *src, size_t len)
 {
 	
     char *p_dest = (char*)dest;
     char *p_src = (char*)src;
  	
- 	while (WORDSIZE <= n)
+ 	while (WORDSIZE <= len)
  	{
     	*(size_t*)p_dest =*(size_t*)p_src;
   		p_dest += WORDSIZE; 
 		p_src += WORDSIZE;
- 		n -= WORDSIZE;
+ 		len -= WORDSIZE;
+ 		
  	}
  	
-    while ( 0 < n )
+    while ( 0 < len )
  	{
  		*p_dest =*p_src;
  		++p_dest; 
 		++p_src;
-		--n;
+		--len;
  	}
  
     return dest;
 }
 
-/*  Approve by pini 20.9*/
+/*  Approve by Pini 20.9*/
 
 /*	pseudo							 					*				
  *	check what address is higher						*
