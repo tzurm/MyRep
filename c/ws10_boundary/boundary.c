@@ -5,13 +5,13 @@
 
 
 /*	pseudo
-     *	1. set byte by byte until aligned 					*
-     *	2. initialize the array (size of word) to char		*					 
-     *	3. set s by the array								*
-     *	4. set the rest if needed byte by byte				*/
+ *	set byte by byte until aligned 					*
+ *	initialize the array (size of word) to char		*					 
+ *	set s by the array								*
+ *	set the rest if needed byte by byte				*/
 
 
-
+/*
 static void *SetByte(void *s, int c)
 {
 	char *ptr_s = (char*)s;
@@ -20,8 +20,8 @@ static void *SetByte(void *s, int c)
 	++ptr_s;
 
 	return ptr_s;
-	
 }
+*/
 
 void *Memset(void *s, int c, size_t n)
 {
@@ -31,7 +31,9 @@ void *Memset(void *s, int c, size_t n)
      
     while( (0 < n) && (0 != ((size_t)&ptr_s % WORDSIZE)) )
     {
-        ptr_s = SetByte(ptr_s, c);
+      
+		*ptr_s = (char)c;
+		++ptr_s;
 		--n;
     }
     
@@ -49,35 +51,40 @@ void *Memset(void *s, int c, size_t n)
    
     while ( 0 < n )
     {
-    	ptr_s = SetByte(ptr_s, c);
-    	--n;
+    	*ptr_s = (char)c;
+		++ptr_s;
+		--n;
 	}
 	
     return s;
 }
 
-/*	pseudo
- *	1. set byte by byte until aligned 						*
- *	2. keep copy the src to array							*		
- *			initialize the array (size of word) to src 		*					 
- *		 	set s by the array								*
- *	3. set the rest if needed byte by byte					*/
+/*	pseudo							 						*				
+ *	while wordsize < num			 						*
+ *		copy word to dest									*		
+ *	set the rest if needed byte by byte						*/
 
-void *Memcpy(void *dest,const void* src, int n)
+void *Memcpy(void *dest,const void *src, size_t n)
 {
 	
     char *p_dest = (char*)dest;
     char *p_src = (char*)src;
-    size_t arr[WORDSIZE] = {0};
-    
-    while( (0 < n) && (0 != ((size_t)&p_dest % WORDSIZE)) )
-    {
-        ptr_s = SetByte(ptr_s, c);
+ 	
+ 	while (WORDSIZE <= n)
+ 	{
+    	*(size_t*)p_dest =*(size_t*)p_src;
+  		p_dest += WORDSIZE; 
+		p_src += WORDSIZE;
+ 		n -= WORDSIZE;
+ 	}
+ 	
+    while ( 0 < n )
+ 	{
+ 		*p_dest =*p_src;
+ 		++p_dest; 
+		++p_src;
 		--n;
-    }
-
- 
- 
+ 	}
  
     return dest;
 }
