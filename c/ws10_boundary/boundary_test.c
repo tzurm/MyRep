@@ -58,7 +58,7 @@ void Ex1_Memset()
 	printf("my Memset \n");
 	printf("Before:	");
 	puts(str3);
-	Memset(str3,'*',20);
+	Memset(str3,'*',5);
 	printf("After:	");
 	puts(str3);
 	puts("");
@@ -66,7 +66,7 @@ void Ex1_Memset()
 	printf("original memset \n");
 	printf("Before:	");
 	puts(str4);
-	memset(str4,'*',20);
+	memset(str4,'*',5);
 	printf("After:	");
 	puts(str4);
 	
@@ -104,6 +104,11 @@ void Ex1_Memmove()
     const char src2[4] = "123";
     char dest2[50] = {0};
     
+    const char src3[15] = "9999999";
+    char dest3[50] = {0};
+    const char src4[15] = "9999999";
+    char dest4[50] = {0};
+    
     printf("Test_1 \n");
     printf("my memcpy \n");
     strcpy(dest1,"random string");
@@ -116,6 +121,20 @@ void Ex1_Memmove()
     printf("Before:	%s\n", dest2);
     memmove(dest2, src2, 3);
     printf("After:	%s\n", dest2);
+	
+	
+	printf("Test_2 \n");
+    printf("my memcpy \n");
+    strcpy(dest3,"111");
+    printf("Before:	%s\n", dest3);
+    Memmove(dest3, src3, 6);
+    printf("After:	%s\n", dest3);
+    
+    printf("\noriginal memcpy \n");
+    strcpy(dest4,"111");
+    printf("Before:	%s\n", dest4);
+    memmove(dest4, src4, 6);
+    printf("After:	%s\n", dest4);
 	
 }
 

@@ -89,26 +89,47 @@ void *Memcpy(void *dest,const void *src, size_t n)
     return dest;
 }
 
+/*  Approve by pini 20.9*/
+
 /*	pseudo							 					*				
  *	check what address is higher						*
- *	if dest 											*
+ *	if dest higher:										*
  *		point to last byte of dest		 				*
  *		copy from end to start	(src to dest)			*		
  *	else												*
- *		copy from start to end (src to dest)
- 														*/
+ *		copy from start to end (src to dest)			*/
  								
 void *Memmove(void *dest, const void *src, size_t n)
 {
-	
-	printf("%ld \n" , (long int)dest);
-	printf("%ld \n" , (long int)src);
-	
-	return dest;
-	/*
 	char *p_dest = (char*)dest;
     char *p_src = (char*)src;
-	if (&p_dest > &p_src) */
+	if (&p_dest > &p_src) 
+	{
+		while ( NULL == p_dest)
+		{
+			++p_dest;
+		}
+		while ( 0 < n )
+	 	{
+			*p_dest = *p_src;
+			--p_dest; 
+			--p_src;
+		}
+	}
+	else 
+	{
+		while ( 0 < n )
+	 	{
+	 		*p_dest =*p_src;
+	 		++p_dest; 
+			++p_src;
+			--n;
+	 	}
+	}
+	
+	return dest;
+	
+	
 }
 
 
