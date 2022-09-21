@@ -5,7 +5,7 @@
 #include <stdlib.h>		/* remove */
 #include <string.h>		/* strcpy */
 
-void CheckAtoi(char* str);
+void CheckAtoi(char **str, int n);
 
 void CheckItoa(int num , char *buffer, int base);
 

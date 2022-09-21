@@ -11,7 +11,7 @@ void Ex1_Memmove();
 
 int main() 
 {
-	printf("\n***** TESTS  Atoi explicit: string to int**************** \n\n");
+	printf("\n***** TESTS  Atoi explicit:string to int **************** \n\n");
   
  	Test_Atoi();
  	
@@ -27,19 +27,9 @@ int main()
 /* string to int */
 void Test_Atoi()
 {
-	char str1[] = "0";
- 	char str2[] = "123";
-    char str3[] = "3check";
-    char str4[] = "check3";
-    char str5[] = "-10";
-    char str6[] = "-15f";
-   
-	CheckAtoi(str1);
-	CheckAtoi(str2);
-	CheckAtoi(str3);
-	CheckAtoi(str4);
-	CheckAtoi(str5);
-	CheckAtoi(str6);
+	char *str_arr[6] ={"0", "123" , "3check" , "check3" , "-10" , "-15f"};
+
+	CheckAtoi(str_arr , 6);
     
     printf("\n\n**********************************************************\n");
 

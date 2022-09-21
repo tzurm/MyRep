@@ -3,11 +3,19 @@
 #include "atoi.h"
 
 
-void CheckAtoi(char* str)
+void CheckAtoi(char **str, int n)
 {
-	 printf("\ninput:	%s	Atoi:	%d	atoi:	%d	",str, Atoi(str) ,atoi(str));
-	 Atoi(str) == atoi(str) ? printf("SUCCESS") : printf("FAILURE");
+	int i = 0;
+	for(i  =0 ; i < n ; ++i)
+	{
+    printf("\ninput:	%s	Atoi:	%d	atoi:	%d	",
+    	str[i], 	Atoi(str[i]) ,atoi(str[i]));
+	
+	Atoi(str[i]) == atoi(str[i]) ? printf("SUCCESS") : printf("FAILURE");
+    }
+    
 }
+
 
 void CheckItoa(int num , char *buffer, int base)
 {
