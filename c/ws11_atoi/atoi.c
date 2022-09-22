@@ -1,5 +1,10 @@
 #include <assert.h>  
+#include <stdio.h>		/* printf */
+#include <stdlib.h>		/* sprintf */
+#include <string.h>		/* strcpy */
 #include "atoi.h"
+
+#define IS_LITTLE_ENDIAN() ((char *)(1) == (char *)(1u) ? (1) : (0))
 #define LUT_LEN 256
 
 void CheckAtoi(char **str, int n)
@@ -23,8 +28,8 @@ void CheckItoa(int num , char *buffer, int base)
 	sprintf(buffer, "%d" , num);
 	printf("sprintf	%s	", buffer);
 	
-	0 == strcmp(buffer,Itoa(num,buffer,base)) ?
-		 printf("SUCCESS") : printf("FAILURE");
+	(0 == strncmp (buffer,Itoa(num,buffer,base),strlen(buffer))) ?
+		printf("SUCCESS") : printf("FAILURE");
 }
 
 static char *ReverseStr(char *str)
@@ -48,7 +53,7 @@ static char *ReverseStr(char *str)
 
 
 
-/*  Approve by					*/
+/*  Approve by	Andrey 22.9		*/
 
 /* string to int 				*
  *	pseudo						*
@@ -86,7 +91,7 @@ int Atoi(char *str)
 }
 
 
-/*	Approve by							*/
+/*	Approve by	Andrey	22.9			*/
 
 /*	int to string						*
  *	pseudo								*
@@ -129,13 +134,15 @@ char *Itoa(int num, char *buffer, int base)
  	{
  		buffer[i] = '-';
  	}
+ 	
     ReverseStr(buffer);
+    
     
     return buffer;
 }
 
 
-/*  Approve by						*/	
+/*  Approve by	Andrey 22.9			*/	
 
 /* CheckEndian						*
  *	pseudo							*
@@ -148,7 +155,15 @@ void CheckEndian(char *c)
 	(0 == *c ) ? printf("Big endian\n") : printf("Little endian\n"); 
 }
 
-/*  Approve by						*/	
+size_t CheckMacroEndian()	
+{
+	return IS_LITTLE_ENDIAN();
+}
+
+
+
+
+/*  Approve by	andrey 22.9													*/	
 
 /* input 3 array output: the chars that appear in array 1,2 and not in 3	*
  *	pseudo																	*
@@ -161,12 +176,12 @@ void IsChInArr(char *arr1, char *arr2, char *arr3, int len1, int len2, int len3)
 	char LUT[LUT_LEN] = {0};
 	int i = 0;
 
-	for(i = 0 ; i < len1 ; ++i)
+	for(i = 0 ; i < len1-1 ; ++i)
 	{
 		LUT[(int)arr1[i]] = 1;
 	}
 
-	for(i = 0 ; i < len2 ; ++i)
+	for(i = 0 ; i < len2-1 ; ++i)
 	{
 		if(3 == LUT[(int)arr2[i]])
 		{

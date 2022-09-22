@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "atoi.h"
 
 
@@ -57,19 +58,22 @@ void Test_Itoa()
 	char buffer8[50] = {0};
 	char buffer9[50] = {0};
 	char buffer10[50] = {0};
+	char buffer11[50] = {0};
+	char buffer12[50] = {0};
+	
 	
 	CheckItoa(1010, buffer1, 10);
 	CheckItoa(1000, buffer2, 10);
-	CheckItoa(101, buffer2, 10);
-	CheckItoa(123, buffer3, 10);
-	CheckItoa(100, buffer4, 10);
-	CheckItoa(1, buffer5, 10);
-	CheckItoa(0, buffer6, 10);
-	CheckItoa(-1, buffer7, 10);
-	CheckItoa(-100, buffer8, 10);
-	CheckItoa(-123, buffer8, 10);
-	CheckItoa(-1000, buffer9, 10);
-	CheckItoa(-1010, buffer10, 10);
+	CheckItoa(101, buffer3, 10);
+	CheckItoa(123, buffer4, 10);
+	CheckItoa(100, buffer5, 10);
+	CheckItoa(1, buffer6, 10);
+	CheckItoa(0, buffer7, 10);
+	CheckItoa(-1, buffer8, 10);
+	CheckItoa(-100, buffer9, 10);
+	CheckItoa(-123, buffer10, 10);
+	CheckItoa(-1000, buffer11, 10);
+	CheckItoa(-1010, buffer12, 10);
 	
 	
 	
@@ -92,7 +96,8 @@ void Test_Endian()
 	unsigned int num = 1234;
 	CheckEndian((char*)&num);
 	
-	CHECK_ENDIAN((char*)&num);
+	
+	(1 == CheckMacroEndian()) ? printf("Little endian\n") : printf("big");
 	
 	
 	
