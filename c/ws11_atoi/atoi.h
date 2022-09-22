@@ -19,6 +19,7 @@ char *Itoa(int num, char *buffer, int base);
 
 void CheckEndian(char *c);
 
+void IsChInArr(char *arr1, char *arr2, char *arr3, int len1, int len2, int len3);
 
 
 #endif

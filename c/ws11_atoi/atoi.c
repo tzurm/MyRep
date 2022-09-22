@@ -1,6 +1,6 @@
 #include <assert.h>  
 #include "atoi.h"
-
+#define LUT_LEN 256
 
 void CheckAtoi(char **str, int n)
 {
@@ -148,6 +148,46 @@ void CheckEndian(char *c)
 	(0 == *c ) ? printf("Big endian\n") : printf("Little endian\n"); 
 }
 
+/*  Approve by						*/	
+
+/* input 3 array output: the chars that appear in array 1,2 and not in 3	*
+ *	pseudo																	*
+ *	if found in array 1,2 flag equal to 3									*
+ *	if found in 3 flag equal to 0											*		
+ *	print all chars the with flag is 3										*/
+ 
+void IsChInArr(char *arr1, char *arr2, char *arr3, int len1, int len2, int len3)
+{
+	char LUT[LUT_LEN] = {0};
+	int i = 0;
+
+	for(i = 0 ; i < len1 ; ++i)
+	{
+		LUT[(int)arr1[i]] = 1;
+	}
+
+	for(i = 0 ; i < len2 ; ++i)
+	{
+		if(3 == LUT[(int)arr2[i]])
+		{
+			continue;
+		}
+		LUT[(int)arr2[i]] += 2;
+	}
+
+	for(i = 0 ; i < len3 ; ++i)
+	{
+		LUT[(int)arr3[i]] = 0;
+	}
+	
+	for(i = 0 ; i < LUT_LEN ; ++i)
+	{
+		if(3 == LUT[i])
+		{
+			printf("%d\t",(char)i);
+		}
+	}
+}
 
 
 

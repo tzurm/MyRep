@@ -6,6 +6,8 @@ void Test_Atoi();
 
 void Test_Itoa();
 
+void Test_found_at_two_array();
+
 void Test_Endian();
 
 
@@ -16,15 +18,19 @@ int main()
  	Test_Atoi();
  	
   
- 	printf("\n***** TESTS  Itoa  explicit: int to string ************** \n\n");
+ 	printf("\n\n***** TESTS  Itoa  explicit: int to string ************ \n\n");
   
  	Test_Itoa();
  	
- 	printf("\n***** TESTS endian *************************************** \n\n");
+ 	printf("\n\n***** TESTS Found in two arraay *********************** \n\n");
+  
+ 	Test_found_at_two_array();
+ 	
+ 	printf("\n\n***** TESTS endian ************************************ \n\n");
   
  	Test_Endian();
 
- 
+	
 	return(0);
 }	
  	
@@ -35,7 +41,6 @@ void Test_Atoi()
 
 	CheckAtoi(str_arr , 6);
     
-    printf("\n\n**********************************************************\n");
 
 }
 
@@ -50,19 +55,36 @@ void Test_Itoa()
 	char buffer6[50] = {0};
 	char buffer7[50] = {0};
 	char buffer8[50] = {0};
+	char buffer9[50] = {0};
+	char buffer10[50] = {0};
 	
-	CheckItoa(100000000, buffer1, 10);
-	CheckItoa(1010, buffer2, 10);
+	CheckItoa(1010, buffer1, 10);
+	CheckItoa(1000, buffer2, 10);
 	CheckItoa(101, buffer2, 10);
-	CheckItoa(100, buffer3, 10);
-	CheckItoa(1, buffer4, 10);
-	CheckItoa(0, buffer5, 10);
-	CheckItoa(-1, buffer6, 10);
-	CheckItoa(-100, buffer7, 10);
-	CheckItoa(-1010, buffer8, 10);
-	CheckItoa(-1010000000, buffer8, 10);
+	CheckItoa(123, buffer3, 10);
+	CheckItoa(100, buffer4, 10);
+	CheckItoa(1, buffer5, 10);
+	CheckItoa(0, buffer6, 10);
+	CheckItoa(-1, buffer7, 10);
+	CheckItoa(-100, buffer8, 10);
+	CheckItoa(-123, buffer8, 10);
+	CheckItoa(-1000, buffer9, 10);
+	CheckItoa(-1010, buffer10, 10);
 	
-	printf("\n\n***********************************************************\n");
+	
+	
+	
+}
+
+void Test_found_at_two_array()
+{
+	char str1[7] = {'A','B','C','D','E','F','\0'};
+	char str2[7] = {'B','C','A','D','3','4','\0'};
+	char str3[7] = {'A','C','4','3','E','F','\0'};
+	
+	IsChInArr(str1, str2, str3, 7, 7, 6);
+	
+	
 }
 
 void Test_Endian()
@@ -71,6 +93,9 @@ void Test_Endian()
 	CheckEndian((char*)&num);
 	
 	CHECK_ENDIAN((char*)&num);
+	
+	
+	
 }
 
 
