@@ -1,35 +1,34 @@
-
 #ifndef __BITARR__
 #define __BITARR__
 
-typedef char[8] bitarr;
+typedef size_t bitarr;
 
 
-bitarr Set_All(bit_arr arr);									
+bitarr SetAll(bitarr bit_arr);									
 
-bitarr Reset_All(bitarr arr);								
+bitarr ResetAll(bitarr bit_arr);								
 
-bitarr Set_On(bitarr arr, size_t index);									
+bitarr SetOn(bitarr bit_arr, size_t index);									
 
-bitarr Set_Off(bitarr arr, size_t index);					
+bitarr SetOff(bitarr bit_arr, size_t index);					
 
-bitarr Set_Bit(bitarr arr ,int value ,size_t index );	
+bitarr SetBit(bitarr bit_arr ,size_t index ,int value );	
 
-int Get_Val(bitarr arr , size_t index );
+int GetVal(bitarr bit_arr , size_t index );
 
-bitarr FlipBit(bitarr arr , size_t index );								
+bitarr FlipBit(bitarr bit_arr , size_t index );								
 
-bitarr Mirror(bitarr arr);
+bitarr Mirror(bitarr bit_arr);
 
-bitarr RotateRight(bitarr arr , int num );
+bitarr RotateRight(bitarr bit_arr , size_t num );
 
-bitarr RotateLeft(bitarr arr , int num );
+bitarr RotateLeft(bitarr bit_arr , size_t num );
 
-size_t CountOn(*bitarr arr);
+size_t CountOn(bitarr bit_arr);
 
-size_t  CountOff(bitarr arr);
+size_t  CountOff(bitarr bit_arr);
 
-char ToString(*bitarr arr);
+char *ToString(bitarr bit_arr , char *str);
 
 
 #endif
