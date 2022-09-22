@@ -1,5 +1,4 @@
 #include <assert.h>  
-
 #include "atoi.h"
 
 
@@ -19,7 +18,13 @@ void CheckAtoi(char **str, int n)
 
 void CheckItoa(int num , char *buffer, int base)
 {
-	printf("\nnum:	%d	base:	%d	Itoa:	%s", num, base, Itoa(num,buffer,base));
+	printf("\nnum: 	%d	base:	%d	Itoa:	%s	",
+		num, base, Itoa(num,buffer,base));
+	sprintf(buffer, "%d" , num);
+	printf("sprintf	%s	", buffer);
+	
+	0 == strcmp(buffer,Itoa(num,buffer,base)) ?
+		 printf("SUCCESS") : printf("FAILURE");
 }
 
 static char *ReverseStr(char *str)
@@ -128,4 +133,23 @@ char *Itoa(int num, char *buffer, int base)
     
     return buffer;
 }
+
+
+/*  Approve by						*/	
+
+/* CheckEndian						*
+ *	pseudo							*
+ *	if the left byte is empty		*
+ *		yes ->	big endian			*		
+ *		no	->	little endian		*/
+
+void CheckEndian(char *c)	
+{
+	(0 == *c ) ? printf("Big endian\n") : printf("Little endian\n"); 
+}
+
+
+
+
+
 

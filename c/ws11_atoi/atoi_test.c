@@ -5,9 +5,9 @@
 void Test_Atoi();
 
 void Test_Itoa();
-/*
-void Ex1_Memmove();
-*/
+
+void Test_Endian();
+
 
 int main() 
 {
@@ -19,6 +19,10 @@ int main()
  	printf("\n***** TESTS  Itoa  explicit: int to string ************** \n\n");
   
  	Test_Itoa();
+ 	
+ 	printf("\n***** TESTS endian *************************************** \n\n");
+  
+ 	Test_Endian();
 
  
 	return(0);
@@ -47,16 +51,26 @@ void Test_Itoa()
 	char buffer7[50] = {0};
 	char buffer8[50] = {0};
 	
-	CheckItoa(123, buffer1, 10);
-	CheckItoa(123, buffer2, 8);
-	CheckItoa(123, buffer3, 6);
-	CheckItoa(123, buffer4, 2);
-	CheckItoa(123, buffer5, 35);
-	CheckItoa(0, buffer6, 10);
-	CheckItoa(-123, buffer7, 10);
-	CheckItoa(-123, buffer8, 2);
+	CheckItoa(100000000, buffer1, 10);
+	CheckItoa(1010, buffer2, 10);
+	CheckItoa(101, buffer2, 10);
+	CheckItoa(100, buffer3, 10);
+	CheckItoa(1, buffer4, 10);
+	CheckItoa(0, buffer5, 10);
+	CheckItoa(-1, buffer6, 10);
+	CheckItoa(-100, buffer7, 10);
+	CheckItoa(-1010, buffer8, 10);
+	CheckItoa(-1010000000, buffer8, 10);
 	
-	printf("\n\n**********************************************************\n");
+	printf("\n\n***********************************************************\n");
+}
+
+void Test_Endian()
+{
+	unsigned int num = 1234;
+	CheckEndian((char*)&num);
+	
+	CHECK_ENDIAN((char*)&num);
 }
 
 
