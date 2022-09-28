@@ -12,7 +12,7 @@ int main()
 {
     
 	size_t arr = 4294967295;	/* half bits ON */
-	char buffer [64] ={'\0'};
+	char buffer [65] ={0};
 	
     ToString(arr , buffer);
 	printf ("\narr:	%s\n", buffer);
@@ -70,6 +70,7 @@ int main()
 	
 	ToString(arr , buffer);
 	printf ("\narr:	%s %ld %ld\n " ,buffer, CountOff(arr) ,CountOn(arr));
+	printf ("\nvalue of bit is  %d\n", GetVal(arr,64));
 
 	/*							rotate right								*/
 	arr = RotateRight(arr, 0);
@@ -80,7 +81,12 @@ int main()
 	arr = RotateLeft(arr, 2);
 	ToString(arr , buffer);
 	printf ("\narr:	%s %ld %ld\n " ,buffer, CountOff(arr) ,CountOn(arr));
-
+	
+	arr = SetOn(arr , 63);
+	printf ("\nvalue of bit is  %d\n", GetVal(arr,63));
+	ToString(arr , buffer);
+	printf ("\narr:	%s %ld %ld\n " ,buffer, CountOff(arr) ,CountOn(arr));
+	
 	return 0;
 }
 

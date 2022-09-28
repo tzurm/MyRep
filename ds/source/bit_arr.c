@@ -1,99 +1,123 @@
+#include <assert.h>					/*	assert	*/
+#include <stddef.h>					/*	size_t	*/
 
-#include <stddef.h>
-#include "bit_arr.h"
 
-#define LEN = 64
 
-typedef size_t bit_arr_t;
+#include "../include/bit_arr.h"
 
-/* set all bit to 1	 		input: arr 						output: arr		*/
-
+#define LEN_BIT_ARR 64
+#define BITON '1'
+#define BITOFF '0'
 
 bit_arr_t SetAll(bit_arr_t arr)
 {
-	
-	return arr | 0xFF;
+	return ~(arr & 0);
 }								
 
-/* set all bit to 0		 	input: arr				 		output: arr		*/
 
 bit_arr_t ResetAll(bit_arr_t arr)	
 {
-	
-	return arr;
+	return arr & 0;
 }							
 
-/* set one bit to 1		 	input: arr, index 				output: arr		*/
-
+/* arr OR 1 return 1	*/
 bit_arr_t SetOn(bit_arr_t arr, size_t index)	
 {
+	arr |= 1UL << index;
 	
 	return arr;
 }							
 
-/* set one bit to 0	 		input: arr, index		 		output: arr		*/
 
+/* arr AND 0 return 0	*/
 bit_arr_t SetOff(bit_arr_t arr, size_t index)	
 {
+/*	assert (LEN_BIT_ARR > index); */
+	arr &= ~(1UL << index);
 	
 	return arr;
 }							
 
 				
-/* set one bit to value	 	input: arr, index, value 		output: arr		*/
+
 bit_arr_t SetBit(bit_arr_t arr ,size_t index ,int value )	
 {
+	/*assert (LEN_BIT_ARR > index);
+	assert (LEN_BIT_ARR > index);*/
+	arr ^= (-value ^ arr) & (1UL << index);
 	
 	return arr;
 }							
 
 
-/* get value of bit			input: arr, index		 		output: arr		*/
+/* if 1 return 1 if no return 0	*/
 int GetVal(bit_arr_t arr , size_t index )	
 {
-	
-	
-	return 1;
+	/*assert (LEN_BIT_ARR > index); */
+	return (arr >> index) & 1;
 }							
 
 
-/* get flip one bit			input: arr, index		 		output: arr		*/
+
 
 bit_arr_t FlipBit(bit_arr_t arr , size_t index )	
 {
 	
-	return arr;
+	return arr^(1UL << index);
 }							
 
 								
-/* mirror the array			input: arr				 		output: arr		*/
 
+/*	pseudo							*
+ *	create new arr					*
+ *	pass the first bit				*
+ *	pass the next bit until end		*
+ *	return the reversed array		*/
+ 
 bit_arr_t Mirror(bit_arr_t arr)	
 {
-	
-	return arr;
-}							
+	int i = 0;
+    bit_arr_t rev = arr & 1;
+    for ( i = 1; i < LEN_BIT_ARR; ++i) 
+    {
+		arr = arr >> 1;
+        rev = rev << 1;
+        rev = rev | (arr & 1);
+    }
+    return rev;
+}						
 
 
-/* Rotate Right n times		input: arr, num		 			output: arr		*/
 
 bit_arr_t RotateRight(bit_arr_t arr , size_t num )	
 {
-	
-	return arr;
+	bit_arr_t copy_arr = arr;
+       
+    num = num % LEN_BIT_ARR;
+    arr = arr >> num;
+    copy_arr = copy_arr << (LEN_BIT_ARR - num);
+    
+    return arr | copy_arr;
 }							
 
 
-/* Rotate left n times		input: arr, num		 			output: arr		*/
 
 bit_arr_t RotateLeft(bit_arr_t arr , size_t num )	
 {
 	
-	return arr;
+
+    bit_arr_t copy_arr = arr;
+       
+    num = num % LEN_BIT_ARR;
+    arr = arr << num;
+    copy_arr = copy_arr >> (LEN_BIT_ARR - num);
+    
+    return arr | copy_arr;
+
+
 }							
 
 
-/* count bits on			input: arr				 		output: num		*/
 
 size_t CountOn(bit_arr_t arr)	
 {
@@ -108,22 +132,33 @@ size_t CountOn(bit_arr_t arr)
 	return count;
 }							
 
-/* count bits off					input: arr		 		output: num		*/
+
 
 size_t  CountOff(bit_arr_t arr)	
 {	
 	
-	return LEN-CountOn(arr);
+	return LEN_BIT_ARR-CountOn(arr);
 }
 
 
-/* return the array as string		input: arr			s	output: char	*/	
 
 char *ToString(bit_arr_t arr , char *str)	
 {
-	
-	return sprintf(str, "%d" , arr);
+    size_t i = 0;
+    
+    str += LEN_BIT_ARR; 
+    *str='\0';
+    --str;
+    
+    for(i = 0; i < LEN_BIT_ARR; ++i)
+    {  
+    	(1 == (arr & 1)) ? (*str = BITON) : (*str = BITOFF); 
+		arr = arr >> 1;
+		--str;
+    }
+   
+ 
+    return str;
+
 }
-
-
 

@@ -70,6 +70,11 @@ int Atoi(char *str)
     
     assert(NULL != str);
     
+    while( ' ' == str[i])
+	{
+		++i;
+	}
+	
     if( '-' == str[i])
     {
     	is_negative=1;
@@ -105,7 +110,7 @@ char *Itoa(int num, char *buffer, int base)
 	int i = 0;
 	int one_digit = 0;
     int is_negative = 0;
- 	(void)base;
+ 
  	
  	assert(NULL != buffer);
     

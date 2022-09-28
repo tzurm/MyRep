@@ -38,9 +38,10 @@ int main()
 /* string to int */
 void Test_Atoi()
 {
-	char *str_arr[6] ={"0", "123" , "3check" , "check3" , "-10" , "-15f"};
-
-	CheckAtoi(str_arr , 6);
+	char *str_arr[] ={"0", "123" , "3check" , "check3" , "-10" , "-15f",
+	 "  7a" , "  100" ,"  10 1"   };
+	size_t len = sizeof(str_arr)/sizeof (str_arr[0]);
+	CheckAtoi(str_arr , len);
     
 
 }

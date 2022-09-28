@@ -131,6 +131,7 @@ void Ex1_Memmove()
     char dest1[50] = {0};
     char dest2[50] = {0};
     const char src3[15] = "123456789";
+    const char src4[15] = "$$$$$";
     char dest3[50] = {0};
     char dest4[50] = {0};
     
@@ -159,6 +160,19 @@ void Ex1_Memmove()
     strcpy(dest4,"abcdefeg");
     printf("Before:	%s\n", dest4);
     memmove(dest4, src3, 9);
+    printf("After:	%s\n", dest4);
+    
+    printf("\n*****************\nTest_3 \n");
+    printf("my memcpy \n");
+    strcpy(dest3,"12345678");
+    printf("Before:	%s\n", dest3);
+    Memmove(dest3, src4, 5);
+    printf("After:	%s\n", dest3);
+    
+    printf("\noriginal memcpy \n");
+    strcpy(dest4,"12345678");
+    printf("Before:	%s\n", dest4);
+    memmove(dest4, src4, 5);
     printf("After:	%s\n", dest4);
 	
 }

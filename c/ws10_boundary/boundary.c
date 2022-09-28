@@ -1,5 +1,4 @@
 #include <stdio.h>		/*	sizeof	*/
-#include <assert.h>	
 #include "boundary.h"
 #define WORDSIZE sizeof(size_t *)
 
@@ -19,9 +18,9 @@ static void *SetByte(void *s, int c)
 	*ptr_s = (char)c;
 	++ptr_s;
 
-	return ptr_s;
-}
-*/
+	return ptr_s;			
+}									*/
+
 
 void *Memset(void *s, int c, size_t n)
 {
@@ -60,10 +59,10 @@ void *Memset(void *s, int c, size_t n)
     return s;
 }
 /*  Approve by Ziv 20.9*/
-/*	pseudo							 						*				
- *	while wordsize < num			 						*
- *		copy src to dest									*		
- *	set the rest if needed byte by byte						*/
+/*	pseudo									*				
+ *	while wordsize < num					*
+ *		copy src to dest					*		
+ *	set the rest if needed byte by byte		*/
 
 void *Memcpy(void *dest,const void *src, size_t len)
 {
@@ -93,13 +92,13 @@ void *Memcpy(void *dest,const void *src, size_t len)
 
 /*  Approve by Pini 20.9*/
 
-/*	pseudo							 					*				
- *	check what address is higher						*
- *	if dest higher:										*
- *		point to last byte of dest		 				*
- *		copy from end to start	(src to dest)			*		
- *	else												*
- *		copy from start to end (src to dest)			*/
+/*	pseudo						 					*				
+ *	check what address is higher					*
+ *	if dest higher:									*
+ *		point to last byte of dest					*
+ *		copy from end to start	(src to dest)		*		
+ *	else											*
+ *		copy from start to end (src to dest)		*/
  								
 void *Memmove(void *dest, const void *src, size_t n)
 {
