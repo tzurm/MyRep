@@ -93,7 +93,7 @@ void *Memcpy(void *dest,const void *src, size_t len)
 /*  Approve by Pini 20.9*/
 
 /*	pseudo						 					*				
- *	check what address is higher					*
+ *	check what address is higher for overlap		*
  *	if dest higher:									*
  *		point to last byte of dest					*
  *		copy from end to start	(src to dest)		*		
