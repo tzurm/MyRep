@@ -4,7 +4,7 @@
 
 typedef struct  stack stack_t;
 			
-stack_t *Create(size_t capacity , size_t size_of_elemnets);
+stack_t *Create(size_t capacity , size_t size_of_elemnet);
 
 void Destroy(stack_t* this_stack);							
 
