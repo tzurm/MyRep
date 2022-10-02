@@ -12,7 +12,7 @@
 
 static char *ReverseStr(char *str)
 {
-	char temp;
+	char temp ='0';
 	char *end = str + strlen(str) - 1;
 
 	assert(NULL != str);
