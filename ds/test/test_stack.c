@@ -43,7 +43,10 @@ void Test_1()
 	
 	Push(my_stack , &value[3]);
 	printf("current top:	%.2f\n",*(float*)Peek(my_stack));
-	
+	/* test for push when limit
+	Push(my_stack , &value[3]);
+	printf("current top:	%.2f\n",*(float*)Peek(my_stack));
+	*/
 	Pop(my_stack);
 	printf("current top:	%.2f\n",*(float*)Peek(my_stack));
 	
