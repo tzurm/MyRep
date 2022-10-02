@@ -1,7 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 #include "atoi.h"
 
+void CheckAtoi(char **str, int n);
+
+void CheckItoa(int num , char *buffer, int base);
 
 void Test_Atoi();
 
@@ -18,7 +23,6 @@ int main()
   
  	Test_Atoi();
  	
-  
  	printf("\n\n***** TESTS  Itoa  explicit: int to string ************ \n\n");
   
  	Test_Itoa();
@@ -42,8 +46,7 @@ void Test_Atoi()
 	 "  7a" , "  100" ,"  10 1"   };
 	size_t len = sizeof(str_arr)/sizeof (str_arr[0]);
 	CheckAtoi(str_arr , len);
-    
-
+   
 }
 
 /* int to string */
@@ -62,7 +65,6 @@ void Test_Itoa()
 	char buffer11[50] = {0};
 	char buffer12[50] = {0};
 	
-	
 	CheckItoa(1010, buffer1, 10);
 	CheckItoa(1000, buffer2, 10);
 	CheckItoa(101, buffer3, 10);
@@ -76,9 +78,6 @@ void Test_Itoa()
 	CheckItoa(-1000, buffer11, 10);
 	CheckItoa(-1010, buffer12, 10);
 	
-	
-	
-	
 }
 
 void Test_found_at_two_array()
@@ -89,7 +88,6 @@ void Test_found_at_two_array()
 	
 	IsChInArr(str1, str2, str3, 7, 7, 6);
 	
-	
 }
 
 void Test_Endian()
@@ -97,11 +95,34 @@ void Test_Endian()
 	unsigned int num = 1234;
 	CheckEndian((char*)&num);
 	
-	
 	(1 == CheckMacroEndian()) ? printf("Little endian\n") : printf("big");
 	
+}
+
+void CheckAtoi(char **str, int n)
+{
+	int i = 0;
 	
+	for(i  =0 ; i < n ; ++i)
+	{
+		printf("\ninput:	%s	Atoi:	%d	atoi:	%d	",
+			str[i], 	Atoi(str[i]) ,atoi(str[i]));
+		
+		Atoi(str[i]) == atoi(str[i]) ? printf("SUCCESS") : printf("FAILURE");
+    }
+    
+}
+
+
+void CheckItoa(int num , char *buffer, int base)
+{
+	printf("\nnum: 	%d	base:	%d	Itoa:	%s	",
+		num, base, Itoa(num,buffer,base));
+	sprintf(buffer, "%d" , num);
+	printf("sprintf	%s	", buffer);
 	
+	(0 == strncmp (buffer,Itoa(num,buffer,base),strlen(buffer))) ?
+		printf("SUCCESS") : printf("FAILURE");
 }
 
 

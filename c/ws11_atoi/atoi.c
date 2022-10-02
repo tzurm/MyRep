@@ -1,36 +1,14 @@
-#include <assert.h>  
-#include <stdio.h>		/* printf */
-#include <stdlib.h>		/* sprintf */
-#include <string.h>		/* strcpy */
+#include <assert.h>  	/* assert	*/
+#include <stdio.h>		/* printf	*/
+#include <stdlib.h>		/* sprintf	*/
+#include <string.h>		/* strlen	*/
 #include "atoi.h"
+
+/*  Approve by	Arie 22.9		*/
 
 #define IS_LITTLE_ENDIAN() ((char *)(1) == (char *)(1u) ? (1) : (0))
 #define LUT_LEN 256
 
-void CheckAtoi(char **str, int n)
-{
-	int i = 0;
-	for(i  =0 ; i < n ; ++i)
-	{
-    printf("\ninput:	%s	Atoi:	%d	atoi:	%d	",
-    	str[i], 	Atoi(str[i]) ,atoi(str[i]));
-	
-	Atoi(str[i]) == atoi(str[i]) ? printf("SUCCESS") : printf("FAILURE");
-    }
-    
-}
-
-
-void CheckItoa(int num , char *buffer, int base)
-{
-	printf("\nnum: 	%d	base:	%d	Itoa:	%s	",
-		num, base, Itoa(num,buffer,base));
-	sprintf(buffer, "%d" , num);
-	printf("sprintf	%s	", buffer);
-	
-	(0 == strncmp (buffer,Itoa(num,buffer,base),strlen(buffer))) ?
-		printf("SUCCESS") : printf("FAILURE");
-}
 
 static char *ReverseStr(char *str)
 {
@@ -75,19 +53,19 @@ int Atoi(char *str)
 		++i;
 	}
 	
-    if( '-' == str[i])
+    if('-' == str[i])
     {
     	is_negative=1;
     	++i;
     }
     
-    while( '9' >= str[i] && '0' <= str[i] && '\0' != str[i] )
+    while('9' >= str[i] && '0' <= str[i] && '\0' != str[i])
     {    
         result = result * 10 + str[i] -'0';
         ++i;
     }
     
-    if( 1 == is_negative)
+    if(1 == is_negative)
     {
     	result = -result;
     }
@@ -111,10 +89,9 @@ char *Itoa(int num, char *buffer, int base)
 	int one_digit = 0;
     int is_negative = 0;
  
- 	
  	assert(NULL != buffer);
     
-    if( 0 == num)
+    if(0 == num)
 	{
 		buffer[i] = '0';
 		return buffer;
@@ -129,7 +106,7 @@ char *Itoa(int num, char *buffer, int base)
 	while(num > 0)
 	{
 		one_digit = num % base;
-		buffer[i] = one_digit + '0' ;
+		buffer[i] = one_digit + '0';
         num /= base;
 		++i;
       
@@ -141,7 +118,6 @@ char *Itoa(int num, char *buffer, int base)
  	}
  	
     ReverseStr(buffer);
-    
     
     return buffer;
 }
@@ -164,8 +140,6 @@ size_t CheckMacroEndian()
 {
 	return IS_LITTLE_ENDIAN();
 }
-
-
 
 
 /*  Approve by	andrey 22.9													*/	

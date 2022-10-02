@@ -24,15 +24,17 @@ static void *SetByte(void *s, int c)
 
 void *Memset(void *s, int c, size_t n)
 {
-    char *ptr_s = (char*)s;
+/*	char temp = (char)c;
+	size_t size_c = 0; set 		*/ 
+    char *runner = (char*)s;
     char arr[WORDSIZE] = {0};
     size_t i = 0;
      
-    while( (0 < n) && (0 != ((size_t)&ptr_s % WORDSIZE)) )
+    while( (0 < n) && (0 != ((size_t)&runner % WORDSIZE)))
     {
       
-		*ptr_s = (char)c;
-		++ptr_s;
+		*runner = (char)c;
+		++runner;
 		--n;
     }
     
@@ -44,15 +46,15 @@ void *Memset(void *s, int c, size_t n)
     
     while( WORDSIZE <= n ) 
     {
-        *(size_t*)ptr_s = *(size_t*)arr;
+        *(size_t*)runner = *(size_t*)arr;
         n -= WORDSIZE;
-        ptr_s += WORDSIZE; 
+        runner += WORDSIZE; 
 	}
    
     while ( 0 < n )
     {
-    	*ptr_s = (char)c;
-		++ptr_s;
+    	*runner = (char)c;
+		++runner;
 		--n;
 	}
 	
@@ -79,7 +81,7 @@ void *Memcpy(void *dest,const void *src, size_t len)
  		
  	}
  	
-    while ( 0 < len )
+    while (0 < len)
  	{
  		*p_dest =*p_src;
  		++p_dest; 
