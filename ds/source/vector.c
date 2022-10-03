@@ -3,7 +3,7 @@
 #include <stdlib.h>					/*		malloc			*/
 #include <stdio.h>					/*		printf			*/
 #include <string.h>					/*		memcpy			*/
-#include "stack.h"					/*		my_stack		*/
+#include "vector.h"					/*		my_vector		*/
 
 #define MALLOC_CHECK(ptr) if(NULL == ptr) {return NULL;}
 
@@ -15,92 +15,58 @@ struct vector
 	size_t size_of_element;			/*	size of the element	*/
 };
 
-
-
-stack_t *Create(size_t capacity, size_t size_of_element)
+vector_t *VectorCreate(size_t capacity , size_t size_of_elemnet)
 {
-	stack_t *hold_stack = (stack_t*)malloc(capacity*size_of_element);
-	stack_t *hold_struct = (stack_t*)malloc(sizeof(stack_t));
-	MALLOC_CHECK(hold_struct);
-	MALLOC_CHECK(hold_struct);
+	vector_t *hold_vector = malloc(sizeof(vector_t));
+	vector_t -> array = malloc(capacity * size_of_elemnet);
+	MALLOC_CHECK(hold_vector);
+	MALLOC_CHECK(vector_t -> array);
 	
-	hold_struct -> stack_ptr = (char*)hold_stack;
-	hold_struct -> size = 0;
-	hold_struct -> capacity = capacity;
-	hold_struct -> size_of_element = size_of_element;
-	
-	return hold_struct;
+	hold_vector -> element_size = size_of_elemnet;
+	hold_vector -> capacity = capacity;
+	hold_vector -> size = 0;
+
+	return(hold_vector);
+
 }
-
-
-void Destroy(stack_t *stack)
+/*
+void VectorDestroy(vector_t *vector)
 {
-	assert(NULL != stack);
-	
-	free(stack -> stack_ptr);
-	free(stack);
-}
-
-
-/*	pseudo										*
- *	check if the capacity is full				*
- *	push the value by memcpy for int value		*
- *	set the size to size +1						*/
- 
-
-void Push(stack_t *stack, const void *value)
-{
-	assert(((stack -> size) / stack -> size_of_element) < (stack -> capacity)); 
-		
-	memcpy((stack -> stack_ptr) + (stack -> size),
-	 value, stack -> size_of_element);
-    stack -> size += stack -> size_of_element;   
-}
-
-/*	pseudo							*
- *	check if the capacity is empty	*
- *	set the size to size -1			*/
- 	
- 
-void Pop(stack_t *stack)
-{
-/*	assert((stack -> size) > 0);	*/
-	
-	if(0 == stack -> size)
-	{
-		printf("ERROR:		Empty stack, can't pop from empty stack\n");
-	}
-	else
-	{	
-		stack -> size -= stack -> size_of_element;
-	}
 
 }
 
-void *Peek(stack_t *stack)
+void *VectorAccessElement(const vector_t *vector ,size_t index);
 {
-	assert(NULL != stack);	
-	
-    return (void*)
-    (stack -> stack_ptr + stack -> size - stack -> size_of_element);
+
 }
 
-int IsEmpty(stack_t *stack)
+void VectorPush(vector_t *vector, const void *value)
 {
-	assert(NULL != stack);	
-	
-	return (stack -> size == 0);
-}
-size_t Size(stack_t *stack)
-{
-	assert(NULL != stack);	
-	
-	return stack -> size / stack -> size_of_element;
-}
-size_t Capacity(stack_t *stack)
-{
-	assert(NULL != stack);
-	
-	return stack -> capacity;
+
 }
 
+void VectorPop(vector_t *vector)
+{
+
+}
+*/
+
+size_t VectorSize(const vector_t *vector);
+{
+	assert(NULL != vector);	
+	
+	return vector -> size;
+}
+
+size_t VectorCapacity(const vector_t *vector)
+{
+	assert(NULL != vector);
+	
+	return vector -> capacity;
+}
+
+/*
+void VectorReserve(vector_t *vector,size_t value)
+
+void VectorShrink(vector_t *vector)
+*/

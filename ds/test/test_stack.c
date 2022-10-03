@@ -1,6 +1,5 @@
 #include <stddef.h>
 #include <stdio.h>
-
 #include "stack.h"
 
 void Test_1();

@@ -3,19 +3,16 @@
 #define __ILRD_CR02_VECTOR_H__
 
 
-
 typedef struct vector vector_t;
 
 
-
-*/
-vector_t *VectorCreate(size_t capacity , size_t size_of_elemnet);
+vector_t *VectorCreate(size_t capacity , size_t size_of_element);
 /******************************************************************************
 * Creates dynamic vector and returns pointer to memory address of new vector  *
 *                                                                             *
 * Parameters:                                                                 *
 *	capacity     - number of elements in vector                               *
-*	size_of_elemnet - size of element in bytes                                *
+*	size_of_element - size of element in bytes                                *
 *******************************************************************************/
 
 
@@ -25,19 +22,18 @@ void VectorDestroy(vector_t *vector);
 * Frees dynamic vector memory												*
 *																			*
 * Parameters:																*
-*	vector - pointer to memory address of vector, not NULL						*
+*	vector - pointer to memory address of vector, not NULL					*
 *****************************************************************************/
 
 
 
-void VectorAccessElement(const vector_t *vector ,size_t index);	
+void *VectorAccessElement(const vector_t *vector ,size_t index);	
 /****************************************************************************
-* Increases dynamic vector capacity to requested capacity.					*
-* If requested capacity is less than current capacity, does nothing.		*
+* Get value in dynamic vector by his index									*
 *																			*
 * Parameters:																*
 *	vector - pointer to memory address of vector, not NULL					*
-*	index - min number of elements in vector								*
+*	index - index of the value												*
 *																			*
 *****************************************************************************/
 
