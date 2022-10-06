@@ -32,7 +32,7 @@ int main()
 void Test_Create()
 {
 	int value[] ={3,6,9,278};
-	vector_t *vector = VectorCreate(1 ,4);
+	vector_t *vector = VectorCreate(20 ,4);
 	
 	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	VectorPush(vector,&value[0]);
@@ -51,7 +51,7 @@ void Test_Create()
 
 void Test_Reserve()
 {
-	vector_t *vector = VectorCreate(3 ,4);
+	vector_t *vector = VectorCreate(20 ,4);
 	
 	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	printf("\n");
