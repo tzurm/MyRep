@@ -8,7 +8,7 @@
 #define MALLOC_CHECK(ptr) if(NULL == ptr) {return NULL;}
 #define GROWTH_FACTOR 2
 #define SHRINK_FACTOR 4
-
+#define SIZE (vector -> capacity) * (vector -> element_size)
 
 struct vector
 {	
@@ -18,13 +18,26 @@ struct vector
 	size_t element_size;			/*	size of the element	*/
 };
 
+
+/*		approved by Roman 6.9.22		*/
 vector_t *VectorCreate(size_t capacity , size_t element_size)
 {
+	
 	vector_t *vector = (vector_t*)malloc(sizeof(vector_t));
 	vector_t *array = malloc(capacity * element_size);
-
+	
+	if(0 == capacity)
+	{
+		return NULL;
+	}
+	
 	MALLOC_CHECK(vector);
-	MALLOC_CHECK(array);
+	
+	if( NULL == array)
+	{
+		free(vector);
+		return NULL;
+	}
 	
 	vector -> array = array;
 	vector -> element_size = element_size;
@@ -35,6 +48,7 @@ vector_t *VectorCreate(size_t capacity , size_t element_size)
 
 }
 
+/*		approved by Roman 6.9.22		*/
 void VectorDestroy(vector_t *vector)
 {
 	assert(NULL != vector);
@@ -43,6 +57,7 @@ void VectorDestroy(vector_t *vector)
 	free(vector);
 }
 
+/*		approved by Roman 6.9.22		*/
 void *VectorAccessElement(const vector_t *vector ,size_t index)
 {
 	assert(NULL != vector);
@@ -51,7 +66,7 @@ void *VectorAccessElement(const vector_t *vector ,size_t index)
 	
 }
 
-
+/*		approved by Roman 6.9.22		*/
 status VectorPush(vector_t *vector, const void *value)
 {
 	assert(NULL != vector);
@@ -74,21 +89,18 @@ status VectorPop(vector_t *vector)
 {
 	assert(NULL != vector);
 	
-	
 	--(vector-> size);
 	
 	if(SHRINK_FACTOR*VectorSize(vector) < VectorCapacity(vector))
 	{
 		vector -> capacity /= 2;
 		vector -> array = realloc
-			(vector -> array, vector -> capacity * vector -> element_size);
+			(vector -> array, SIZE);
 	}
 	
 	return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
 
-
 }
-
 
 size_t VectorSize(const vector_t *vector)
 {
@@ -107,11 +119,12 @@ size_t VectorCapacity(const vector_t *vector)
 
 status VectorReserve(vector_t *vector,size_t value)
 {
+	assert(NULL != vector);	
+	
 	if(value >  (vector -> capacity))
 	{
 		vector -> capacity = value;
-		vector -> array = realloc
-			(vector -> array, vector -> capacity * vector -> element_size);
+		vector -> array = realloc(vector -> array, SIZE);
 	}
 	
 	return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
@@ -119,9 +132,10 @@ status VectorReserve(vector_t *vector,size_t value)
 
 status VectorShrink(vector_t *vector)
 {
-	vector -> capacity = vector -> size;
-	vector -> array = realloc
-		(vector -> array, vector -> capacity * vector -> element_size);
+	assert(NULL != vector);
+	
+	vector -> capacity = VectorSize(vector);
+	vector -> array = realloc(vector -> array, SIZE);
 	
 	return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
 }

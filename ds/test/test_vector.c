@@ -61,6 +61,7 @@ void Test_Reserve()
 	printf("\nsend 5 as capacity");
 	VectorReserve(vector,5);
 	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+
 	
 	VectorDestroy(vector);
 	
@@ -106,9 +107,9 @@ void PrintVector(vector_t *vector)
 	for(i = 0 ; i < VectorCapacity(vector) ; ++i)
 	{
 		printf("%d | ", *(int*)VectorAccessElement(vector,i));
-	}
+	}*/
 	
-	printf("\n");*/
+	printf("\n");
 	for(i = 0 ; i < VectorSize(vector) ; ++i)
 	{
 		printf("%d | ", *(int*)VectorAccessElement(vector,i));
