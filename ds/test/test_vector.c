@@ -9,7 +9,6 @@ void Test_Shrink();
 void Test_ShrinkByPop();
 void PrintVector(vector_t *vector);
 
-
 int main() 
 {
    
@@ -25,6 +24,7 @@ int main()
 	printf("\n\n****************	Test_ShrinkByPop	**************\n");
 	Test_ShrinkByPop();
 	
+	
 	return 0;
 }
 
@@ -32,7 +32,7 @@ int main()
 void Test_Create()
 {
 	int value[] ={3,6,9,278};
-	vector_t *vector = VectorCreate(20 ,4);
+	vector_t *vector = VectorCreate(19 ,4);
 	
 	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	VectorPush(vector,&value[0]);
@@ -115,6 +115,7 @@ void PrintVector(vector_t *vector)
 		printf("%d | ", *(int*)VectorAccessElement(vector,i));
 	}
 }
+
 
 
 

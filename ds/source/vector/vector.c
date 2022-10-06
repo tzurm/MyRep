@@ -89,15 +89,16 @@ status VectorPop(vector_t *vector)
 	assert(NULL != vector);
 	
 	--(vector-> size);
-	
+	/*	if size is quarter of capcity , capacity reduce by half */
 	if(SHRINK_FACTOR*VectorSize(vector) < VectorCapacity(vector))
 	{
 		vector -> capacity /= 2;
-		vector -> array = realloc
-			(vector -> array, SIZE);
+		vector -> array = realloc(vector -> array, SIZE);
+		
+		return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
 	}
 	
-	return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
+	return SUCCESS;
 
 }
 
@@ -124,9 +125,11 @@ status VectorReserve(vector_t *vector,size_t value)
 	{
 		vector -> capacity = value;
 		vector -> array = realloc(vector -> array, SIZE);
+		
+		return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
 	}
 	
-	return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
+	return SUCCESS;
 }
 
 status VectorShrink(vector_t *vector)
