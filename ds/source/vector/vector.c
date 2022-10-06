@@ -77,9 +77,8 @@ status VectorPush(vector_t *vector, const void *value)
 		VectorReserve(vector , vector -> capacity);
 	}
 	
-	memcpy((void *)((char *)vector -> array + (vector-> size) * 
-		(vector -> element_size)),value, vector -> element_size);
-			
+	memcpy((char *)vector -> array + (vector-> size) * (vector -> element_size), value, vector -> element_size);
+	
 	++(vector-> size);
 	
 	return SUCCESS; 
