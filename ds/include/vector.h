@@ -5,6 +5,10 @@
 
 typedef struct vector vector_t;
 
+enum status {SUCCESS , REALLOC_ERROR};
+typedef enum status status;
+
+
 
 vector_t *VectorCreate(size_t capacity , size_t element_size);
 /****************************************************************************
@@ -39,7 +43,7 @@ void *VectorAccessElement(const vector_t *vector ,size_t index);
 
 
 
-void VectorPush(vector_t *vector, const void *value);
+status VectorPush(vector_t *vector, const void *value);
 /****************************************************************************
 * Adds element to top of dynamic vector.									*
 * If size reaches capacity after the push, doubles the capacity.			*
@@ -51,7 +55,7 @@ void VectorPush(vector_t *vector, const void *value);
 
 
 
-void VectorPop(vector_t *vector);
+status VectorPop(vector_t *vector);
 /****************************************************************************
 * Removes element from top of dynamic vector.								*
 *																			*
@@ -86,7 +90,7 @@ size_t VectorCapacity(const vector_t *vector);
 *****************************************************************************/
 
 
-void VectorReserve(vector_t *vector,size_t value);
+status VectorReserve(vector_t *vector,size_t value);
 /****************************************************************************
 * Increases dynamic vector capacity to requested capacity.					*
 * If requested capacity is less than current capacity, does nothing.		*
@@ -97,7 +101,7 @@ void VectorReserve(vector_t *vector,size_t value);
 *****************************************************************************/
 
 
-void VectorShrink(vector_t *vector);
+status VectorShrink(vector_t *vector);
 /****************************************************************************
 * Decrease dynamic vector capacity to his size.								*
 *																			*

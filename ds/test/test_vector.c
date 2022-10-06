@@ -3,99 +3,103 @@
 #include "vector.h"					/*		my_vector		*/
 
 
-void Test_1();
-void Test_2_Shrink();
-void VectorPrint(vector_t *vector);
+void Test_Create();
+void Test_Reserve();
+void Test_Shrink();
+void Test_ShrinkByPop();
+void PrintVector(vector_t *vector);
 
 
 int main() 
 {
    
-	printf("\n******	Test_1	******\n\n");
+	printf("\n\n****************	Test_Create&push	**************\n");
+	Test_Create();
 	
-	Test_1();
+	printf("\n\n****************	Test_Reserve		**************\n");
+	Test_Reserve();
 	
+	printf("\n\n****************	Test_Shrink		**************\n");
+	Test_Shrink();
 	
-	printf("\n******	Test_2_Shrink (resize capacity by pop)	******\n\n");
-	
-	Test_2_Shrink();
-	
-	
-	
+	printf("\n\n****************	Test_ShrinkByPop	**************\n");
+	Test_ShrinkByPop();
 	
 	return 0;
 }
 
 
-void Test_1()
+void Test_Create()
 {
 	int value[] ={3,6,9,278};
 	vector_t *vector = VectorCreate(1 ,4);
 	
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	VectorPush(vector,&value[0]);
 	VectorPush(vector,&value[1]);
 	VectorPush(vector,&value[1]);
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	VectorPush(vector,&value[1]);
-	
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	VectorPush(vector,&value[2]);
+	printf("\nSize:	%ld / %ld\n\n",VectorSize(vector),VectorCapacity(vector));
+	PrintVector(vector);
 	
-	/*************************************************************************/
-	printf("\n*			VectorReserve test when index < size			*\n");
-	
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	printf("\n");
-	
-	
-	VectorReserve(vector,2);
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	
-	/*************************************************************************/
-	printf("\n*				Shrink test							*\n");
-	VectorShrink(vector);
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	
-	
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	printf("\n");
-	
-	VectorPop(vector);
-	
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPrint(vector);
-	printf("\n");
-	/*************************************************************************/
+	VectorDestroy(vector);
 
 }
 
-void Test_2_Shrink()
+void Test_Reserve()
+{
+	vector_t *vector = VectorCreate(3 ,4);
+	
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	printf("\n");
+	printf("\nsend 2 as capacity");
+	VectorReserve(vector,2);
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	printf("\nsend 5 as capacity");
+	VectorReserve(vector,5);
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	
+	VectorDestroy(vector);
+	
+}
+
+void Test_Shrink()
 {
 	int value[] ={3,6,9,278};
-	vector_t *vector = VectorCreate(1 ,4);
+	vector_t *vector = VectorCreate(2 ,4);	
 	
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
 	VectorPush(vector,&value[1]);
-	VectorPush(vector,&value[2]);
-
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorReserve(vector,16);
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
-	VectorPop(vector);
-	printf("\nSTATUS:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	VectorShrink(vector);
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	printf("\n");
+	
+	VectorDestroy(vector);
+	
 }
 
-void VectorPrint(vector_t *vector)
+void Test_ShrinkByPop()
+{
+	int value[] ={3,6,9,278};
+	vector_t *vector = VectorCreate(16 ,4);
+	
+	VectorPush(vector,&value[2]);
+	VectorPush(vector,&value[2]);
+	VectorPush(vector,&value[2]);
+	VectorPush(vector,&value[2]);
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	VectorPop(vector);
+	printf("\nSize:	%ld / %ld\n",VectorSize(vector),VectorCapacity(vector));
+	
+	VectorDestroy(vector);
+	
+}
+
+void PrintVector(vector_t *vector)
 {
 	size_t i = 0;	
 	/*
