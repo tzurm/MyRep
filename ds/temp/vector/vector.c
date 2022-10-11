@@ -86,6 +86,8 @@ status VectorPush(vector_t *vector, const void *value)
 
 status VectorPop(vector_t *vector)
 {
+	void *reall_ptr = NULL;
+	
 	assert(NULL != vector);
 	
 	--(vector-> size);
@@ -94,9 +96,9 @@ status VectorPop(vector_t *vector)
 	if(SHRINK_FACTOR*VectorSize(vector) < VectorCapacity(vector))
 	{
 		vector -> capacity /= 2;
-		vector -> array = realloc(vector -> array, SIZE);
+		reall_ptr = realloc(vector -> array, SIZE);
 		
-		return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
+		return (NULL == reall_ptr) ? REALLOC_ERROR : SUCCESS;
 	}
 	
 	return SUCCESS;
@@ -120,14 +122,17 @@ size_t VectorCapacity(const vector_t *vector)
 
 status VectorReserve(vector_t *vector,size_t value)
 {
+	void *reall_ptr = NULL;
+	
 	assert(NULL != vector);	
+	printf("\nprev block address: %p\n" ,vector -> array); 
 	
 	if(value >  (vector -> capacity))
 	{
 		vector -> capacity = value;
-		vector -> array = realloc(vector -> array, SIZE);
-		
-		return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
+		reall_ptr = realloc(vector -> array, SIZE);
+		printf("\nnew block address: %p\n" ,reall_ptr); 
+		return (NULL == reall_ptr) ? REALLOC_ERROR : SUCCESS;
 	}
 	
 	return SUCCESS;
@@ -135,12 +140,13 @@ status VectorReserve(vector_t *vector,size_t value)
 
 status VectorShrink(vector_t *vector)
 {
+	void *reall_ptr = NULL;
 	assert(NULL != vector);
 	
 	vector -> capacity = VectorSize(vector);
-	vector -> array = realloc(vector -> array, SIZE);
+	reall_ptr = realloc(vector -> array, SIZE);
 	
-	return (NULL == vector -> array) ? REALLOC_ERROR : SUCCESS;
+	return (NULL == reall_ptr) ? REALLOC_ERROR : SUCCESS;
 }
 
 

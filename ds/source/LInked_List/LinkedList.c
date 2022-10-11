@@ -84,6 +84,7 @@ status VectorPush(vector_t *vector, const void *value)
 	return SUCCESS; 
 }
 
+/*		approved by Roman 6.9.22		*/
 status VectorPop(vector_t *vector)
 {
 	assert(NULL != vector);
@@ -103,6 +104,7 @@ status VectorPop(vector_t *vector)
 
 }
 
+/*		approved by Roman 6.9.22		*/
 size_t VectorSize(const vector_t *vector)
 {
 	assert(NULL != vector);	
@@ -110,6 +112,8 @@ size_t VectorSize(const vector_t *vector)
 	return vector -> size;
 }
 
+
+/*		approved by Roman 6.9.22		*/
 size_t VectorCapacity(const vector_t *vector)
 {
 	assert(NULL != vector);
@@ -117,7 +121,7 @@ size_t VectorCapacity(const vector_t *vector)
 	return vector -> capacity;
 }
 
-
+/*		approved by Roman 6.9.22		*/
 status VectorReserve(vector_t *vector,size_t value)
 {
 	assert(NULL != vector);	
@@ -133,6 +137,7 @@ status VectorReserve(vector_t *vector,size_t value)
 	return SUCCESS;
 }
 
+/*		approved by Roman 6.9.22		*/
 status VectorShrink(vector_t *vector)
 {
 	assert(NULL != vector);

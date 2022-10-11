@@ -65,7 +65,7 @@ void Test_Itoa()
 	char buffer11[50] = {0};
 	char buffer12[50] = {0};
 	
-	CheckItoa(1010, buffer1, 10);
+	CheckItoa(100000, buffer1, 10);
 	CheckItoa(1000, buffer2, 10);
 	CheckItoa(101, buffer3, 10);
 	CheckItoa(123, buffer4, 10);

@@ -1,7 +1,12 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#include "bit_arr.h"
+#include "../include/bit_arr.h"
+#include "../source/bit_arr.c"
+
+
+
+
 
 int main() 
 {
