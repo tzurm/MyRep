@@ -21,8 +21,8 @@ struct sll_node						/*		one node 		*/
 sll_t *SLLCreate()
 {
 	
-	sll_t *list = (sll_t*)malloc(sizeof(sll_t));
-	sll_node_t *dummy = (sll_node_t*)malloc(sizeof(sll_node_t));
+	sll_t *list = (sll_t*)calloc(2,sizeof(sll_t));
+	sll_node_t *dummy = (sll_node_t*)calloc(2,sizeof(sll_node_t));
 	
 	list -> head = dummy;
 	list -> dummy = dummy;
@@ -40,7 +40,9 @@ void SLLDestroy(sll_t *list)
 		
 	while(NULL != SLLNext(current))
 	{
+
 		free(current -> data);
+		current =  SLLNext(current);
 	}
 }
 /*****************************************************************************/
@@ -71,17 +73,38 @@ void *SLLGetData(sll_iter_t iter)
 }
 
 /*****************************************************************************/
-/*void SLLSetData(sll_iter_t iter, void *data)
-int SLLIsSameIter(sll_iter_t iter1, sll_iter_t iter2)*/
+void SLLSetData(sll_iter_t iter, void *data)
+{
+	iter -> data = data;
+}
+/*****************************************************************************/
+
+int SLLIsSameIter(sll_iter_t iter1, sll_iter_t iter2)
+{
+	return iter1 == iter2;
+}
 
 /*****************************************************************************/
-/*
-sll_iter_t SLLInsertBefore(sll_iter_t *iter, void *data)
+/*							iter											*	
+* 		*********			*********										*
+*		*	A	*	--->	*	C	*										*
+*		*********			*********										*
+*							iter = new_node									*
+*		*********			*********			*********					*
+*		*	A	*	--->	*	b	* 	--->	*	c	* 					*
+*		*********			*********			*********					*
+*																			*	*****************************************************************************/														
+sll_iter_t SLLInsertBefore(sll_iter_t iter, void *data)
 {
-	sll_node_t *new_node = (sll_node_t*)malloc(sizeof(sll_node_t));
+	sll_iter_t new_node = (sll_node_t*)malloc(sizeof(sll_node_t));
+	new_node = iter;
 	
+	iter -> data = data;
+	iter -> next = new_node -> next;
+	
+	return iter;
 }
-*/
+
 /*****************************************************************************/
 /*
 sll_iter_t SLLRemove(sll_iter_t iter)
@@ -98,7 +121,7 @@ size_t SLLCount(const sll_t *list)
 {
 	size_t count = 0;
 	sll_iter_t iter = SLLBegin(list);
-	while (NULL != iter)
+	while (NULL != iter -> data)
 	{
 		++count;
 		iter = SLLNext(iter);
@@ -110,7 +133,7 @@ size_t SLLCount(const sll_t *list)
 /*****************************************************************************/
 /*
 sll_iter_t SLLFind(FuncIsMatch_t match, sll_iter_t from, sll_iter_t to, void *param);
-
+	
 */
 /*****************************************************************************/
 /*

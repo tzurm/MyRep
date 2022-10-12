@@ -73,7 +73,7 @@ int SLLIsSameIter(sll_iter_t iter1, sll_iter_t iter2);
 
 /*if fails return the end of list */
 
-sll_iter_t SLLInsertBefore(sll_iter_t *iter, void *data);  
+sll_iter_t SLLInsertBefore(sll_iter_t iter, void *data);  
 
 /*return the iter the removed node pointed to*/
 

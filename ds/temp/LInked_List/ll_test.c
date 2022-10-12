@@ -12,7 +12,7 @@ void PrintVector(vector_t *vector);
 int main() 
 {
    
-	printf("\n\n****************	Test_Create&insert	**************\n");
+	
 	Test_Create();
 	
 	
@@ -22,30 +22,17 @@ int main()
 
 void Test_Create()
 {
-	sll_t *list = SLLCreate();
 	
-	printf("count nodes:	%ld" , SLLCount(list));
+	sll_t *list = SLLCreate();
+	sll_iter_t node = SLLBegin(list);
+	int a = 4;
+	printf("count nodes:	%ld\n" , SLLCount(list)); 
+	node = SLLInsertBefore(node, &a);
+	
 	SLLDestroy(list); 
 }
-/*
-void Test_Reserve()
-{
-	r_t *vector)
-{
-	size_t i = 0;	*/
-	/*
-	for(i = 0 ; i < VectorCapacity(vector) ; ++i)
-	{
-		printf("%d | ", *(int*)VectorAccessElement(vector,i));
-	}*/
-	/*
-	printf("\n");
-	for(i = 0 ; i < VectorSize(vector) ; ++i)
-	{
-		printf("%d | ", *(int*)VectorAccessElement(vector,i));
-	}
-}
 
-*/
+
+
 
 
