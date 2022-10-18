@@ -3,7 +3,6 @@
 #include "stack.h"
 
 void Test_1();
-void Test_2_EmptyStack();
 
 int main() 
 {
@@ -11,19 +10,9 @@ int main()
 	printf("\n***********	Test_1		************************ \n\n");
 	
 	Test_1();
-	
-	
-	printf("\n***********	Test_2_EmptyStack ************************ \n\n");
-	
-	Test_2_EmptyStack();
-	
-	
-	
-	
+		
 	return 0;
 }
-
-
 
 void Test_1()
 {
@@ -57,20 +46,7 @@ void Test_1()
 
 }
 
-void Test_2_EmptyStack()
-{
-	stack_t *empty_stack = Create(6 ,1);
-	
-	printf("current top:	%d\n",*(int*)Peek(empty_stack));								
-	IsEmpty(empty_stack) ? 
-	printf("STATUS:		Empty stack\n") : printf("STATUS:		Not empty\n");
-	printf("Current Size:	%ld\n",Size(empty_stack));
-	printf("Capacity:	%ld\n",Capacity(empty_stack));
-	Pop(empty_stack);						
-	
-	
-	Destroy(empty_stack);
-}
+
 
 
 

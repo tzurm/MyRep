@@ -5,14 +5,14 @@
 #include <string.h>					/*		memcpy			*/
 #include "stack.h"					/*		my_stack		*/
 
-#define MALLOC_CHECK(ptr) if(NULL == ptr) {return NULL;}
+
 
 struct stack
 {
-	char *stack_ptr;				/*	point to stack		*/
-	size_t size;					/*	current size 		*/
-	size_t capacity;				/*	max of the stack	*/
-	size_t size_of_element;			/*	size of the element	*/
+	char *stack_ptr;				/*	point to stack					*/
+	size_t size;					/*	current size 					*/
+	size_t capacity;				/*	max of the stack				*/
+	size_t size_of_element;			/*	size of the element, by value	*/
 
 };
 
@@ -22,8 +22,18 @@ stack_t *Create(size_t capacity, size_t size_of_element)
 {
 	stack_t *hold_stack = (stack_t*)malloc(capacity*size_of_element);
 	stack_t *hold_struct = (stack_t*)malloc(sizeof(stack_t));
-	MALLOC_CHECK(hold_struct);
-	MALLOC_CHECK(hold_struct);
+	
+	if(NULL == hold_stack)
+	{
+		return NULL;
+	}
+	
+	if(NULL == hold_struct)
+	{
+		free(hold_stack);
+		return NULL;
+	}
+	
 	
 	hold_struct -> stack_ptr = (char*)hold_stack;
 	hold_struct -> size = 0;
@@ -65,16 +75,8 @@ void Push(stack_t *stack, const void *value)
  
 void Pop(stack_t *stack)
 {
-/*	assert((stack -> size) > 0);	*/
-	
-	if(0 == stack -> size)
-	{
-		printf("ERROR:		Empty stack, can't pop from empty stack\n");
-	}
-	else
-	{	
-		stack -> size -= stack -> size_of_element;
-	}
+	assert((stack -> size) > 0);
+	stack -> size -= stack -> size_of_element;
 
 }
 

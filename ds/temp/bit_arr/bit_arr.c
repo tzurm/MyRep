@@ -1,6 +1,6 @@
 #include <assert.h>					/*	assert	*/
 #include <stddef.h>					/*	size_t	*/
-#include "../include/bit_arr.h"
+#include "bit_arr.h"
 
 #define LEN_BIT_ARR 64
 #define BITON '1'
@@ -26,6 +26,7 @@ bit_arr_t ResetAll(bit_arr_t arr)
 /* arr OR 1 return 1	*/
 bit_arr_t SetOn(bit_arr_t arr, size_t index)	
 {
+	/*assert(index < 64); */
 	arr |= 1UL << index;
 	
 	return arr;
@@ -80,6 +81,7 @@ bit_arr_t FlipBit(bit_arr_t arr , size_t index)
 bit_arr_t Mirror(bit_arr_t arr)	
 {
 	int i = 0;
+	
 	bit_arr_t rev = arr & 1;
 	for ( i = 1; i < LEN_BIT_ARR; ++i) 
 	{

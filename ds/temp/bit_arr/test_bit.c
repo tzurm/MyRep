@@ -1,8 +1,8 @@
 #include <stddef.h>
 #include <stdio.h>
 
-#include "../include/bit_arr.h"
-#include "../source/bit_arr.c"
+#include "bit_arr.h"
+
 
 
 
@@ -86,6 +86,16 @@ int main()
 	/*******************************************************************/
 	printf ("\n				ROTATE LEFT N=2							\n");
 	arr = RotateLeft(arr, 2);
+	ToString(arr , buffer);
+	printf ("\narr:	%s %ld %ld\n " ,buffer, CountOff(arr) ,CountOn(arr));
+	
+	printf ("\n				ROTATE LEFT N=129						\n");
+	arr = RotateLeft(arr, 129);
+	ToString(arr , buffer);
+	printf ("\narr:	%s %ld %ld\n " ,buffer, CountOff(arr) ,CountOn(arr));
+	
+	printf ("\n				ROTATE LEFT N=80						\n");
+	arr = RotateLeft(arr, 80);
 	ToString(arr , buffer);
 	printf ("\narr:	%s %ld %ld\n " ,buffer, CountOff(arr) ,CountOn(arr));
 	
