@@ -1,8 +1,8 @@
 #include <assert.h>					/*		assert			*/
 #include <stddef.h>					/*		size_t			*/
 #include <stdlib.h>					/*		malloc			*/
-#include <stdio.h>					/*		printf			*/
 #include "sll.h"					/*		sll				*/
+
 #define TRUE 1
 #define FALSE 0
 
