@@ -59,6 +59,7 @@ void SLLDestroy(sll_t *list)
 
 sll_iter_t SLLBegin(const sll_t *list)
 {
+	assert(NULL != list);
 	
 	return (list -> head);
 }
@@ -68,12 +69,15 @@ sll_iter_t SLLBegin(const sll_t *list)
 
 sll_iter_t SLLNext(sll_iter_t iter)
 {
+	assert(NULL != iter);
 	
 	return (iter -> next);
 }
 
 sll_iter_t SLLEnd(const sll_t *list)
 {
+	assert(NULL != list);
+	
 	return (list -> dummy);
 }
 
@@ -82,6 +86,8 @@ sll_iter_t SLLEnd(const sll_t *list)
 
 void *SLLGetData(sll_iter_t iter)
 {
+	assert(NULL != iter);
+	
 	return (iter -> data);
 }
 
@@ -89,6 +95,8 @@ void *SLLGetData(sll_iter_t iter)
 /*****************************************************************************/
 void SLLSetData(sll_iter_t iter, void *data)
 {
+	assert(NULL != iter);
+	
 	iter -> data = data;
 }
 /*******************approved by Arie 12.10.22*********************************/
@@ -96,6 +104,9 @@ void SLLSetData(sll_iter_t iter, void *data)
 
 int SLLIsSameIter(sll_iter_t iter1, sll_iter_t iter2)
 {
+	assert(NULL != iter1);
+	assert(NULL != iter2);
+	
 	return iter1 == iter2;
 }
 
@@ -117,6 +128,8 @@ sll_iter_t SLLInsertBefore(sll_iter_t iter, void *data)
 {
 	sll_iter_t new_node = (sll_node_t*)malloc(sizeof(sll_node_t));
 	sll_t *sll = iter -> data;
+	
+	assert(NULL != iter);
 	
 	new_node -> next = iter -> next;
 	new_node -> data = iter -> data;
@@ -175,6 +188,8 @@ size_t SLLCount(const sll_t *list)
 {
 	size_t count = 0;
 	sll_iter_t iter = SLLBegin(list);
+	
+	assert(NULL != list);
 	
 	while (NULL != iter -> next)
 	{
