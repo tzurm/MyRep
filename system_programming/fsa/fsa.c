@@ -30,7 +30,7 @@ size_t SuggestSize(size_t block_size, size_t block_num)
 
 fsa_t *Init(size_t pool_size, size_t block_size, void *mem)
 {
-	fsa_t total = malloc(
+	fsa_t total = malloc(sizeof(fsa_t) + 
 }
 
 /*
