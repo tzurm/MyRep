@@ -47,8 +47,8 @@ sll_iter_t SLLBegin(const sll_t *list);
 
 /****************************************************************************
 * returns iterator  of next node	O(1)									*
-* Parameters:						
-*	iter - 
+* Parameters:																*			
+*	iter - 																	*
 *																			*
 * complexity:	0(1)														*
 *****************************************************************************/		

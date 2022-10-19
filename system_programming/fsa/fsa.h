@@ -14,7 +14,7 @@ typedef struct pool fsa_t;
  *		block_num - the number of blocks									*
  *																			*					
  ****************************************************************************/
-size_t SuggestSize(size_t block_size, size_t block_num);
+size_t SuggestSize(size_t block_size, size_t num_of_blocks);
 
 
 /****************************************************************************
@@ -28,7 +28,7 @@ fsa_t *Init(size_t pool_size, size_t block_size, void *mem);
 
 void *Alloc(fsa_t *pool);
 
-void *Free(fsa_t *pool, void *mem);
+void Free(fsa_t *pool, void *mem);
 
 size_t CountFree(fsa_t *pool);
 

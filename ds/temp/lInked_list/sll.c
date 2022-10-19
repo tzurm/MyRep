@@ -1,7 +1,6 @@
 #include <assert.h>					/*		assert			*/
 #include <stddef.h>					/*		size_t			*/
 #include <stdlib.h>					/*		malloc			*/
-#include <stdio.h>					/*		printf			*/
 #include "sll.h"					/*		sll				*/
 #define TRUE 1
 #define FALSE 0
@@ -20,12 +19,12 @@ struct sll_node						/*		one node 		*/
 
 /*******************approved by Andrey 12.10.22*******************************/
 /*****************************************************************************/
-sll_t *SLLCreate()
+sll_t *SLLCreate(void)
 {
 	
 	sll_t *list = (sll_t*)malloc(sizeof(sll_t));
 	sll_node_t *dummy = (sll_node_t*)malloc(sizeof(sll_node_t));
-	
+	/*if*/
 	list -> head = dummy;
 	list -> dummy = dummy;
 	
@@ -39,7 +38,7 @@ sll_t *SLLCreate()
 /*****************************************************************************/
 
 void SLLDestroy(sll_t *list)
-{
+{/* null than assert */
 	sll_iter_t current = list -> head;
 	sll_iter_t runner = NULL;
 	
@@ -140,7 +139,7 @@ sll_iter_t SLLInsertBefore(sll_iter_t iter, void *data)
 	{
 		sll -> dummy = new_node;
 	}
-	
+	/* if not successed return to iter to end*/
 	return iter;
 }
 /******************approved by Andery 12.10.22******************************/

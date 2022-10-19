@@ -15,10 +15,16 @@ typedef struct node
 void Test_Loop();
 void Test_Flip();
 void Test_Inter();
-void NthFromLast();
 
-/*****************************************************************************/
-node_t *Insert(node_t *head, void *data)
+
+node_t *Flip(node_t *head);
+int HasLoop(const node_t *head);
+node_t *FindIntersection(node_t *head1, node_t *head2);
+
+/****************************************************************************
+ *									static fun								*
+ ****************************************************************************/
+static node_t *Insert(node_t *head, void *data)
 {
 	node_t *new_node = (node_t*)malloc(sizeof(node_t));
     new_node -> data = data;
@@ -28,10 +34,20 @@ node_t *Insert(node_t *head, void *data)
     return new_node;
 }
 
+static void PrintList(node_t *list, size_t len)
+{
+	size_t i = 0;
+	for(i = 1; i < len; ++i)
+	{
+		printf("%d -> ", *(int*)list->data);
+		list = list -> next;
+	}
+	printf("%d\n", *(int*)list->data);
+}
 
-/*****************************************************************************/
-/* Reverses the order of given slist.	*/
-
+/****************************************************************************/
+/* Reverses the order of given slist.										*/
+/****************************************************************************/
 node_t *Flip(node_t *head)
 {
     node_t *prev = NULL;
@@ -79,57 +95,35 @@ int HasLoop(const node_t *head)
 /****************************************************************************/
 /* Return a pointer to first node mutual to both slists, if any				*/
 /****************************************************************************/
-/*
-node_t *FindIntersection(node_t *head_1, node_t *head_2)
+
+node_t *FindIntersection(node_t *head1, node_t *head2)
 {
-	
-	size_t count1 = LenList(head_1);
-	size_t count2 = LenList(head_2);
-	
-	assert(head_1);
-	assert(head_2);
-	
-	while (count1 < count2)
+	while (NULL != head2) 
 	{
-		--count2;
-		head_2 = head_2 -> next;
-	}
-
-	while (count1 > count2)
-	{
-		--count1;
-		head_1 = head_1 -> next;
-	}
-
-	while (head_1 != NULL)
-	{
-		if (head_1 == head_2)
+        node_t* temp = head1;
+        while (NULL != temp) 
 		{
-			return (head_1);
-		}
-		head_1 = head_1 -> next;
-		head_2 = head_2 -> next;
-	}
-	
-	return (head_1);
-	
+            
+            if (temp == head2)
+            {
+                return head2;
+            }
+            
+            temp = temp -> next;
+        }
+        
+        head2 = head2 -> next;
+    }
+    
+    return NULL;
 }
-*/
 
 
 /*****************************************************************************/
-static void PrintList(node_t *list, size_t len)
-{
-	size_t i = 0;
-	for(i = 1; i < len; ++i)
-	{
-		printf("%d -> ", *(int*)list->data);
-		list = list -> next;
-	}
-	printf("%d\n", *(int*)list->data);
-}
 
-size_t LenList(node_t *list)
+
+/*
+static size_t LenList(node_t *list)
 {
 	size_t count = 0;
 	
@@ -140,7 +134,7 @@ size_t LenList(node_t *list)
 	}
 	return count;
 }
-
+*/
 
 /****************************************************************************
  *									MAIN									*
@@ -148,13 +142,13 @@ size_t LenList(node_t *list)
 
 int main() 
 {	
-	
+	printf("*************************\n*   Test Loop		* \n*************************\n");
 	Test_Loop();
+	printf("\n*************************\n*   Test Flip		* \n*************************\n");
 	Test_Flip();
-	/*
+	printf("\n*************************\n*   Test Inter		* \n*************************\n");
 	Test_Inter();
-	NthFromLast();
-	*/
+	
 	return 0;
 }
 
@@ -207,7 +201,7 @@ void Test_Flip()
 	PrintList(begin, len);
 	
 }
-/*
+
 void Test_Inter()
 {
 	size_t i = 0;
@@ -217,7 +211,7 @@ void Test_Inter()
 	node_t *begin = (node_t*)malloc(sizeof(node_t));
 	node_t *node = begin;
 	node_t *print_runner = begin;
-	node_t *inter_node = NULL;
+	node_t *inter_node = (node_t*)malloc(sizeof(node_t));
 	
 	int arr2[] = {5,7,3,4};
 	size_t len2 = sizeof(arr2)/sizeof (arr2[0]);
@@ -239,17 +233,11 @@ void Test_Inter()
 	for(i = 1; i < len2; ++i)
 	{
 		node2 = Insert(node2, &arr2[i]);
-	}
+	}	
 	PrintList(print_runner2, len2);
 	
+	inter_node = FindIntersection(begin,begin2);
+	printf("%d" , *(int*)inter_node->data);
 
 }
-*/
-/*
-void NthFromLast()
-{
-   
-	printf("nth\n");
-	
-}
-*/
+
