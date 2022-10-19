@@ -15,7 +15,7 @@ struct pool							/*copy struct to c file	*/
 
 
 
-/*******************approved by  				******************************/
+/*******************approved by alex 19.10.22	******************************/
 /*****************************************************************************/
 size_t SuggestSize(size_t block_size, size_t num_of_blocks)
 {
@@ -31,7 +31,8 @@ size_t SuggestSize(size_t block_size, size_t num_of_blocks)
 
 	return suggest_size;
 }
-
+/*******************approved by roman 19.10.22	******************************/
+/*****************************************************************************/
 fsa_t *Init(size_t pool_size, size_t block_size, void *mem)
 {
 
@@ -49,20 +50,24 @@ fsa_t *Init(size_t pool_size, size_t block_size, void *mem)
 	printf("block_size:	%ld\n", block_size);
 
 	*runner = WORD; 	/*init first*/
-	printf("block num: %ld " , i+1);
+	printf("block num: %ld " , i);
 	printf("value: %ld  " , *runner);
 	printf("address: %p\n" , runner);
 	++runner;
 
 	for(i = 1; i < num_of_blocks; ++i)
 	{
-		*runner = WORD + block_size * i;
-		printf("block num: %ld " , i+1);
+		*runner += WORD + block_size * i;
+		printf("block num: %ld " , i);
 		printf("value: %ld  " , *runner);
 		printf("address: %p\n" , runner);
-		runner += block_size;
+		runner += block_size / WORD;
 	}
-
+	*runner = 0;
+	printf("block num: %ld " , i);
+	printf("value: %ld  " , *runner);
+	printf("address: %p\n" , runner);
+	
 	return (fsa_t*)mem;
 }
 
@@ -70,19 +75,27 @@ fsa_t *Init(size_t pool_size, size_t block_size, void *mem)
 void *Alloc(fsa_t *pool)
 {
 	size_t next = pool -> next_free;
+
 	pool -> next_free = (size_t)((char*)pool + next);
-	printf("\nV\n");
+	printf("\nAlloc is be done\n");
 }
 
 void Free(fsa_t *pool, void *mem)
 {
 	*(size_t *)mem = pool -> next_free;
 	pool -> next_free = (char *)mem - (char *)pool;
-
+	printf("\nFreed\n");
 }
-/*
+
 size_t CountFree(fsa_t *pool)
 {
-	
+	size_t count = 0;
+	while(0 != pool -> next_free)
+	{
+		++count;
+		pool = pool -> next_free;
+	}
+	return count;
 }
-*/
+
+

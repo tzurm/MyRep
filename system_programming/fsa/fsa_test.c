@@ -49,9 +49,19 @@ void Test_Init()
 	mem2 = malloc(SuggestSize(block_size2, num_of_blocks2));
 	pool2 = Init((SuggestSize(block_size2, num_of_blocks2)), block_size2, mem2);
 	
+
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool2), num_of_blocks2);
+	/*
 	mem = Alloc(pool);
+	mem = Alloc(pool);
+
 	mem2 = Alloc(pool2);
+
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool2), num_of_blocks2);
 	
 	free(pool);
 	free(pool2);
+	*/
 }
