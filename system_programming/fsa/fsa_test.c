@@ -13,6 +13,7 @@ int main()
    
 	printf("*************************\n*   Test SuggestSize	* \n*************************\n");
 	Test_SuggestSize();
+	
 	printf("*************************\n*   Test Init		* \n*************************\n");
 	Test_Init();
 	
@@ -35,33 +36,36 @@ void Test_Init()
 	void * mem = NULL;
 	fsa_t *pool = NULL;
 	size_t block_size = 21;
-	size_t num_of_blocks = 5;
-
-	void * mem2 = NULL;
-	fsa_t *pool2 = NULL;
-	size_t block_size2 = 9;
-	size_t num_of_blocks2 = 4;
-	printf("\nTEST 1\n");
-	mem = malloc(SuggestSize(block_size, num_of_blocks));
-	pool = Init((SuggestSize(block_size, num_of_blocks)), block_size, mem);
+	size_t num_of_blocks = 3;
+	void *p1 = NULL;
+	void *p2 = NULL;
+	void *p3 = NULL;
 	
-	printf("\nTEST 2\n");
+	/*
+	void *mem2 = NULL;
+	fsa_t *pool2 = NULL;
+	size_t block_size2 = 1;
+	size_t num_of_blocks2 = 4;
 	mem2 = malloc(SuggestSize(block_size2, num_of_blocks2));
 	pool2 = Init((SuggestSize(block_size2, num_of_blocks2)), block_size2, mem2);
-	
-
-	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
-	printf("STATUS:	%ld / %ld\n" ,CountFree(pool2), num_of_blocks2);
-	/*
-	mem = Alloc(pool);
-	mem = Alloc(pool);
-
-	mem2 = Alloc(pool2);
-
-	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
-	printf("STATUS:	%ld / %ld\n" ,CountFree(pool2), num_of_blocks2);
-	
-	free(pool);
-	free(pool2);
+	free(mem2);
 	*/
+	
+	mem = malloc(SuggestSize(block_size, num_of_blocks));
+	pool = Init((SuggestSize(block_size, num_of_blocks)), block_size, mem);	
+	
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
+	p1 = Alloc(pool);
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
+	p2 = Alloc(pool);
+	p3 = Alloc(pool);
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
+	Free(pool ,p1);
+	Free(pool ,p2);
+	Free(pool ,p3);
+	printf("STATUS:	%ld / %ld\n" ,CountFree(pool), num_of_blocks);
+
+	free(mem);
+	
+	
 }
