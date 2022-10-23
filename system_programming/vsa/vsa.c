@@ -45,7 +45,7 @@ vsa_t *Init(size_t pool_size, void *mem)
 	printf("First address:	%p	", (void *)runner);
 	printf("value: %ld \n", BLOCK_SIZE);
 
-	*(size_t *)(char *)&runner += pool_size;
+	runner += pool_size /WORD;
 	BLOCK_SIZE = END;
 	printf("Last address:	%p	", (void *)runner);
 	printf("value: %lX \n", BLOCK_SIZE);
@@ -116,7 +116,7 @@ void *Alloc(vsa_t *pool, size_t required_size)
 			/*defrag*/
 			save_before_defrag = runner;
 			sum = BLOCK_SIZE;
-			runner = runner + BLOCK_SIZE;
+			runner = runner + BLOCK_SIZE/WORD;
 			if (BLOCK_SIZE > 0 && (long)END != BLOCK_SIZE)
 			{
 				sum += BLOCK_SIZE;
@@ -130,10 +130,10 @@ void *Alloc(vsa_t *pool, size_t required_size)
 			temp = BLOCK_SIZE;
 			BLOCK_SIZE = -required_size;
 			save_runner = runner; /* save address to return*/
-			runner += *(size_t *)(char *)required_size;
+			runner += required_size/WORD;
 			BLOCK_SIZE = temp - required_size;
 		}
-		runner += BLOCK_SIZE;
+		runner += BLOCK_SIZE/WORD;
 	}
 	printf("b2: %ld \n", BLOCK_SIZE);
 
