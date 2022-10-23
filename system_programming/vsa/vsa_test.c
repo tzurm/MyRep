@@ -27,12 +27,9 @@ void Test_Init()
 
 	mem = malloc(pool_size);
 	pool = Init(pool_size, mem);
-	printf("Largest Chunk Available: %ld\n",  LargestChunkAvailable(pool));
-	 
+	
+	
 	p1 = Alloc(pool, 7);  /* 7 > 8 > 16 */
-
-	printf("Largest Chunk Available: %ld\n",  LargestChunkAvailable(pool));
-
 	p2 = Alloc(pool, 20); /* 20 > 24 > 32 */
 	p3 = Alloc(pool, 35); /* 35 > 40 > 48 */
 

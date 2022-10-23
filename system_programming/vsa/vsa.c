@@ -24,14 +24,42 @@ static size_t AlignedSize(size_t size)
 	return size;
 }
 
-void *Defrag(vsa_t *pool)
+/****************************		DEFRAG		*****************************
+ *				  p1	p2			p3										*
+ *			*************************************************				*
+ *			* 8  * DATA * 24 * DATA * -16 *			*END*					*
+ *			*************************************************				*
+ * Free(p1)		0x8	  0x16  0x24   0x48	 0x56 			0x72				*
+ * Free(p2)																	*
+ *			*************************************************				*
+ *			* 40  * 				* -16 *				*END*				*
+ *			*************************************************				*
+ *				0x8	  			   0x48	 0x56 			0x72				*
+ *																			*
+ ****************************************************************************/
+void *Defrag(void *mem)
 {
-	vsa_t *runner = pool;
+	vsa_t *save_before_defrag = NULL;
+	vsa_t *runner = NULL;
+	size_t sum = 0;
 
-	while (END != BLOCK_SIZE)
+	assert(NULL != mem);
+
+	runner = (vsa_t *)mem;
+
+	if (BLOCK_SIZE > -1)
 	{
+		save_before_defrag = runner;
+		sum = BLOCK_SIZE;
+		runner = (vsa_t*)((char*)runner + sizeof(vsa_t) + BLOCK_SIZE);
+		if (BLOCK_SIZE > -1 && BLOCK_SIZE != (long)END)
+		{
+			sum += BLOCK_SIZE + sizeof(vsa_t);
+			save_before_defrag->block_size = sum;
+		}
 	}
-	return (vsa_t *)runner;
+
+	return mem;
 }
 
 vsa_t *Init(size_t pool_size, void *mem)
@@ -45,10 +73,10 @@ vsa_t *Init(size_t pool_size, void *mem)
 	printf("First address:	%p	", (void *)runner);
 	printf("value: %ld \n", BLOCK_SIZE);
 
-	runner += pool_size /WORD;
+	runner += pool_size / WORD;
 	BLOCK_SIZE = END;
 	printf("Last address:	%p	", (void *)runner);
-	printf("value: %lX \n", BLOCK_SIZE);
+	printf("value: %ld \n", BLOCK_SIZE);
 
 	return (vsa_t *)mem;
 }
@@ -61,13 +89,13 @@ vsa_t *Init(size_t pool_size, void *mem)
  *		*************************************								*
  *			*0x8*					  0x72-0x80								*
  *																			*
- *		aloc 8->16		72-16												*
+ *		aloc 8			72-24												*
  *		*************************************								*
- *		* -8  *  DATA  	* 56  *			*END*								*
+ *		* -8  *  DATA  	* 48  *			*END*								*
  *		*************************************								*
  *			*0x8*	 0x16    0x24		0x72								*
  *																			*
- *		aloc 24->32					72-48									*
+ *		aloc 24->32															*
  *		*************************************								*
  *		* -8  * DATA * -24 * DATA * 24	*END*								*
  *		*************************************								*
@@ -89,19 +117,16 @@ vsa_t *Init(size_t pool_size, void *mem)
 void *Alloc(vsa_t *pool, size_t required_size)
 {
 	vsa_t *runner = pool;
-	vsa_t *save_before_defrag = NULL;
 	vsa_t *save_runner = NULL;
 	long temp = 0;
 	long skip = 0;
-	size_t sum = 0;
+	size_t i = 4;
 
-	required_size = AlignedSize(required_size) + WORD;
+	required_size = AlignedSize(required_size);
 	printf("size_align: %ld \n", required_size);
 
-	++runner;
-
 	/* run until reach to end , if this block marked keep going */
-	while (END != BLOCK_SIZE)
+	while (END != BLOCK_SIZE && --i)
 	{
 		/* case: if see markd block*/
 		if (BLOCK_SIZE < 0)
@@ -110,32 +135,20 @@ void *Alloc(vsa_t *pool, size_t required_size)
 			runner += skip / WORD;
 		}
 
-		/* case: required_size bigger than current block*/
-		if ((long)required_size > BLOCK_SIZE)
-		{
-			/*defrag*/
-			save_before_defrag = runner;
-			sum = BLOCK_SIZE;
-			runner = runner + BLOCK_SIZE/WORD;
-			if (BLOCK_SIZE > 0 && (long)END != BLOCK_SIZE)
-			{
-				sum += BLOCK_SIZE;
-				save_before_defrag->block_size = sum / WORD;
-				runner = save_before_defrag;
-			}
-		}
-		/* case: block is available*/
+		/* case: block is available */
 		if ((long)required_size < BLOCK_SIZE)
 		{
 			temp = BLOCK_SIZE;
 			BLOCK_SIZE = -required_size;
-			save_runner = runner; /* save address to return*/
-			runner += required_size/WORD;
-			BLOCK_SIZE = temp - required_size;
+			save_runner = runner;
+
+			runner = (vsa_t*)(char*)runner+ required_size + sizeof(vsa_t);
+			BLOCK_SIZE = temp - required_size - sizeof(vsa_t);
 		}
-		runner += BLOCK_SIZE/WORD;
 	}
-	printf("b2: %ld \n", BLOCK_SIZE);
+	printf("mid address:	%p	", (void *)runner);
+	printf("value %ld \n", save_runner->block_size);
+	printf("space left: %ld\n", BLOCK_SIZE);
 
 	return (vsa_t *)save_runner;
 }
@@ -147,12 +160,12 @@ void *Alloc(vsa_t *pool, size_t required_size)
 void Free(void *mem)
 {
 	vsa_t *runner = NULL;
-
-	/*assert(NULL != mem);*/
+	assert(NULL != mem);
 
 	runner = (vsa_t *)mem;
+	runner = runner + sizeof(vsa_t);
+	BLOCK_SIZE = -1 * (BLOCK_SIZE);
 	printf("b2: %ld \n", BLOCK_SIZE);
-	BLOCK_SIZE *= -1 * (BLOCK_SIZE) / WORD;
 	printf("freevalue: %ld \n", BLOCK_SIZE);
 }
 
@@ -182,7 +195,7 @@ size_t LargestChunkAvailable(vsa_t *pool)
 		}
 
 		runner += BLOCK_SIZE / WORD;
-		printf("step:	%ld\n", BLOCK_SIZE);
+		printf("larg step:	%ld\n", BLOCK_SIZE);
 	}
 	return max;
 }
