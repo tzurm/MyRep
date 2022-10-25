@@ -54,8 +54,11 @@ fsa_t *Init(size_t pool_size, size_t block_size, void *mem)
 {
 	size_t num_of_blocks = 0;
 	size_t i = 0;
-	size_t *runner = (size_t *)mem;
+	size_t *runner = NULL;
 
+	assert(NULL != mem);
+	runner = mem;	
+	
 	if (0 != block_size % WORD)
 	{
 		block_size = ((block_size / WORD) + DUMMY) * WORD;
@@ -64,19 +67,14 @@ fsa_t *Init(size_t pool_size, size_t block_size, void *mem)
 
 	*runner = WORD; /*init first*/
 	++runner;
-	printf("block num: %ld " , i);
-		printf("value: %ld  \n" , *runner);
 
 	for (i = 1; i < num_of_blocks; ++i)
 	{
 		*runner += WORD + block_size * i;
-		printf("block num: %ld " , i);
-		printf("value: %ld  \n" , *runner);
 		runner += block_size / WORD;
 	}
 	*runner = 0;
-	printf("block num: %ld " , i);
-		printf("value: %ld  \n" , *runner);
+	
 	return (fsa_t *)mem;
 }
 
