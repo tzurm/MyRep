@@ -71,10 +71,10 @@ vsa_t *Init(size_t pool_size, void *mem)
 	vsa_t *runner = (vsa_t *)mem;
 	/* minus three words , first for first , second to mark last ,
 	last for round down*/
-	pool_size = AlignedSize(pool_size) - 2 * WORD;
+	pool_size = AlignedSize(pool_size) - 3 * WORD;
 	printf("pool_size: %ld\n", pool_size);
 	BLOCK_SIZE = pool_size; /* size pool left*/
-	runner += (pool_size / WORD) + 1;
+	runner += pool_size / WORD;
 	BLOCK_SIZE = END;
 
 	return (vsa_t *)mem;
@@ -116,18 +116,17 @@ vsa_t *Init(size_t pool_size, void *mem)
  ********************************************************/
 void *Alloc(vsa_t *pool, size_t required_size)
 {
-	
 	vsa_t *runner = NULL;
 	vsa_t *save_runner = NULL;
 	long temp = 0;
 	long skip = 0;
-
+	
 	assert(NULL != pool);
-
+	
 	runner = pool;
 	required_size = AlignedSize(required_size);
 
-	/* skip the marked blocks until you find unmarked block*/
+	/* run until reach to end , if this block marked keep going */
 	while (END != BLOCK_SIZE && BLOCK_SIZE < 0)
 	{
 		skip = -BLOCK_SIZE;
@@ -138,7 +137,7 @@ void *Alloc(vsa_t *pool, size_t required_size)
 	{
 		return NULL;
 	}
-	/* if current block is to small defrag*/
+	/* when you have space*/
 	if ((long)required_size > BLOCK_SIZE)
 	{
 		printf("defrag\n");
@@ -147,14 +146,12 @@ void *Alloc(vsa_t *pool, size_t required_size)
 	else
 	{
 		temp = BLOCK_SIZE;
-		printf("check runner %ld\n", BLOCK_SIZE);
 		BLOCK_SIZE = -required_size;
 		save_runner = (vsa_t *)((char *)runner);
 		runner = (vsa_t *)((char *)runner + required_size + sizeof(vsa_t));
-		printf("check runner %ld\n", BLOCK_SIZE);
 		BLOCK_SIZE = temp - required_size - sizeof(vsa_t);
 	}
-
+	
 	save_runner = (vsa_t *)((char *)save_runner + sizeof(vsa_t));
 	/*
 		#ifndef NDEBUD

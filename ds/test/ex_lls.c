@@ -237,7 +237,7 @@ void Test_Inter()
 	PrintList(print_runner2, len2);
 	
 	inter_node = FindIntersection(begin,begin2);
-	printf("%d" , *(int*)inter_node->data);
+	
 
 }
 
