@@ -3,7 +3,7 @@
 #include <stdlib.h> /*	malloc	*/
 #include <stdio.h>	/*	printf	*/
 #include "vsa.h"	/*	fsa		*/
-
+					
 #define WORD 8
 #define DUMMY 1
 #define END (long)0xBADC0FFEE0DDF00D
@@ -65,7 +65,7 @@ static void Defrag(void *mem)
 		}
 	}
 }
-
+/*approved by Arie 25.10.22*/
 vsa_t *Init(size_t pool_size, void *mem)
 {
 	vsa_t *runner = (vsa_t *)mem;
