@@ -40,7 +40,7 @@ void Test_Init()
 	void *mem = NULL;
 	vsa_t *pool = NULL;
 	size_t *runner =NULL;
-	size_t pool_size = 32;
+	size_t pool_size = 24;
 
 	mem = malloc(pool_size);
 	pool = Init(pool_size, mem);

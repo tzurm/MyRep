@@ -64,8 +64,8 @@ static void *Defrag(void *mem)
 	}
 	return save_before_defrag;
 }
-/*-----------------------------Init-----------------------------------------*
- *		pool 201 -> 200 -8 -8 ->184											*														*
+/*-----------------------------Init--------------approved by arie-----------*
+ *		pool 201 -> 200 -8 -8 ->184											*
  *																			*
  *		+-----+---------------------------------+-----+						*
  *		| 184 |	  								| END |						*
@@ -113,15 +113,15 @@ vsa_t *Init(size_t pool_size, void *mem)
  *																			*
  ****************************************************************************/
 
-/****************************************************************************
+/*--------------------------------------------------------------------------*
  * pseudo																	*
- * run until reach to end or unmarked block	by step by his absolute value	*					*
+ * run until reach to end or unmarked block	by step by his absolute value	*	
  * if you reached to end return NULL										*
  * if current block is too small perform defrag it possible					*
- * mark the new block (by minus value)										*				*
+ * mark the new block (by minus value)										*
  * set the next block to left mem (before - new block - size of word)		*
  * 																			*
- ****************************************************************************/
+ *-----------------------------aloc--------------approved by arie-----------*/
 void *Alloc(vsa_t *pool, size_t required_size)
 {
 	vsa_t *runner = NULL;
@@ -170,7 +170,7 @@ void *Alloc(vsa_t *pool, size_t required_size)
 /********************************************************
  * pseudo												*
  * unmark the address (multiply by -1)					*
- ********************************************************/
+ *******************approved by arie*********************/
 void Free(void *mem)
 {
 	vsa_t *runner = NULL;
@@ -196,7 +196,7 @@ void Free(void *mem)
  * 			max set to current chunk					*
  * 			step to next chunk							*
  * return max											*
- ********************************************************/
+ *****************approved by arie***********************/
 
 size_t LargestChunkAvailable(vsa_t *pool)
 {
