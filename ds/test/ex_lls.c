@@ -100,7 +100,7 @@ node_t *FindIntersection(node_t *head1, node_t *head2)
 {
 	while (NULL != head2) 
 	{
-        node_t* temp = head1;
+        node_t *temp = head1;
         while (NULL != temp) 
 		{
             
