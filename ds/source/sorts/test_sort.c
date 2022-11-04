@@ -4,7 +4,7 @@
 #include "sort.h"
 #define TRUE 1
 #define FALSE 0
-#define LEN 100
+#define LEN 33
 
 static int cmpfunc(const void *a, const void *b)
 {
@@ -17,7 +17,7 @@ static void InitArrayRandom(int arr[], size_t len)
 
     for (i = 0; i < len; ++i)
     {
-        arr[i] = rand() % 100;
+        arr[i] = rand() % 10;
     }
 }
 
@@ -36,10 +36,11 @@ static void PrintTimes(clock_t arr[], size_t len)
 {
     size_t i = 0;
 
-    printf("      bubble | selection   | insert      | quik\n");
+    printf("bubble      |selection   |insert      |quik \n");
+    printf("---------------------------------------------\n");
     for (i = 0; i < len; ++i)
     {
-        printf("%12.3f |", arr[i] * 1000.0 / CLOCKS_PER_SEC);
+        printf("%.3f       |", arr[i] * 1000.0 / CLOCKS_PER_SEC);
     }
     printf("\n");
 }
