@@ -1,8 +1,9 @@
-#include <stdio.h>
-
+#include <stdio.h>  /*   size_t */
 #include "sort.h"
+
 #define TRUE 1
 #define FALSE 0
+
 
 static void swap(int *x, int *y)
 {
@@ -11,47 +12,62 @@ static void swap(int *x, int *y)
     *y = temp;
 }
 
-void BubbleSort(int arr[], int len)
+/* compare two elements                 *
+ * swap if the left element is bigger   *
+ * keep check next two elements         *
+ * repeat len times                     */
+
+void BubbleSort(int arr[], size_t len)
 {
-    int i = 0;
-    int j = 0;
-    int swapped = TRUE;
+    size_t i = 0;
+    size_t j = 0;
 
     for (i = 0; i < len - 1; ++i)
     {
-        swapped = FALSE;
+        /* compare two elements */
         for (j = 0; j < len - i - 1; ++j)
         {
             if (arr[j] > arr[j + 1])
             {
                 swap(&arr[j], &arr[j + 1]);
-                swapped = TRUE;
             }
         }
-
-        if (swapped == FALSE)
-            break;
     }
 }
 
-void SelectionSort(int arr[], int len)
+/* find the minum in array      *
+ * place him to be first        *
+ * repeat and place in order    */
+void SelectionSort(int arr[], size_t len)
 {
-    int i = 0;
-    int j = 0;
-    int min_idx = 0;
+    size_t i = 0;
+    size_t j = 0;
+    size_t min_index = 0;
 
     for (i = 0; i < len - 1; ++i)
     {
-        min_idx = i;
+        min_index = i;
         for (j = i + 1; j < len; ++j)
-            if (arr[j] < arr[min_idx])
-                min_idx = j;
-
-        if (min_idx != i)
-            swap(&arr[min_idx], &arr[i]);
+        {
+            if (arr[j] < arr[min_index])
+            {
+                min_index = j;
+            }
+        }
+        if (min_index != i)
+        {
+            swap(&arr[min_index], &arr[i]);
+        }
     }
 }
 
+/*
+ * mark first element as sorted 
+ * set the next element as 'key' to fix him in place
+ * Compae key with each element on the left of it until an element smaller
+ * fix him in place
+ * repeat
+ */
 void InsertionSort(int arr[], int len)
 {
     int i = 0;
@@ -62,8 +78,8 @@ void InsertionSort(int arr[], int len)
     {
         key = arr[i];
         j = i - 1;
-
-        while (j >= 0 && arr[j] > key)
+        
+        while (key < arr[j] && j >= 0) 
         {
             arr[j + 1] = arr[j];
             j = j - 1;

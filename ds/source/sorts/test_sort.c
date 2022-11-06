@@ -1,10 +1,24 @@
-#include <stdio.h>  /*  printf  */
-#include <stdlib.h> /*  random  */
-#include <time.h>   /*  time    */
+#include <stdio.h>  /*  printf			*/
+#include <stdlib.h> /*  random,qsort	*/
+#include <time.h>   /*  time			*/
 #include "sort.h"
-#define TRUE 1
-#define FALSE 0
-#define LEN 33
+
+#define LEN 12
+
+static int IsSorted(int arr[], size_t len)
+{
+    size_t i = 0;
+
+    for (i = 0; i < len; ++i)
+    {
+        if (arr[i + 1] < arr[i])
+        {
+            return 1;
+        }
+        ++i;
+    }
+    return 0;
+}
 
 static int cmpfunc(const void *a, const void *b)
 {
@@ -17,7 +31,7 @@ static void InitArrayRandom(int arr[], size_t len)
 
     for (i = 0; i < len; ++i)
     {
-        arr[i] = rand() % 10;
+        arr[i] = rand() % 100;
     }
 }
 
@@ -61,6 +75,7 @@ int main()
     elapsed[0] = clock() - start;
     PrintArray(arr, LEN);
     printf("-------------------------------------------------------------\n");
+    0 == IsSorted(arr, LEN) ? printf("Is sorted\n") : printf("Not Sorted\n");
 
     printf("\n------------SelectionSort------------------------------------\n");
     InitArrayRandom(arr, LEN);
@@ -70,6 +85,7 @@ int main()
     elapsed[1] = clock() - start;
     PrintArray(arr, LEN);
     printf("-------------------------------------------------------------\n");
+    0 == IsSorted(arr, LEN) ? printf("Is sorted\n") : printf("Not Sorted\n");
 
     printf("\n------------InsertionSort------------------------------------\n");
     InitArrayRandom(arr, LEN);
@@ -79,7 +95,7 @@ int main()
     elapsed[2] = clock() - start;
     PrintArray(arr, LEN);
     printf("-------------------------------------------------------------\n");
-
+    0 == IsSorted(arr, LEN) ? printf("Is sorted\n") : printf("Not Sorted\n");
 
     printf("\n------------QuikSort-----------------------------------------\n");
     InitArrayRandom(arr, LEN);
@@ -89,7 +105,9 @@ int main()
     elapsed[3] = clock() - start;
     PrintArray(arr, LEN);
     printf("-------------------------------------------------------------\n");
+    0 == IsSorted(arr, LEN) ? printf("Is sorted\n\n") : printf("Not Sorted\n\n");
 
     PrintTimes(elapsed, 4);
+
     return 0;
 }
