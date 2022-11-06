@@ -3,7 +3,7 @@
 #include <time.h>   /*  time			*/
 #include "sort.h"
 
-#define LEN 12
+#define LEN 5000
 
 static int IsSorted(int arr[], size_t len)
 {
