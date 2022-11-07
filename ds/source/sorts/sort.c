@@ -1,9 +1,10 @@
-#include <stdio.h>  /*   size_t */
+#include <stdio.h> /*   size_t */
 #include "sort.h"
 
 #define TRUE 1
 #define FALSE 0
 
+/* approved by Arie 6.11.22 */
 
 static void swap(int *x, int *y)
 {
@@ -36,7 +37,7 @@ void BubbleSort(int arr[], size_t len)
 }
 
 /* find the minum in array      *
- * place him to be first        *
+ * place him to be first(swap)  *
  * repeat and place in order    */
 void SelectionSort(int arr[], size_t len)
 {
@@ -47,6 +48,7 @@ void SelectionSort(int arr[], size_t len)
     for (i = 0; i < len - 1; ++i)
     {
         min_index = i;
+
         for (j = i + 1; j < len; ++j)
         {
             if (arr[j] < arr[min_index])
@@ -54,7 +56,7 @@ void SelectionSort(int arr[], size_t len)
                 min_index = j;
             }
         }
-        if (min_index != i)
+        if (i != min_index)
         {
             swap(&arr[min_index], &arr[i]);
         }
@@ -62,7 +64,7 @@ void SelectionSort(int arr[], size_t len)
 }
 
 /*
- * mark first element as sorted 
+ * mark first element as sorted
  * set the next element as 'key' to fix him in place
  * Compae key with each element on the left of it until an element smaller
  * fix him in place
@@ -72,18 +74,19 @@ void InsertionSort(int arr[], int len)
 {
     int i = 0;
     int j = 0;
-    int key = 0;
+    int current = 0;
 
     for (i = 1; i < len; ++i)
     {
-        key = arr[i];
+        current = arr[i];
         j = i - 1;
-        
-        while (key < arr[j] && j >= 0) 
+
+        /*move back to place the current in right place*/
+        while (current < arr[j] && j >= 0)
         {
             arr[j + 1] = arr[j];
             j = j - 1;
         }
-        arr[j + 1] = key;
+        arr[j + 1] = current;
     }
 }
