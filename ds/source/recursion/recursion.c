@@ -2,6 +2,9 @@
 #include <assert.h> /*	assert	*/
 #include "recursion.h"
 
+
+
+
 /*	0	1	2	3	4	5	6	7	8	9	10	*
  *	0	1	1	2	3	5	8	13	21	34	55	*/
 
@@ -109,3 +112,41 @@ node_t *FlipList(node_t *node)
 
 	return node;
 }
+
+/* Approved By Andrey 8.11.22	*/
+
+/*	input	output:	*
+ *	| 4 |	| 4 |	*	SortStack[frame 1] -> not empty , pop 4 , 3 , 1 push -2
+ *	| 1 |	| 3	|	*	SortStack[frame 2] -> not empty , pop 4, 3 , push 1
+ *	|-2 |	| 1 |	*	SortStack[frame 3] -> not empty , pop 4 , push 3
+ *  | 3 |	|-2 |	*	SortStack[frame 4] -> is empty , push 4				*/
+
+void SortedInsert(stack_t *stack, int value)
+{
+    int head_of_stack = 0;
+
+    if(IsEmpty(stack) || value > *(int *)(Peek(stack)))
+    {
+        Push(stack, (void *)&value);
+        return;
+    }
+    head_of_stack = *(int *)(Peek(stack));
+    Pop(stack);
+    SortedInsert(stack, value);
+    Push(stack, (void *)&head_of_stack);
+}
+
+void SortStack(stack_t *stack)
+{
+	int head_of_stack = 0;
+
+    if(!IsEmpty(stack))
+    {
+        head_of_stack = *(int *)(Peek(stack));
+    	Pop(stack);
+        SortStack(stack);
+        SortedInsert(stack, head_of_stack);
+    }   
+}
+
+

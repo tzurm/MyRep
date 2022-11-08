@@ -35,7 +35,7 @@ int main()
 
 void Test_Fib()
 {
-    int index[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 40};
+    int index[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     size_t len = sizeof(index) / sizeof(index[0]);
     size_t i = 0;
 
