@@ -1,13 +1,14 @@
 #include <stdio.h>  /*  printf	    */
 #include <string.h> /*  strfuncs    */
+#include <stdlib.h> /*  malloc      */
 #include "recursion.h"
-
 void Test_Fib();
 void Test_Strlen();
 void Test_Strcmp();
 void Test_Strcpy();
 void Test_Strcat();
 void Test_Strstr();
+void Test_FlipList();
 static void TestStrcmp(const char *str1, const char *str2);
 static void TestStrstr(char *haystack, char *needle);
 
@@ -25,6 +26,8 @@ int main()
     Test_Strcat();
     printf("\n---------Test_Strstr-----------------------------------\n");
     Test_Strstr();
+    printf("\n---------Test_FlipList-----------------------------------\n");
+    Test_FlipList();
 
     return 0;
 }
@@ -111,6 +114,55 @@ void Test_Strstr()
     TestStrstr(haystack, needle1);
     TestStrstr(haystack, needle2);
     TestStrstr(haystack, needle3);
+}
+
+void Test_FlipList()
+{
+
+    node_t *node1 = (node_t *)malloc(sizeof(node_t));
+    node_t *node2 = (node_t *)malloc(sizeof(node_t));
+    node_t *node3 = (node_t *)malloc(sizeof(node_t));
+    node_t *node4 = (node_t *)malloc(sizeof(node_t));
+    node_t *runner = NULL;
+
+    int x1 = 1;
+    int x2 = 2;
+    int x3 = 3;
+    int x4 = 4;
+
+    node1->data = &x1;
+    node1->next = node2;
+
+    node2->data = &x2;
+    node2->next = node3;
+
+    node3->data = &x3;
+    node3->next = node4;
+
+    node4->data = &x4;
+    node4->next = NULL;
+
+    runner = node1;
+    printf("before:\t");
+    printf("%d -> ", *(int *)runner->data);
+    runner = runner->next;
+    printf("%d -> ", *(int *)runner->data);
+    runner = runner->next;
+    printf("%d -> ", *(int *)runner->data);
+    runner = runner->next;
+    printf("%d ", *(int *)runner->data);
+
+    printf("\nafter:\t");
+    runner = (node_t *)FlipList(node1);
+
+    runner = node4;
+    printf("%d -> ", *(int *)runner->data);
+    runner = runner->next;
+    printf("%d -> ", *(int *)runner->data);
+    runner = runner->next;
+    printf("%d -> ", *(int *)runner->data);
+    runner = runner->next;
+    printf("%d \n", *(int *)runner->data);
 }
 
 static void TestStrcmp(const char *str1, const char *str2)

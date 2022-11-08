@@ -1,9 +1,8 @@
-#include <stdio.h>	/*   size_t */
-#include <string.h> /*  strncmp    */
+#include <stdio.h>	/*   size_t	*/
+#include <string.h> /*  strncmp */
+#include <assert.h> /*	assert	*/
+#include <stdio.h>  /*  printf	    */
 #include "recursion.h"
-
-#define TRUE 1
-#define FALSE 0
 
 /*0	1	1	2	3	5	8	13	21	34	55	*
  *0	1	2	3	4	5	6	7	8	9	10	*/
@@ -48,6 +47,7 @@ char *Strcpy(char *dest, const char *src)
 {
 	if ('\0' == *src)
 	{
+		*dest = '\0';
 		return dest;
 	}
 	*dest = *src;
@@ -56,8 +56,8 @@ char *Strcpy(char *dest, const char *src)
 	return dest;
 }
 
-/*	approved by 								*/
-/*	keep run on dest until get null terminator	*
+/*	approved by 								*
+ *	keep run on dest until get null terminator	*
  *	start copy from src to dest					*/
 char *Strcat(char *dest, const char *src)
 {
@@ -75,8 +75,8 @@ char *Strcat(char *dest, const char *src)
 	return Strcat(dest, src + 1);
 }
 
-/*	approved by 									*/
-/*	keep run on haystack until get null terminator	*
+/*	approved by 									*
+ *	keep run on haystack until get null terminator	*
  *	find needle in haystack by strncmp				*
  *	repeat											*/
 char *Strstr(char *haystack, const char *needle)
@@ -94,4 +94,20 @@ char *Strstr(char *haystack, const char *needle)
 	}
 
 	return (Strstr(runner + 1, needle));
+}
+
+node_t *FlipList(node_t *node)
+{
+	node_t *flipped_node = NULL;
+	assert(NULL != node);
+
+	if (node->next == NULL)
+	{
+		return node;
+	}
+	flipped_node = FlipList(node->next);
+	flipped_node->next = node;
+	node->next = NULL;
+
+	return node;
 }
