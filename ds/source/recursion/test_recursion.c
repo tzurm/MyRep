@@ -110,7 +110,7 @@ void Test_Strstr()
     printf("-------------------------------------------------------\n");
     TestStrstr(haystack, needle1);
     TestStrstr(haystack, needle2);
-    TestStrstr(haystack, needle3);  
+    TestStrstr(haystack, needle3);
 }
 
 static void TestStrcmp(const char *str1, const char *str2)
@@ -123,6 +123,6 @@ static void TestStrcmp(const char *str1, const char *str2)
 static void TestStrstr(char *haystack, char *needle)
 {
     printf("%s\t%s\t\t%s\t%s\t", haystack, needle, Strstr(haystack, needle), strstr(haystack, needle));
- /* strcmp(Strstr(haystack, needle), strstr(haystack, needle)) ? printf("Approved") : printf("Failure");*/
+    /* strcmp(Strstr(haystack, needle), strstr(haystack, needle)) ? printf("Approved") : printf("Failure");*/
     printf("\n");
 }

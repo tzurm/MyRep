@@ -31,14 +31,15 @@ size_t Strlen(const char *s)
 
 int Strcmp(const char *s1, const char *s2)
 {
-
-	if (('\0' == *s1) || ('\0' == *s2))
+	if (*s1 == *s2 && *s2 == '\0')
 	{
-		return (*s1 - *s2);
+		return *s1 - *s2;
 	}
-	/*	else return (*s1 - *s2);	*/
-
-	return Strcmp(s1 + 1, s2 + 1);
+	if (*s1 == *s2)
+	{
+		return Strcmp(s1 + 1, s2 + 1);
+	}
+	return *s1 - *s2;
 }
 
 /*	approved by 								*/
@@ -74,16 +75,20 @@ char *Strcat(char *dest, const char *src)
 	return Strcat(dest, src + 1);
 }
 
+/*	approved by 									*/
+/*	keep run on haystack until get null terminator	*
+ *	find needle in haystack by strncmp				*
+ *	repeat											*/
 char *Strstr(char *haystack, const char *needle)
 {
 	char *runner = NULL;
 	runner = haystack;
 
-	if ('\0' == *haystack)
+	if ('\0' == *runner)
 	{
 		return NULL;
 	}
-	else if (strncmp(runner, needle, strlen(needle)) == 0)
+	else if (0 == strncmp(runner, needle, strlen(needle)))
 	{
 		return runner;
 	}

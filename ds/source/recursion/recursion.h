@@ -17,4 +17,6 @@ char *Strcat(char *dest, const char *src);
 
 char *Strstr(char *haystack, const char *needle);
 
+Node *FlipList(Node *node);
+
 #endif
