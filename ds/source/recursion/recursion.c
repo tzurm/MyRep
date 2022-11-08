@@ -23,15 +23,13 @@ Node *FlipList(Node *node)
 /*	approved by Slava 8.11.22					*/
 size_t Strlen(const char *s)
 {
-	if ('\0' == *s)
-		return 0;
-	return 1 + Strlen(s + 1);
+	return ('\0' == *s) ? 0 : 1 + Strlen(s + 1);
 }
 
 /*	approved by Slava 8.11.22					*/
 int Strcmp(const char *s1, const char *s2)
 {
-	if (*s1 == *s2 && *s2 == '\0')
+	if (*s1 == *s2 && '\0' == *s2)
 	{
 		return *s1 - *s2;
 	}
@@ -39,6 +37,7 @@ int Strcmp(const char *s1, const char *s2)
 	{
 		return Strcmp(s1 + 1, s2 + 1);
 	}
+
 	return *s1 - *s2;
 }
 
