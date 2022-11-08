@@ -1,7 +1,6 @@
 #ifndef __ILRD_CR02_RECURSION__
 #define __ILRD_CR02_RECURSION__
 
-
 struct node
 {
     void *data;

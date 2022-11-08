@@ -1,12 +1,11 @@
-#include <stdio.h>	/*   size_t	*/
 #include <string.h> /*  strncmp */
 #include <assert.h> /*	assert	*/
 #include "recursion.h"
 
-
 /*	0	1	2	3	4	5	6	7	8	9	10	*
-*	0	1	1	2	3	5	8	13	21	34	55	*/
+ *	0	1	1	2	3	5	8	13	21	34	55	*/
 
+/*	approved by Slava 8.11.22					*/
 int Fibonacci(int element_index)
 {
 	if (1 >= element_index)
@@ -21,6 +20,7 @@ Node *FlipList(Node *node)
 }
 */
 
+/*	approved by Slava 8.11.22					*/
 size_t Strlen(const char *s)
 {
 	if ('\0' == *s)
@@ -28,6 +28,7 @@ size_t Strlen(const char *s)
 	return 1 + Strlen(s + 1);
 }
 
+/*	approved by Slava 8.11.22					*/
 int Strcmp(const char *s1, const char *s2)
 {
 	if (*s1 == *s2 && *s2 == '\0')
@@ -41,7 +42,7 @@ int Strcmp(const char *s1, const char *s2)
 	return *s1 - *s2;
 }
 
-/*	approved by 								*/
+/*	approved by Slava 8.11.22					*/
 
 char *Strcpy(char *dest, const char *src)
 {
@@ -56,7 +57,7 @@ char *Strcpy(char *dest, const char *src)
 	return dest;
 }
 
-/*	approved by 								*
+/*	approved by Slava 8.11.22					*
  *	keep run on dest until get null terminator	*
  *	start copy from src to dest					*/
 char *Strcat(char *dest, const char *src)
@@ -75,7 +76,7 @@ char *Strcat(char *dest, const char *src)
 	return Strcat(dest, src + 1);
 }
 
-/*	approved by 							*
+/*	approved by Slava 8.11.22					*
  *	keep run on haystack until get null terminator	*
  *	find needle in haystack by strncmp				*
  *	repeat											*/
@@ -93,6 +94,7 @@ char *Strstr(char *haystack, const char *needle)
 	return (Strstr(haystack + 1, needle));
 }
 
+/*	approved by Alex 8.11.22					*/
 node_t *FlipList(node_t *node)
 {
 	node_t *flipped_node = NULL;
@@ -108,4 +110,3 @@ node_t *FlipList(node_t *node)
 
 	return node;
 }
-
