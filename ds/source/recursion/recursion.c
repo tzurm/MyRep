@@ -17,11 +17,6 @@ int Fibonacci(int element_index)
 	}
 	return Fibonacci(element_index - 1) + Fibonacci(element_index - 2);
 }
-/*
-Node *FlipList(Node *node)
-{
-}
-*/
 
 /*	approved by Slava 8.11.22					*/
 size_t Strlen(const char *s)
@@ -116,9 +111,9 @@ node_t *FlipList(node_t *node)
 /* Approved By Andrey 8.11.22	*/
 
 /*	input	output:	*
- *	| 4 |	| 4 |	*	SortStack[frame 1] -> not empty , pop 4 , 3 , 1 push -2
- *	| 1 |	| 3	|	*	SortStack[frame 2] -> not empty , pop 4, 3 , push 1
- *	|-2 |	| 1 |	*	SortStack[frame 3] -> not empty , pop 4 , push 3
+ *	| 4 |	| 4 |	*	SortStack[frame 1] -> not empty , pop 4 , 3 , 1 push -2,1,3,4
+ *	| 1 |	| 3	|	*	SortStack[frame 2] -> not empty , pop 4, 3 , push 1,3,4
+ *	|-2 |	| 1 |	*	SortStack[frame 3] -> not empty , pop 4 , push 3,4
  *  | 3 |	|-2 |	*	SortStack[frame 4] -> is empty , push 4				*/
 
 void SortedInsert(stack_t *stack, int value)
