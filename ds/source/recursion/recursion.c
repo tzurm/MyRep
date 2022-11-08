@@ -1,15 +1,15 @@
 #include <stdio.h>	/*   size_t	*/
 #include <string.h> /*  strncmp */
 #include <assert.h> /*	assert	*/
-#include <stdio.h>  /*  printf	    */
 #include "recursion.h"
 
-/*0	1	1	2	3	5	8	13	21	34	55	*
- *0	1	2	3	4	5	6	7	8	9	10	*/
+
+/*	0	1	2	3	4	5	6	7	8	9	10	*
+*	0	1	1	2	3	5	8	13	21	34	55	*/
 
 int Fibonacci(int element_index)
 {
-	if (2 >= element_index)
+	if (1 >= element_index)
 	{
 		return element_index;
 	}
@@ -75,25 +75,22 @@ char *Strcat(char *dest, const char *src)
 	return Strcat(dest, src + 1);
 }
 
-/*	approved by 									*
+/*	approved by 							*
  *	keep run on haystack until get null terminator	*
  *	find needle in haystack by strncmp				*
  *	repeat											*/
 char *Strstr(char *haystack, const char *needle)
 {
-	char *runner = NULL;
-	runner = haystack;
-
-	if ('\0' == *runner)
+	if ('\0' == *haystack)
 	{
 		return NULL;
 	}
-	else if (0 == strncmp(runner, needle, strlen(needle)))
+	else if (0 == strncmp(haystack, needle, strlen(needle)))
 	{
-		return runner;
+		return haystack;
 	}
 
-	return (Strstr(runner + 1, needle));
+	return (Strstr(haystack + 1, needle));
 }
 
 node_t *FlipList(node_t *node)
@@ -112,31 +109,3 @@ node_t *FlipList(node_t *node)
 	return node;
 }
 
-
-void sortedInsert(stack_t *s, void *val)
-{
-	void *temp = 0;
-
-	if (IsEmpty(s) || val > Peek(s))
-	{
-		Push(s, val);
-		return;
-	}
-
-	temp = Peek(s);
-	Pop(s);
-	sortedInsert(s, val);
-	Push(s, temp);
-}
-
-void sortStack(stack_t *s)
-{
-	void *val = 0;
-	if (!IsEmpty(s))
-	{
-		val = Peek(s);
-		Pop(s);
-		sortStack(s);
-		sortedInsert(s, val);
-	}
-}

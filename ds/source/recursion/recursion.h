@@ -1,6 +1,7 @@
 #ifndef __ILRD_CR02_RECURSION__
 #define __ILRD_CR02_RECURSION__
 
+
 struct node
 {
     void *data;
@@ -10,10 +11,6 @@ struct node
 typedef struct node node_t;
 
 int Fibonacci(int element_index);
-
-/*
-Node *FlipList(Node *node);
-*/
 
 size_t Strlen(const char *s);
 
@@ -26,9 +23,5 @@ char *Strcat(char *dest, const char *src);
 char *Strstr(char *haystack, const char *needle);
 
 node_t *FlipList(node_t *node);
-
-void sortedInsert(stack_t *s, void *val);
-
-void sortStack(stack_t *s);
 
 #endif
