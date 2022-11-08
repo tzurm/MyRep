@@ -111,3 +111,32 @@ node_t *FlipList(node_t *node)
 
 	return node;
 }
+
+
+void sortedInsert(stack_t *s, void *val)
+{
+	void *temp = 0;
+
+	if (IsEmpty(s) || val > Peek(s))
+	{
+		Push(s, val);
+		return;
+	}
+
+	temp = Peek(s);
+	Pop(s);
+	sortedInsert(s, val);
+	Push(s, temp);
+}
+
+void sortStack(stack_t *s)
+{
+	void *val = 0;
+	if (!IsEmpty(s))
+	{
+		val = Peek(s);
+		Pop(s);
+		sortStack(s);
+		sortedInsert(s, val);
+	}
+}

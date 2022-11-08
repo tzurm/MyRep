@@ -27,4 +27,8 @@ char *Strstr(char *haystack, const char *needle);
 
 node_t *FlipList(node_t *node);
 
+void sortedInsert(stack_t *s, void *val);
+
+void sortStack(stack_t *s);
+
 #endif
