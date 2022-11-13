@@ -172,85 +172,85 @@ int ForEach(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type
 	return SUCCESS;
 }
 
-int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
+int ForEachIn(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type)
 {
 	node_t *root = NULL;
 
-	assert(NULL != tree);
+	assert(NULL != bst);
 
-	root = tree->root;
+	root = bst->root;
 
 	if (NULL != root->children[Left])
 	{
-		tree->root = root->children[Left];
-		ForEachIn(tree, ActionFunc, param, traversal_type);
-		tree->root = root;
+		bst->root = root->children[Left];
+		ForEachIn(bst, ActionFunc, param, traversal_type);
+		bst->root = root;
 	}
 
 	ActionFunc(root->data, param);
 
 	if (NULL != root->children[Right])
 	{
-		tree->root = root->children[Right];
-		ForEachIn(tree, ActionFunc, param, traversal_type);
-		tree->root = root;
+		bst->root = root->children[Right];
+		ForEachIn(bst, ActionFunc, param, traversal_type);
+		bst->root = root;
 	}
 
 	return SUCCESS;
 }
 
 /*working*/
-int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
+int ForEachPre(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type)
 {
 	node_t *root = NULL;
 
-	assert(NULL != tree);
+	assert(NULL != bst);
 
-	root = tree->root;
+	root = bst->root;
 
 	ActionFunc(root->data, param);
 
 	if (NULL != root->children[Left])
 	{
-		tree->root = root->children[Left];
-		ForEachPre(tree, ActionFunc, param, traversal_type);
-		tree->root = root;
+		bst->root = root->children[Left];
+		ForEachPre(bst, ActionFunc, param, traversal_type);
+		bst->root = root;
 	}
 	if (NULL != root->children[Right])
 	{
-		tree->root = root->children[Right];
-		ForEachPre(tree, ActionFunc, param, traversal_type);
-		tree->root = root;
+		bst->root = root->children[Right];
+		ForEachPre(bst, ActionFunc, param, traversal_type);
+		bst->root = root;
 	}
 
 	return SUCCESS;
 }
 
-int ForEachPost(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
+int ForEachPost(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type)
 {
 	node_t *root = NULL;
 
-	assert(NULL != tree);
+	assert(NULL != bst);
 
-	root = tree->root;
+	root = bst->root;
 	if (NULL != root->children[Left])
 	{
-		tree->root = root->children[Left];
-		ForEachPost(tree, ActionFunc, param, traversal_type);
-		tree->root = root;
+		bst->root = root->children[Left];
+		ForEachPost(bst, ActionFunc, param, traversal_type);
+		bst->root = root;
 	}
 	if (NULL != root->children[Right])
 	{
-		tree->root = root->children[Right];
-		ForEachPost(tree, ActionFunc, param, traversal_type);
-		tree->root = root;
+		bst->root = root->children[Right];
+		ForEachPost(bst, ActionFunc, param, traversal_type);
+		bst->root = root;
 	}
 	ActionFunc(root->data, param);
 
 	return SUCCESS;
 }
-
-static void DestroyLeaf(bst_t *leaf)
+/*
+static int DestroyLeaf(bst_t *leaf)
 {
 	if (NULL == leaf)
 	{
@@ -260,5 +260,73 @@ static void DestroyLeaf(bst_t *leaf)
 	{
 		free(leaf);
 	}
-	return NULL
+	return NULL;
 }
+*/
+
+void *FindMin(bst_t *bst)
+{
+	node_t *root = NULL;
+
+	assert(NULL != bst->root);
+
+	root = bst->root;
+
+	while (NULL != root && NULL != root->children[Left])
+	{
+		root = root->children[Left];
+	}
+	return root;
+}
+
+
+
+bst_t *Remove(bst_t *bst, void *key)
+{
+	node_t *root = NULL;
+	node_t *temp2 = NULL;
+
+	if (NULL != bst->root)
+	{
+		return NULL;
+	}
+	root = bst->root;
+	/*	if the key is smaller than the current root, go left	*/
+	if (key < root->data)
+	{
+		bst->root = root->children[Left];
+		/* 		node_t		 =		bst		 PROBLEM HERE!!!!!!*/
+		root->children[Left] = Remove(bst, key);
+	}
+	/*	if the key is bigger than the current root, go right	*/
+	else if (key > root->data)
+	{
+		bst->root = root->children[Right];
+			/* 		node_t		 =		bst		 PROBLEM HERE!!!!!!*/
+		root->children[Right] = Remove(bst, key);
+	}
+	/* found*/
+	else
+	{	/*	if one child or no child	*/
+		if (NULL == root->children[Left])
+		{
+			node_t *temp = root->children[Right];
+			free(root);
+			return temp; /* PROBELM HERE!!*/
+		}
+		else if(NULL == root->children[Right])
+		{
+			node_t *temp = root->children[Left];
+			free(root);
+			return temp; /* PROBELM HERE!!*/
+		}
+	/*	case with two child	, find min
+		find the min in the right subtree	*/
+	bst->root = root->children[Right];
+	temp2 = FindMin(bst);
+	root->data = temp2->data; /* PROBELM HERE!!*/
+	root->children[Right] = Remove(bst,temp2->data);
+	}
+	return bst;
+}
+

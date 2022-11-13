@@ -34,14 +34,17 @@ void Destroy(bst_t *bst);
 
 status_t Insert(bst_t *bst, void *data);
 
-void *Find(bst_t *tree, void *data);
+void *Find(bst_t *bst, void *data);
 
-size_t CountNodes(bst_t *tree);
+size_t CountNodes(bst_t *bst);
 
 int ForEach(bst_t *bst, ActionFunc_t ActionFunc_t, void *param, int traversal_type);
 
-int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type);
-int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type);
-int ForEachPost(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type);
+int ForEachIn(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type);
+int ForEachPre(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type);
+int ForEachPost(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type);
+
+bst_t *Remove(bst_t *bst, void *key);
+void *FindMin(bst_t *bst);
 
 #endif

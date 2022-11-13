@@ -57,6 +57,8 @@ void Test_Create()
 	i = ForEach(tree, PrintFunc, &a, PRE_ORDER);
 	printf("\n");
 
+	printf("min: %d\n" , *(int*)FindMin(tree));
+
 	Destroy(tree);
 }
 
