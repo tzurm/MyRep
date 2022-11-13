@@ -6,6 +6,7 @@ typedef struct bst bst_t;
 
 typedef enum status
 {
+	FAIL_NALLOC = 2,
 	FAIL = 1,
 	SUCCESS = 0
 
@@ -13,9 +14,9 @@ typedef enum status
 
 typedef enum traversal
 {
-	pre_order = 0,
-	post_order = 1,
-	in_order = 2
+	PRE_ORDER = 0,
+	POST_ORDER = 1,
+	IN_ORDER = 2
 } traversal_t;
 
 typedef enum child
@@ -37,6 +38,6 @@ void *Find(bst_t *tree, void *data);
 
 size_t CountNodes(bst_t *tree);
 
-int ForEach(bst_t *bst, int ActionFunc_t(), void *param, int traversal_type);
+int ForEach(bst_t *bst, ActionFunc_t ActionFunc_t, void *param, int traversal_type);
 
 #endif

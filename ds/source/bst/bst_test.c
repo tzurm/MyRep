@@ -4,6 +4,8 @@
 #include "bst.h"
 
 int CompareFunc(const void *data, void *param);
+int CountFunc(void *data, void *param);
+int PrintFunc(void *data, void *param);
 void Test_Create();
 
 int main()
@@ -20,13 +22,14 @@ int main()
 													 3	 	 13
 													/ \
 												   N   7
-													  		  		*/
+																	*/
 void Test_Create()
 {
 	bst_t *tree = NULL;
-	int arr[] = {10, 4,11, 3, 7, 13};
+	int arr[] = {10, 4, 11, 3, 7, 13};
 	size_t len = sizeof(arr) / sizeof(arr[0]);
 	size_t i = 0;
+	int a = 5;
 
 	tree = Create(CompareFunc);
 
@@ -46,22 +49,23 @@ void Test_Create()
 		}
 	}
 	printf("CountNodes %ld\n", CountNodes(tree));
-	
+	printf("\n-----post---------------------\n");
+	i = ForEach(tree, PrintFunc, &a, POST_ORDER);
+	printf("\n-----in-----------------------\n");
+	i = ForEach(tree, PrintFunc, &a, IN_ORDER);
+	printf("\n-----pre----------------------\n");
+	i = ForEach(tree, PrintFunc, &a, PRE_ORDER);
+	printf("\n");
 }
 
 int CompareFunc(const void *data, void *param)
 {
 	return (*(int *)data - *(int *)param);
 }
-int CountFunc(const void *data, void *param)
-{
-	(void)data;
-	(void)param;
-	return 1;
-}
-int PrintFunc(const void *data, void *param)
+
+int PrintFunc(void *data, void *param)
 {
 	(void)param;
-	printf("%d " , *(int*)data);
+	printf("%d ", *(int *)data);
 	return 1;
 }
