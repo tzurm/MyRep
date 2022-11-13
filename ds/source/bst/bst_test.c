@@ -56,6 +56,8 @@ void Test_Create()
 	printf("\n-----pre--------------------------------------\n");
 	i = ForEach(tree, PrintFunc, &a, PRE_ORDER);
 	printf("\n");
+
+	Destroy(tree);
 }
 
 int CompareFunc(const void *data, void *param)

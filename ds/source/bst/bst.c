@@ -31,21 +31,35 @@ bst_t *Create(CompareFunc_t CompareFunc)
 	return (bst);
 }
 
-void Destroy(bst_t *bst)
+static void DestroyLeaves(bst_t *bst)
 {
+	node_t *old_tree = bst->root;
 
-	(void)bst;
+	if (NULL != bst->root->children[Left])
+	{
+		bst->root = bst->root->children[Left];
+		DestroyLeaves(bst);
+		bst->root = old_tree;
+	}
+	if (NULL != bst->root->children[Right])
+	{
+		bst->root = bst->root->children[Right];
+		DestroyLeaves(bst);
+		bst->root = old_tree;
+	}
+	free(bst->root);
 }
 
-/*					example tree:						 10
-														/ \
-													   4   11
-													  /		\
-													 3	 	 13
-													/ \
-												   N   7
-													  / \
-													 6	 N 		  		*/
+void Destroy(bst_t *bst)
+{
+	assert(bst);
+	if (NULL != bst->root)
+	{
+		DestroyLeaves(bst);
+	}
+	free(bst);
+}
+
 /* Approved by 13.11.2022*/
 status_t Insert(bst_t *bst, void *data)
 {
@@ -166,7 +180,6 @@ int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_t
 
 	root = tree->root;
 
-	
 	if (NULL != root->children[Left])
 	{
 		tree->root = root->children[Left];
@@ -175,7 +188,7 @@ int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_t
 	}
 
 	ActionFunc(root->data, param);
-	
+
 	if (NULL != root->children[Right])
 	{
 		tree->root = root->children[Right];
@@ -185,7 +198,6 @@ int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_t
 
 	return SUCCESS;
 }
-
 
 /*working*/
 int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
@@ -197,7 +209,7 @@ int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_
 	root = tree->root;
 
 	ActionFunc(root->data, param);
-	
+
 	if (NULL != root->children[Left])
 	{
 		tree->root = root->children[Left];
@@ -235,6 +247,18 @@ int ForEachPost(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal
 	}
 	ActionFunc(root->data, param);
 
-
 	return SUCCESS;
+}
+
+static void DestroyLeaf(bst_t *leaf)
+{
+	if (NULL == leaf)
+	{
+		return NULL;
+	}
+	if (NULL == leaf->root->children[Right] && NULL == leaf->root->children[Left])
+	{
+		free(leaf);
+	}
+	return NULL
 }
