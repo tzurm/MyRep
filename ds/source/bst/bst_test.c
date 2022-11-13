@@ -26,7 +26,7 @@ int main()
 void Test_Create()
 {
 	bst_t *tree = NULL;
-	int arr[] = {10, 4, 11, 3, 7, 13};
+	int arr[] = {25, 15, 50, 10, 22, 35,4,12,18,24,70,31,44,66,90};
 	size_t len = sizeof(arr) / sizeof(arr[0]);
 	size_t i = 0;
 	int a = 5;
@@ -49,11 +49,11 @@ void Test_Create()
 		}
 	}
 	printf("CountNodes %ld\n", CountNodes(tree));
-	printf("\n-----post---------------------\n");
+	printf("\n-----post------------------------------------\n");
 	i = ForEach(tree, PrintFunc, &a, POST_ORDER);
-	printf("\n-----in-----------------------\n");
+	printf("\n-----in--------------------------------------\n");
 	i = ForEach(tree, PrintFunc, &a, IN_ORDER);
-	printf("\n-----pre----------------------\n");
+	printf("\n-----pre--------------------------------------\n");
 	i = ForEach(tree, PrintFunc, &a, PRE_ORDER);
 	printf("\n");
 }

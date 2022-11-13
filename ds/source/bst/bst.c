@@ -158,30 +158,34 @@ int ForEach(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type
 	return SUCCESS;
 }
 
-int ForEachPost(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
+int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
 {
 	node_t *root = NULL;
 
 	assert(NULL != tree);
 
 	root = tree->root;
+
+	
 	if (NULL != root->children[Left])
 	{
 		tree->root = root->children[Left];
-		ForEachPost(tree, ActionFunc, param, traversal_type);
+		ForEachIn(tree, ActionFunc, param, traversal_type);
 		tree->root = root;
 	}
+
+	ActionFunc(root->data, param);
+	
 	if (NULL != root->children[Right])
 	{
 		tree->root = root->children[Right];
-		ForEachPost(tree, ActionFunc, param, traversal_type);
+		ForEachIn(tree, ActionFunc, param, traversal_type);
 		tree->root = root;
 	}
-	ActionFunc(root->data, param);
-
 
 	return SUCCESS;
 }
+
 
 /*working*/
 int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
@@ -209,30 +213,28 @@ int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_
 
 	return SUCCESS;
 }
-int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
+
+int ForEachPost(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type)
 {
 	node_t *root = NULL;
 
 	assert(NULL != tree);
 
 	root = tree->root;
-
-	
 	if (NULL != root->children[Left])
 	{
 		tree->root = root->children[Left];
-		ForEachIn(tree, ActionFunc, param, traversal_type);
+		ForEachPost(tree, ActionFunc, param, traversal_type);
 		tree->root = root;
 	}
-
-	ActionFunc(root->data, param);
-	
 	if (NULL != root->children[Right])
 	{
 		tree->root = root->children[Right];
-		ForEachIn(tree, ActionFunc, param, traversal_type);
+		ForEachPost(tree, ActionFunc, param, traversal_type);
 		tree->root = root;
 	}
+	ActionFunc(root->data, param);
+
 
 	return SUCCESS;
 }

@@ -40,4 +40,8 @@ size_t CountNodes(bst_t *tree);
 
 int ForEach(bst_t *bst, ActionFunc_t ActionFunc_t, void *param, int traversal_type);
 
+int ForEachIn(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type);
+int ForEachPre(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type);
+int ForEachPost(bst_t *tree, ActionFunc_t ActionFunc, void *param, int traversal_type);
+
 #endif
