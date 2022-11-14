@@ -325,7 +325,7 @@ bst_t *Remove(bst_t *bst, void *key)
 			find the min in the right subtree	*/
 		bst->root = root->children[Right];
 		temp2 = FindMin(bst);
-		root->data = temp2->data; /* PROBELM HERE!!*/
+		root->data = temp2->data; 
 		root->children[Right] = Remove(bst, temp2->data)->root;
 	}
 	return bst;
