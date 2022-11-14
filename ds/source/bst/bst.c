@@ -16,6 +16,7 @@ struct bst
 	CompareFunc_t CompareFunc;
 };
 
+/* Approved by Andrey 14.11.2022*/
 bst_t *Create(CompareFunc_t CompareFunc)
 {
 	bst_t *bst = malloc(sizeof(bst_t));
@@ -60,7 +61,6 @@ void Destroy(bst_t *bst)
 	free(bst);
 }
 
-/* Approved by 13.11.2022*/
 status_t Insert(bst_t *bst, void *data)
 {
 	node_t *root = NULL;
@@ -96,7 +96,6 @@ status_t Insert(bst_t *bst, void *data)
 	return SUCCESS;
 }
 
-/* Approved by 13.11.2022*/
 void *Find(bst_t *bst, void *data)
 {
 	node_t *old_root = NULL;
@@ -153,6 +152,8 @@ size_t CountNodes(bst_t *bst)
 
 	return 1 + count;
 }
+
+/* Approved by Ziv 14.11.2022*/
 
 int ForEach(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type)
 {
@@ -280,7 +281,7 @@ void *FindMin(bst_t *bst)
 	{
 		root = root->children[Left];
 	}
-	return root->data;
+	return root;
 }
 
 bst_t *Remove(bst_t *bst, void *key)
@@ -288,7 +289,7 @@ bst_t *Remove(bst_t *bst, void *key)
 	node_t *root = NULL;
 	node_t *temp2 = NULL;
 
-	if (NULL != bst->root)
+	if (NULL == bst->root)
 	{
 		return NULL;
 	}
@@ -297,15 +298,13 @@ bst_t *Remove(bst_t *bst, void *key)
 	if (key < root->data)
 	{
 		bst->root = root->children[Left];
-		/* 		node_t		 =		bst		 PROBLEM HERE!!!!!!*/
-		root->children[Left] = Remove(bst, key);
+		root->children[Left] = Remove(bst, key)->root;
 	}
 	/*	if the key is bigger than the current root, go right	*/
 	else if (key > root->data)
 	{
 		bst->root = root->children[Right];
-		/* 		node_t		 =		bst		 PROBLEM HERE!!!!!!*/
-		root->children[Right] = Remove(bst, key);
+		root->children[Right] = Remove(bst, key)->root;
 	}
 	/* found*/
 	else
@@ -327,7 +326,7 @@ bst_t *Remove(bst_t *bst, void *key)
 		bst->root = root->children[Right];
 		temp2 = FindMin(bst);
 		root->data = temp2->data; /* PROBELM HERE!!*/
-		root->children[Right] = Remove(bst, temp2->data);
+		root->children[Right] = Remove(bst, temp2->data)->root;
 	}
 	return bst;
 }
