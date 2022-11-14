@@ -75,7 +75,7 @@ status_t Insert(bst_t *bst, void *data)
 		bst->root = (node_t *)malloc(sizeof(node_t));
 		if (NULL == bst->root)
 		{
-			return FAIL_NALLOC;
+			return FAIL_MALLOC;
 		}
 
 		bst->root->data = data;
@@ -104,6 +104,7 @@ void *Find(bst_t *bst, void *data)
 	int result = 0;
 
 	assert(NULL != bst);
+	assert(NULL != data);
 
 	old_root = bst->root;
 
@@ -177,7 +178,8 @@ int ForEachIn(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_ty
 	node_t *root = NULL;
 
 	assert(NULL != bst);
-
+	assert(NULL != param);
+	
 	root = bst->root;
 
 	if (NULL != root->children[Left])
@@ -205,6 +207,7 @@ int ForEachPre(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_t
 	node_t *root = NULL;
 
 	assert(NULL != bst);
+	assert(NULL != param);
 
 	root = bst->root;
 
@@ -231,6 +234,7 @@ int ForEachPost(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_
 	node_t *root = NULL;
 
 	assert(NULL != bst);
+	assert(NULL != param);
 
 	root = bst->root;
 	if (NULL != root->children[Left])
@@ -276,10 +280,8 @@ void *FindMin(bst_t *bst)
 	{
 		root = root->children[Left];
 	}
-	return root;
+	return root->data;
 }
-
-
 
 bst_t *Remove(bst_t *bst, void *key)
 {
@@ -302,31 +304,30 @@ bst_t *Remove(bst_t *bst, void *key)
 	else if (key > root->data)
 	{
 		bst->root = root->children[Right];
-			/* 		node_t		 =		bst		 PROBLEM HERE!!!!!!*/
+		/* 		node_t		 =		bst		 PROBLEM HERE!!!!!!*/
 		root->children[Right] = Remove(bst, key);
 	}
 	/* found*/
 	else
-	{	/*	if one child or no child	*/
+	{ /*	if one child or no child	*/
 		if (NULL == root->children[Left])
 		{
 			node_t *temp = root->children[Right];
 			free(root);
 			return temp; /* PROBELM HERE!!*/
 		}
-		else if(NULL == root->children[Right])
+		else if (NULL == root->children[Right])
 		{
 			node_t *temp = root->children[Left];
 			free(root);
 			return temp; /* PROBELM HERE!!*/
 		}
-	/*	case with two child	, find min
-		find the min in the right subtree	*/
-	bst->root = root->children[Right];
-	temp2 = FindMin(bst);
-	root->data = temp2->data; /* PROBELM HERE!!*/
-	root->children[Right] = Remove(bst,temp2->data);
+		/*	case with two child	, find min
+			find the min in the right subtree	*/
+		bst->root = root->children[Right];
+		temp2 = FindMin(bst);
+		root->data = temp2->data; /* PROBELM HERE!!*/
+		root->children[Right] = Remove(bst, temp2->data);
 	}
 	return bst;
 }
-

@@ -6,7 +6,7 @@ typedef struct bst bst_t;
 
 typedef enum status
 {
-	FAIL_NALLOC = 2,
+	FAIL_MALLOC = 2,
 	FAIL = 1,
 	SUCCESS = 0
 
