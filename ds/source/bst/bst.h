@@ -44,7 +44,8 @@ int ForEachIn(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_ty
 int ForEachPre(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type);
 int ForEachPost(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type);
 
-bst_t *Remove(bst_t *bst, void *key);
+void Remove(bst_t *bst, void *param);
+
 void *FindMin(bst_t *bst);
 
 #endif

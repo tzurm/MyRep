@@ -16,6 +16,11 @@ struct bst
 	CompareFunc_t CompareFunc;
 };
 
+static int CompareFunc1(const void *data, void *param)
+{
+	return (*(int *)data - *(int *)param);
+}
+
 /* Approved by Andrey 14.11.2022*/
 bst_t *Create(CompareFunc_t CompareFunc)
 {
@@ -156,6 +161,7 @@ size_t CountNodes(bst_t *bst)
 /* Approved by Ziv 14.11.2022*/
 
 int ForEach(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_type)
+
 {
 	switch (traversal_type)
 	{
@@ -180,7 +186,7 @@ int ForEachIn(bst_t *bst, ActionFunc_t ActionFunc, void *param, int traversal_ty
 
 	assert(NULL != bst);
 	assert(NULL != param);
-	
+
 	root = bst->root;
 
 	if (NULL != root->children[Left])
@@ -283,50 +289,51 @@ void *FindMin(bst_t *bst)
 	}
 	return root;
 }
-
-bst_t *Remove(bst_t *bst, void *key)
+static void SaveNodes(node_t *node, bst_t *bst, void *param, size_t size)
 {
-	node_t *root = NULL;
-	node_t *temp2 = NULL;
+	static size_t *arr[100] = {0};
+	static size_t i = 0;
+	bst_t *bs = NULL;
+	node_t *temp_node = NULL;
 
-	if (NULL == bst->root)
+	if (node->children[Left] != NULL)
 	{
-		return NULL;
+		SaveNodes(node->children[Left], bst, param, size);
 	}
-	root = bst->root;
-	/*	if the key is smaller than the current root, go left	*/
-	if (key < root->data)
+	if (node->children[Right] != NULL)
 	{
-		bst->root = root->children[Left];
-		root->children[Left] = Remove(bst, key)->root;
+		SaveNodes(node->children[Right], bst, param, size);
 	}
-	/*	if the key is bigger than the current root, go right	*/
-	else if (key > root->data)
+	/*free old bst nodes */
+	if (0 != (bst->CompareFunc)(node->data, param))
 	{
-		bst->root = root->children[Right];
-		root->children[Right] = Remove(bst, key)->root;
+		arr[i] = node->data;
+		++i;
+		free(node);
 	}
-	/* found*/
-	else
-	{ /*	if one child or no child	*/
-		if (NULL == root->children[Left])
+	/*inserting to new bst*/
+	if (i == size - 1)
+	{
+		bs = Create(CompareFunc1);
+		for (i = i - 1; 0 < i; --i)
 		{
-			node_t *temp = root->children[Right];
-			free(root);
-			return temp; /* PROBELM HERE!!*/
+			Insert(bs, arr[i]);
 		}
-		else if (NULL == root->children[Right])
-		{
-			node_t *temp = root->children[Left];
-			free(root);
-			return temp; /* PROBELM HERE!!*/
-		}
-		/*	case with two child	, find min
-			find the min in the right subtree	*/
-		bst->root = root->children[Right];
-		temp2 = FindMin(bst);
-		root->data = temp2->data; 
-		root->children[Right] = Remove(bst, temp2->data)->root;
+		Insert(bs, arr[0]);
+		bst->root = bs->root;
 	}
-	return bst;
 }
+/*
+date: 9.10.22
+reviewer: alex
+*/
+void Remove(bst_t *bst, void *param)
+{
+	static size_t i = 0;
+	size_t size = CountNodes(bst);
+	assert(bst);
+	assert(param);
+
+	SaveNodes(bst->root, bst, param, size);
+}
+
