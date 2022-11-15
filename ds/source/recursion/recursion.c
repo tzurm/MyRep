@@ -65,9 +65,9 @@ char *Strcat(char *dest, const char *src)
 		++dest;
 	}
 	*dest = *src;
-	++dest;
+	
 
-	return Strcat(dest, src + 1);
+	return Strcat(dest+1, src + 1);
 }
 
 /*	approved by Slava 8.11.22					*
