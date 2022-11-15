@@ -24,7 +24,10 @@ sll_t *SLLCreate(void)
 	
 	sll_t *list = (sll_t*)malloc(sizeof(sll_t));
 	sll_node_t *dummy = (sll_node_t*)malloc(sizeof(sll_node_t));
-	/*if*/
+	if (NULL == dummy)
+	{
+		return NULL;
+	}
 	list -> head = dummy;
 	list -> dummy = dummy;
 	
