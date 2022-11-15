@@ -53,13 +53,15 @@ void Test_Insert_Size_t(void)
 	{
 		Insert(table, &arr[i]);
 	}
+
+	Destroy(table);
 }
 void Test_Insert_words(void)
 {
 	hash_t *table = NULL;
 	size_t table_size = TABLE_SIZE;
 	FILE *fp = fp;
-	char str[60] = "";
+	char str[6] = "";
 	size_t i = 0;
 	size_t arr_hash[TABLE_SIZE] = {0};
 
@@ -70,19 +72,20 @@ void Test_Insert_words(void)
 	{
 		perror("Error opening file");
 	}
-	printf("index\tvalue\t\t\t\thash-value\n");
+	printf("index\tvalue\t\thash-value\n");
 	printf("-------------------------------------------------------\n");
 	for (i = 0; i < table_size; ++i)
 	{
-		if (NULL != fgets(str + i, 60, fp))
+		if (NULL != fgets(str, 6, fp))
 		{
 			arr_hash[i] = HashFunc(&str);
-			printf("%ld\t%s\t\t\t\t\t%ld\n", i, str, HashFunc(&arr_hash[i]));
+			printf("%ld\t%s\t\t\t%ld\n", i, str, HashFunc(&arr_hash[i]));
 			Insert(table, &str);
 		}
 	}
 	fclose(fp);
 	CountCollision(arr_hash, TABLE_SIZE);
+	Destroy(table);
 }
 /******************************************************************/
 int CompareFunc(const void *data, void *param)
@@ -110,20 +113,28 @@ size_t HashFunc(void *data)
 
 void CountCollision(size_t *arr, size_t len)
 {
+/*	size_t arr_found[50] = {0}; if want print value hash*/
 	size_t i = 0;
 	size_t j = 0;
 	size_t count = 0;
+	int found = 0;
 
 	for (i = 0; i < len; ++i)
 	{
+		found = 0;
 
-		for (i = 1; i < len; ++i)
+		for (j = i + 1; j < len; ++j)
 		{
 			if (arr[i] == arr[j])
 			{
-				++count;
-				printf("indexes:\t%ld , %ld \n", i, j);
+				found = 1;
 			}
+		}
+		if (1 == found)
+		{
+			/*arr_found[count] = arr[i];*/
+			++count;
+			printf("indexes:\t%ld \n", i);
 		}
 	}
 	printf("Total\t\t%ld\n", count);

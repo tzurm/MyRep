@@ -20,19 +20,19 @@ hash_t *Create(size_t table_size, compare_func_t cmp_func, hash_func_t hash_func
 	sll_t **array_of_list = NULL;
 	size_t i = 0;
 
-	table = (hash_t*)malloc(sizeof(hash_t));
+	table = (hash_t *)malloc(sizeof(hash_t));
 	if (NULL == table)
 	{
 		return NULL;
 	}
 
-	array_of_list = (sll_t **)malloc(sizeof(sll_t*) * table_size);
+	array_of_list = (sll_t **)malloc(sizeof(sll_t *) * table_size);
 	if (NULL == array_of_list)
 	{
 		free(table);
 		return NULL;
 	}
-  
+
 	table->table_size = table_size;
 	table->cmp_func = cmp_func;
 	table->hash_func = hash_func;
@@ -40,23 +40,27 @@ hash_t *Create(size_t table_size, compare_func_t cmp_func, hash_func_t hash_func
 
 	for (i = 0; i < table_size; ++i)
 	{
-		*(table -> list + i) = SLLCreate(); 
+		*(table->list + i) = SLLCreate();
 	}
 
 	return table;
 }
-/*
+
 void Destroy(hash_t *table)
 {
 	size_t i = 0;
-	size_t len = table->table_size;
+	size_t size = 0;
+	size = table->table_size;
 
-	for (i = 0; i < len; ++i)
+	for (i = 0; i < size; ++i)
 	{
-		SLLDestroy(table->list + i);
+		SLLDestroy(*(table->list + i));
 	}
+
+	free(table->list);
+	free(table);
 }
-*/
+
 status_t Insert(hash_t *table, const void *key)
 {
 	sll_t *list = NULL;
