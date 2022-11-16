@@ -13,7 +13,7 @@ struct hash_table
 	hash_func_t hash_func;
 	size_t table_size;
 };
-
+/*-------------------------Approved by ziv 15.11.2022-------------------------*/
 hash_t *Create(size_t table_size, compare_func_t cmp_func, hash_func_t hash_func)
 {
 	hash_t *table = NULL;
@@ -45,11 +45,14 @@ hash_t *Create(size_t table_size, compare_func_t cmp_func, hash_func_t hash_func
 
 	return table;
 }
-
+/*-------------------------Approved by ??? 16.11.2022-------------------------*/
 void Destroy(hash_t *table)
 {
 	size_t i = 0;
 	size_t size = 0;
+
+	assert(NULL != table);
+
 	size = table->table_size;
 
 	for (i = 0; i < size; ++i)
@@ -81,20 +84,63 @@ status_t Insert(hash_t *table, const void *key)
 	return SUCCESS;
 }
 
-/*
 void Remove(hash_t *table, const void *key)
+{
+	/*
+	size_t i = 0;
+	size_t table_size = 0;
+
+	assert(NULL != table);
+
+	table_size = table->table_size;
+
+	for (i = 0; i < table_size; ++i)
+	{
+		SLLRemove(*(table->list + i));
+	}
+	(void)key;
+	*/
+}
+
+void *Find(const hash_t *table, const void *key)
+{
+
+	void *copy_key = NULL;
+	sll_iter_t *list = NULL;
+	sll_iter_t *iter = NULL;
+	assert(NULL != table);
+
+	copy_key = (void *)key;
+	list = table->list;
+
+	iter = SLLFind(table->cmp_func, SLLBegin(list), SLLEnd(list), copy_key);
+
+	return (NULL == iter) ? NULL : SLLGetData(iter);
+}
+/*
+status_t ForEach(hash_t *table, action_func_t callback, const void *param)
 {
 
 }
-void *Find(const hash_t *table, const void *key)
-
-status_t ForEach(hash_t *table, action_func_t callback, const void *param)
-
 */
 size_t Count(const hash_t *table)
 {
-	(void)table;
-	return 1;
+	size_t count_inuse = 0;
+	size_t i = 0;
+	size_t table_size = 0;
+	sll_t *list = NULL;
+
+	assert(NULL != table);
+
+	table_size = table->table_size;
+
+	for (i = 0; i < table_size; ++i)
+	{
+		list = *(table->list + i);
+		count_inuse += SLLCount(list);
+	}
+
+	return count_inuse;
 }
 int IsEmpty(const hash_t *table)
 {
