@@ -5,7 +5,7 @@
 #include "sll.h"
 #include "hash.h"
 
-#define TABLE_SIZE 30
+#define TABLE_SIZE 3000
 
 int CompareFunc(const void *data, void *param);
 size_t HashFunc(void *data);
@@ -146,9 +146,9 @@ void CountCollision(size_t *arr, size_t len)
 		}
 		if (1 == found)
 		{
-			/*arr_found[count] = arr[i];*/
+			/*arr_found[count] = arr[i];
+			printf("indexes:\t%ld \n", i);*/
 			++count;
-			printf("indexes:\t%ld \n", i);
 		}
 	}
 	printf("Total-Collision:%ld\n", count);

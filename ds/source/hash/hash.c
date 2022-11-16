@@ -120,7 +120,7 @@ void *Find(const hash_t *table, const void *key)
 	iter = SLLFind(table->cmp_func, SLLBegin(list), SLLEnd(list), copy_key);
 
 	return (NULL == iter) ? NULL : SLLGetData(iter);
-	*/
+*/	
 }
 /*
 status_t ForEach(hash_t *table, action_func_t callback, const void *param)
