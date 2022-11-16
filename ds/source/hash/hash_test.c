@@ -52,13 +52,13 @@ void Test_Insert_Size_t(void)
 	size_t arr_hash[TABLE_SIZE] = {0};
 	table = Create(table_size, CompareFunc, HashFunc);
 
-	printf("index\tvalue\t\thash-value\n");
+	printf("index\thash-value\tvalue\n");
 	printf("-------------------------------------------------------\n");
 	for (i = 0; i < len; ++i)
 	{
 		Insert(table, &arr[i]);
 		arr_hash[i] = HashFunc(&arr[i]);
-		printf("%ld\t%ld\t\t\t%ld\n", i, arr[i], HashFunc(&arr_hash[i]));
+		printf("%ld\t%ld\t\t%ld\n", i,HashFunc(&arr_hash[i]), arr[i]);
 	}
 
 	printf("Collision-------------\n");
@@ -83,14 +83,14 @@ void Test_Insert_words(void)
 	{
 		perror("Error opening file");
 	}
-	printf("index\tvalue\t\thash-value\n");
+	printf("index\thash-value\tvalue\n");
 	printf("-------------------------------------------------------\n");
 	for (i = 0; i < table_size; ++i)
 	{
 		if (NULL != fgets(str, 25, fp))
 		{
 			arr_hash[i] = HashFunc(&str);
-			printf("%ld\t%s\t\t\t%ld\n", i, str, HashFunc(&arr_hash[i]));
+			printf("%ld\t%ld\t\t%s\n", i,HashFunc(&arr_hash[i]), str);
 			Insert(table, &str);
 		}
 	}

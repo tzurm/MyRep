@@ -77,7 +77,7 @@ status_t Insert(hash_t *table, const void *key)
 	copy_key = (void *)key;
 	hash_func = table->hash_func;
 	hashed = hash_func(copy_key);
-	list = *(table->list + hashed); /*seg fault*/
+	list = *(table->list + hashed); 
 	iter = SLLEnd(list);
 	SLLInsertBefore(iter, copy_key);
 
@@ -89,8 +89,12 @@ void Remove(hash_t *table, const void *key)
 	/*
 	size_t i = 0;
 	size_t table_size = 0;
+	void *copy_key = NULL;
 
 	assert(NULL != table);
+
+	copy_key = (void *)key;
+	Find(table,copy_key);
 
 	table_size = table->table_size;
 
@@ -98,15 +102,15 @@ void Remove(hash_t *table, const void *key)
 	{
 		SLLRemove(*(table->list + i));
 	}
-	(void)key;
+	
 	*/
 }
 
 void *Find(const hash_t *table, const void *key)
 {
-
+/*
 	void *copy_key = NULL;
-	sll_iter_t *list = NULL;
+	sll_t *list = NULL;
 	sll_iter_t *iter = NULL;
 	assert(NULL != table);
 
@@ -116,6 +120,7 @@ void *Find(const hash_t *table, const void *key)
 	iter = SLLFind(table->cmp_func, SLLBegin(list), SLLEnd(list), copy_key);
 
 	return (NULL == iter) ? NULL : SLLGetData(iter);
+	*/
 }
 /*
 status_t ForEach(hash_t *table, action_func_t callback, const void *param)
