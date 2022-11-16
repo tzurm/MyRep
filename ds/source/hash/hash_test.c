@@ -1,110 +1,14 @@
-#include <stdio.h>	/*  printf	    */
-#include <stddef.h> /*	size_t		*/
-#include <stdlib.h> /*	malloc		*/
-#include <ctype.h>	/* 	isupper		*/
-#include "sll.h"
+#include<stdio.h>/*printf()*/
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
 #include "hash.h"
+#define ARRAY_LEN 9
 
-#define TABLE_SIZE 3000
-
-int CompareFunc(const void *data, void *param);
-size_t HashFunc(void *data);
-void CountCollision(size_t *arr, size_t len);
-
-void Test_Create(void);
-void Test_Insert_Size_t(void);
-void Test_HashFunc(void);
-void Test_Insert_words(void);
-
-int main()
+int CompareFunction(const void * data, void * param)
 {
-	/*	printf("\n---------Test_HashFunc-----------------------------\n");
-		Test_HashFunc();*/
-	printf("\n---------Test_Create-------------------------------\n");
-	Test_Create();
-	printf("\n---------Test_Insert_Size_t-------------------------------\n");
-	Test_Insert_Size_t();
-	printf("\n---------Test_Insert_words-----------------------------\n");
-	Test_Insert_words();
-
-	return 0;
-}
-
-void Test_Create(void)
-{
-	hash_t *table = NULL;
-	size_t table_size = 10;
-	(void)table;
-	table = Create(table_size, CompareFunc, HashFunc);
-	(NULL == table) ? printf("table is null\n") : printf("not null\n");
-	printf("Count:\t%ld\n", Count(table));
-	(EMPTY == IsEmpty(table)) ? printf("Empty:\tyes\n") : printf("Empty:\tno\n");
-	Destroy(table);
-}
-
-void Test_Insert_Size_t(void)
-{
-	size_t arr[] = {25, 15, 50, 10, 786745, 35, 4, 12, 18, 24, 70, 987797, 44, 66, 90};
-	size_t len = sizeof(arr) / sizeof(arr[0]);
-	size_t i = 0;
-	hash_t *table = NULL;
-	size_t table_size = TABLE_SIZE;
-	size_t arr_hash[TABLE_SIZE] = {0};
-	table = Create(table_size, CompareFunc, HashFunc);
-
-	printf("index\thash-value\tvalue\n");
-	printf("-------------------------------------------------------\n");
-	for (i = 0; i < len; ++i)
-	{
-		Insert(table, &arr[i]);
-		arr_hash[i] = HashFunc(&arr[i]);
-		printf("%ld\t%ld\t\t%ld\n", i,HashFunc(&arr_hash[i]), arr[i]);
-	}
-
-	printf("Collision-------------\n");
-	CountCollision(arr_hash, TABLE_SIZE);
-	printf("Count:\t%ld\n", Count(table));
-	(EMPTY == IsEmpty(table)) ? printf("Empty:\tyes\n") : printf("Empty:\tno\n");
-	Destroy(table);
-}
-void Test_Insert_words(void)
-{
-	hash_t *table = NULL;
-	size_t table_size = TABLE_SIZE;
-	FILE *fp = fp;
-	char str[25] = "";
-	size_t i = 0;
-	size_t arr_hash[TABLE_SIZE] = {0};
-
-	table = Create(table_size, CompareFunc, HashFunc);
-
-	fp = fopen("words.txt", "r");
-	if (NULL == fp)
-	{
-		perror("Error opening file");
-	}
-	printf("index\thash-value\tvalue\n");
-	printf("-------------------------------------------------------\n");
-	for (i = 0; i < table_size; ++i)
-	{
-		if (NULL != fgets(str, 25, fp))
-		{
-			arr_hash[i] = HashFunc(&str);
-			printf("%ld\t%ld\t\t%s\n", i,HashFunc(&arr_hash[i]), str);
-			Insert(table, &str);
-		}
-	}
-	fclose(fp);
-	printf("Collision-------------\n");
-	CountCollision(arr_hash, TABLE_SIZE);
-	printf("Count:\t%ld\n", Count(table));
-	(EMPTY == IsEmpty(table)) ? printf("Empty:\tyes\n") : printf("Empty:\tno\n");
-	Destroy(table);
-}
-/******************************************************************/
-int CompareFunc(const void *data, void *param)
-{
-	return (*(int *)data - *(int *)param);
+    return !strcmp(data, param);
 }
 
 size_t HashFunc(void *data)
@@ -122,51 +26,112 @@ size_t HashFunc(void *data)
 
 		hash = ((hash << 5) + hash) + c;
 	}
-	return hash % TABLE_SIZE;
+	return hash % ARRAY_LEN;
 }
 
-void CountCollision(size_t *arr, size_t len)
+typedef struct student
 {
-	/*	size_t arr_found[50] = {0}; if want print value hash*/
-	size_t i = 0;
-	size_t j = 0;
-	size_t count = 0;
-	int found = 0;
+    char name[8];
+    size_t age;
+    size_t id;
+}student_t;
 
-	for (i = 0; i < len; ++i)
-	{
-		found = 0;
+void InsertTest()
+{
+    hash_t * table = NULL;
+    student_t class[ARRAY_LEN];
+    size_t i = 0;
+    size_t j = 0;
 
-		for (j = i + 1; j < len; ++j)
-		{
-			if (arr[i] == arr[j])
-			{
-				found = 1;
-			}
-		}
-		if (1 == found)
-		{
-			/*arr_found[count] = arr[i];
-			printf("indexes:\t%ld \n", i);*/
-			++count;
-		}
-	}
-	printf("Total-Collision:%ld\n", count);
+
+    char Mark[8]   = "Mark";
+    char Tzur[8]   = "Tzur";
+    char Alex[8]   = "Alex";
+    char Pinhas[8] = "Pinhas";
+    char Ziv[8]    = "Ziv";
+    char Andrey[8] = "Andrey";
+    char Slava[8]  = "Slava";
+    char Roman[8]  = "Roman";
+    char Arie[8]   = "Arie";
+    char * runner = Mark;
+    (void)Tzur;
+    (void)Alex;
+    (void)Pinhas;
+    (void)Ziv;
+    (void)Andrey;
+    (void)Slava;
+    (void)Roman;
+    (void)Arie;
+
+    table = Create(ARRAY_LEN, CompareFunction, HashFunc);
+
+    for (i = 0; i < ARRAY_LEN; ++i)
+    {
+        class[i].id = i * 123;
+        class[i].age = i * 3;
+        for (j = 0; j < 8; ++j)
+        {
+            class[i].name[j] = *runner;
+            ++runner;
+        }
+    }
+    for (i = 0; i < ARRAY_LEN; ++i)
+    {
+        Insert(table, &class[i]);
+    }
+
+    if (ARRAY_LEN != Count(table))
+    {
+        printf("FAILED insert or count\n");
+    }
+    else
+    {
+        printf("PASS insert and count\n");
+    }
+
+    if ((void*)&class[0] == Find(table, Mark)    &&
+        (void*)&class[1] == Find(table, Tzur)    &&
+        (void*)&class[2] == Find(table, Alex)    &&
+        (void*)&class[3] == Find(table, Pinhas)  &&
+        (void*)&class[4] == Find(table, Ziv)     &&
+        (void*)&class[5] == Find(table, Andrey)  &&
+        (void*)&class[6] == Find(table, Slava)   &&
+        (void*)&class[7] == Find(table, Roman)   &&
+        (void*)&class[8] == Find(table, Arie))
+                                                            
+    {
+        printf("PASS find\n");
+    }
+    else
+    {
+        printf("FAILED find\n");
+    }
+    
+    Remove(table, Mark);
+    Remove(table, Tzur);
+    Remove(table, Alex);
+    Remove(table, Pinhas);
+    Remove(table, Ziv);
+    Remove(table, Andrey);
+    Remove(table, Slava);
+    Remove(table, Roman);
+    Remove(table, Arie);
+    
+    if (0 != Count(table))
+    {
+        printf("FAILED insert or count\n");
+    }
+    else
+    {
+        printf("PASS insert and count\n");
+    }
+
+    Destroy(table);    
 }
 
-void Test_HashFunc(void)
+int main()
 {
-	size_t arr[] = {25, 15, 50, 10, 786745, 35, 4, 12, 18, 24, 70, 987797, 44, 66, 90};
-	size_t len = sizeof(arr) / sizeof(arr[0]);
-	size_t arr_hash[50] = {0};
-	size_t i = 0;
+    InsertTest();
 
-	printf("index\tvalue\thash-value\n");
-	for (i = 0; i < len; ++i)
-	{
-		arr_hash[i] = HashFunc(&arr[i]);
-		printf("%ld\t%ld\t%ld\n", i, arr[i], HashFunc(&arr[i]));
-	}
-	printf("Collision-------------\n");
-	CountCollision(arr_hash, len);
+    return 0;
 }

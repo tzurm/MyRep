@@ -1,242 +1,300 @@
-#include <assert.h>					/*		assert			*/
-#include <stddef.h>					/*		size_t			*/
-#include <stdlib.h>					/*		malloc			*/
-#include "sll.h"					/*		sll				*/
-#define TRUE 1
-#define FALSE 0
+#include <stdlib.h> /*malloc*/
+#include <assert.h> /*assert*/
+#include <string.h> /*memcpy*/
+#include "sll.h"
 
-struct sll 							/*		linked list 	*/
+/*#include <stdio.h>*/
+
+#define NODE_DATA node -> data 
+#define NODE_NEXT node -> next 
+
+#define LIST_HEAD list -> head
+#define LIST_DUMMY list -> dummy 
+       
+#define FAILED 1
+#define SUCCESS 0   
+        
+
+struct sll 		
 {
 	sll_node_t *head;
 	sll_node_t *dummy;
 };
 
-struct sll_node						/*		one node 		*/
+struct sll_node	
 {
 	void *data;
-	struct sll_node *next;		
+	struct sll_node *next;
 };
 
-/*******************approved by Andrey 12.10.22*******************************/
-/*****************************************************************************/
-sll_t *SLLCreate(void)
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
+
+sll_t *SLLCreate()
 {
-	
-	sll_t *list = (sll_t*)malloc(sizeof(sll_t));
-	sll_node_t *dummy = (sll_node_t*)malloc(sizeof(sll_node_t));
-	if (NULL == dummy)
-	{
-		return NULL;
-	}
-	list -> head = dummy;
-	list -> dummy = dummy;
-	
-	dummy -> next = NULL;
-	dummy -> data = (void*)list;
-	
-	return list;
+    sll_node_t * node = NULL; 
+    sll_t * list = (sll_t *)malloc(sizeof(sll_t)); 
+    if(NULL == list)
+    {
+        return NULL;
+    }
+    
+    node = (sll_node_t *)malloc(sizeof(sll_node_t));   
+    if(NULL == node)
+    {
+        free(list);
+        return NULL;
+    }
+    
+    LIST_HEAD = node;
+    LIST_DUMMY = node;
+    
+    NODE_DATA = (void*)list;
+    NODE_NEXT = NULL;
+    
+    return list;
 }
 
-/*******************approved by Andrey 12.10.22*******************************/
-/*****************************************************************************/
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 void SLLDestroy(sll_t *list)
-{/* null than assert */
-	sll_iter_t current = list -> head;
-	sll_iter_t runner = NULL;
-	
-	while(list -> dummy != current)
-	{
-		runner = current -> next;
-		free(current);
-		current = runner;
-	}
-	
-	free(list -> dummy);
-	free(list);
-
+{
+    sll_node_t * next_one = NULL;
+    assert(list);
+    do
+    {
+        next_one = LIST_HEAD -> next;
+        free(LIST_HEAD);    
+        LIST_HEAD = next_one;
+    }
+    while(NULL != LIST_HEAD);
+    free(list);
 }
-/*******************approved by Arie 12.10.22*********************************/
-/*****************************************************************************/
+
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 sll_iter_t SLLBegin(const sll_t *list)
 {
-	assert(NULL != list);
-	
-	return (list -> head);
+    return LIST_HEAD;
 }
 
-/*******************approved by Arie 12.10.22*********************************/
-/*****************************************************************************/
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 sll_iter_t SLLNext(sll_iter_t iter)
 {
-	assert(NULL != iter);
-	
-	return (iter -> next);
+    return iter -> next;
 }
+
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 sll_iter_t SLLEnd(const sll_t *list)
 {
-	assert(NULL != list);
-	
-	return (list -> dummy);
+    return LIST_DUMMY;
 }
 
-/*******************approved by Arie 12.10.22*********************************/
-/*****************************************************************************/
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 void *SLLGetData(sll_iter_t iter)
 {
-	assert(NULL != iter);
-	
-	return (iter -> data);
+    return iter -> data;
 }
 
-/*******************approved by Arie 12.10.22*********************************/
-/*****************************************************************************/
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
+
 void SLLSetData(sll_iter_t iter, void *data)
 {
-	assert(NULL != iter);
-	
-	iter -> data = data;
+    iter -> data = data;
 }
-/*******************approved by Arie 12.10.22*********************************/
-/*****************************************************************************/
+
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 int SLLIsSameIter(sll_iter_t iter1, sll_iter_t iter2)
 {
-
-	
-	return iter1 == iter2;
+    return(iter1 == iter2);
 }
 
-/******************approved by Andrey 12.10.22*******************************/
-/****************************************************************************
-* InsertBefore																*
-*							iter											*	
-* 		*********			*********										*
-*		*	A	*	--->	*	C	*	--->	...							*
-*		*********			*********										*
-*							iter = new_node									*
-*		*********			*********			*********					*
-*		*	A	*	--->	*	B	* 	--->	*	C	*	--->	...		*
-*		*********			*********			*********					*
-*																			*
-*****************************************************************************/
-													
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
+
 sll_iter_t SLLInsertBefore(sll_iter_t iter, void *data)
 {
-	sll_iter_t new_node = (sll_node_t*)malloc(sizeof(sll_node_t));
-	sll_t *sll = iter -> data;
-	
-	assert(NULL != iter);
-	
-	new_node -> next = iter -> next;
-	new_node -> data = iter -> data;
-	
-	iter -> next = new_node;
-	iter -> data = data;
-	
-	if(sll -> dummy == iter)
-	{
-		sll -> dummy = new_node;
-	}
-	/* if not successed return to iter to end*/
-	return iter;
+    
+    sll_node_t *new_node = (sll_node_t *)malloc(sizeof(sll_node_t)); 
+    if(NULL == new_node)
+    {
+        while(NULL != iter -> next)
+        {
+            iter = iter -> next;
+        }
+        return iter;
+    }    
+    
+    memcpy((void*)new_node, (void*)iter, sizeof(sll_node_t));
+    iter -> data = data;
+    iter -> next = new_node;
+    
+    if(NULL == new_node -> next)
+    {
+        (((sll_t *)(new_node -> data)) -> dummy) = new_node;
+    }
+    return iter;
 }
-/******************approved by Andery 12.10.22******************************/
-/****************************************************************************
-* SLLRemove																	*
-*						iter to remove										*	
-* 	*********			*********			*********			*********	*
-*	*	A	*	--->	*	B	* 	--->	*	C	*	--->	*	D	*	*
-*	*********			*********			*********			*********	*
-*																			*
-	**********			*********											*
-*	*REM NODE*	  =		*	B	* 											*
-*	**********			*********											*
-*																			*
-*	*********			*********			*********						*
-*	*	A	*	--->	*	C	* 	--->	*	D	*	--->	...			*
-*	*********			*********			*********						*
-*																			*
-*****************************************************************************/
+
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 sll_iter_t SLLRemove(sll_iter_t iter)
 {
-	sll_t *temp = iter -> next -> data;  
-	sll_iter_t temp_iter = iter -> next; 
-	
-	assert(NULL != iter);
-	
-	if(NULL == iter -> next -> next)
-	{
-		temp -> dummy = iter;
-	}
-	
-	iter -> data = iter -> next -> data;
-	iter -> next = iter -> next -> next;
-	
-	free(temp_iter);
-	
-	return iter;
+    /* very intresting*/
+    void * next = (void*)iter -> next;
+    
+    /*check if the user sent the dummy node*/
+    assert(NULL != iter -> next);
+    
+    memcpy((void*)iter, (void*)iter -> next, sizeof(sll_node_t));
+    free(next);
+
+    /*update the dummey address is nessery*/
+    if(NULL == iter -> next)
+    {
+        (((sll_t *)(iter -> data)) -> dummy) = iter;
+    }    
+    return iter;
 }
-/******************approved by Arie 12.10.22**********************************/	
-/*****************************************************************************/
+
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
 size_t SLLCount(const sll_t *list)
 {
-	size_t count = 0;
-	sll_iter_t iter = SLLBegin(list);
-	
-	assert(NULL != list);
-	
-	while (NULL != iter -> next)
-	{
-		++count;
-		iter = SLLNext(iter);
-	}
-	
-	return count;
+    size_t i = 1;
+    sll_iter_t iterator = LIST_HEAD;
+    while(NULL != iterator -> next)
+    {
+        iterator = iterator -> next;
+        ++i;
+    }
+    return i;
 }
 
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
 
-/******************approved by Alex 12.10.22**********************************/	
-/*****************************************************************************/
-
-sll_iter_t SLLFind
-			(FuncIsMatch_t match, sll_iter_t from, sll_iter_t to, void *param)
+sll_iter_t SLLFind(int FuncIsMatch_t(), sll_iter_t from, sll_iter_t to, void *param)
 {
-	while(from != to)
-	{
-		if(TRUE == match(from , param))
-		{
-			return from;	
-		}
-		from = from -> next;
-	}
-	
-	return to;
-}	
-
-
-/******************approved by Alex 12.10.22**********************************/	
-/*****************************************************************************/
-
-int SLLForEach(ActionFunc_t action, sll_iter_t from, sll_iter_t to, void *param)
-{
-	while(from != to)
-	{
-		if(TRUE == action(from , param))
-		{
-			return TRUE;	
-		}
-		from = from -> next;
-	}
-	
-	return FALSE;
+    while(from != to)
+    {
+        if((*FuncIsMatch_t)(((void*)from -> data), param))
+        {
+            return from;
+        }        
+        from = from -> next;
+    }
+    return to;
 }
 
+/*
+date: 
+writer: mark
+reviwer: ziv
+status: approved
+*/
+
+int SLLForEach(int ActionFunc_t(), sll_iter_t from, sll_iter_t to, void *param)
+{
+    while(from != to)
+    {
+        if((*ActionFunc_t)(((void*)from -> data), param))
+        {
+            return FAILED;
+        }        
+        from = from -> next;
+    }
+    return SUCCESS;
+}
+
+/*
+void print_all(sll_t *list, sll_iter_t iter)
+{
+    sll_node_t * runner = LIST_HEAD;
+    size_t i = 0;
+    printf("\ncointainer:\n");  
+    printf("----------------------\n");
+    printf("|list head: %p |\n", LIST_HEAD);
+    printf("|list tail: %p |\n", LIST_DUMMY);
+    printf("|iter: %p |\n", iter);
+    printf("----------------------\n");
+    
+    printf("######################\n");
+    do
+    {
+        printf("----------------------\n");
+        printf("|address: %p|\n",(void*)LIST_HEAD);
+        printf("|next: %p|\n",(void*)LIST_HEAD -> next);
+        printf("|n: %lu  data: %d|\n",i ,*(int*)LIST_HEAD -> data);
+        printf("----------------------\n");
+        printf("######################\n");
+        LIST_HEAD = LIST_HEAD -> next;
+        ++i;
+    }
+    while(NULL != LIST_HEAD);
+    LIST_HEAD = runner;
+}
+*/
 
 
