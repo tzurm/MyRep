@@ -4,6 +4,7 @@
 #include <unistd.h>   /*fork*/
 #include <sys/wait.h> /*pid_t*/
 #include <errno.h>    /*errno mess*/
+#include <sys/types.h>
 
 #define MAX_LIMIT 20
 
@@ -13,30 +14,21 @@ void System_Test(void);
 void Fork_Test(void);
 void SystemFork(void);
 
-int main()
+int main(int argc, char *argv[])
 {
-    Fork_Test();
-    printf("-----------My_Bash---------------\n");
-    /*
-    SystemFork();
-*/
-    return 0;
-}
-void SystemFork(void)
-{
-    char ch;
-    printf("-\tclick 'f' for fork\t-\n-\tclick 's' for system\t-");
-    printf("\n----------------------------------\n");
-    ch = getchar();
-    if (ch == 's')
+    (void)argc;
+    if (0==strcmp(argv[1], "sys"))
     {
         System_Test();
     }
-    if ('f' == ch)
+    else
     {
         Fork_Test();
     }
+    return 0;
 }
+
+/*----------------------------------SYSTEM------------------------------------*/
 void System_Test(void)
 {
     char str[MAX_LIMIT] = {0};
@@ -57,23 +49,71 @@ void System_Test(void)
     sleep(2);
     exit(0);
 }
+/*-----------------------------------FORK-------------------------------------*/
+void parse(char *line, char **argv)
+{
+    while (*line != '\0')
+    {
+        while (*line == ' ' || *line == '\t' || *line == '\n')
+        {
+            *line++ = '\0';
+        }
+        *argv++ = line;
+        while (*line != '\0' && *line != ' ' &&
+               *line != '\t' && *line != '\n')
+        {
+            ++line;
+        }
+    }
+    *argv = '\0';
+}
 
-void Fork_Test(void)
+void execute(char **argv)
 {
     pid_t pid;
+    int status;
 
-    pid = fork();
-    if (pid < 0)
+    if ((pid = fork()) < 0)
     {
-        err(1, "fork failed");
+        printf("*** ERROR: forking child process failed\n");
+        exit(1);
     }
-    else if (0 == pid)
+    else if (pid == 0)
     {
-       
-        printf("sd");
+        if (execvp(*argv, argv) < 0)
+        {
+            printf("*** ERROR: exec failed\n");
+            exit(1);
+        }
+    }
+    else
+    {
+        while (wait(&status) != pid)
+            ;
     }
 }
 
+void Fork_Test(void)
+{
+    char line[1024];
+    char *argv[64];
+    while (1)
+    {
+        red();
+        printf("ForkBash@MyBash:~$ ");
+        reset();
+        scanf("%s", line);
+        printf("\n");
+        parse(line, argv);
+        if (strcmp(argv[0], "exit") == 0)
+        {
+            exit(0);
+        }
+        execute(argv);
+    }
+}
+
+/*----------------------------------------------------------------------------*/
 static void red(void)
 {
     printf("\033[1;31m");
@@ -82,3 +122,20 @@ static void reset(void)
 {
     printf("\033[0m");
 }
+
+/*****************************************************************************
+void SystemFork(void)
+{
+    char ch;
+    printf("-\tclick 'f' for fork\t-\n-\tclick 's' for system\t-");
+    printf("\n----------------------------------\n");
+    ch = getchar();
+    if (ch == 's')
+    {
+        System_Test();
+    }
+    if ('f' == ch)
+    {
+        Fork_Test();
+    }
+}*/
