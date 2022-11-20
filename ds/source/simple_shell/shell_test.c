@@ -6,7 +6,7 @@
 #include <errno.h>    /*errno mess*/
 #include <sys/types.h>
 
-#define MAX_LIMIT 20
+#define MAX_LIMIT 60
 
 static void red(void);
 static void reset(void);
@@ -32,11 +32,11 @@ int main(int argc, char *argv[])
 void System_Test(void)
 {
     char str[MAX_LIMIT] = {0};
-    char char_exit[10] = "exit";
+    char char_exit[10] = "exit\n";
     red();
     printf("SystemBash@MyBash:~$ ");
     reset();
-    scanf("%s", str);
+    fgets(str, 60 , stdin);
 
     while (0 != strcmp(str, char_exit))
     {
@@ -44,9 +44,9 @@ void System_Test(void)
         red();
         printf("SystemBash@MyBash:~$ ");
         reset();
-        scanf("%s", str);
+        fgets(str, 60 , stdin);
     }
-    sleep(2);
+    sleep(1);
     exit(0);
 }
 /*-----------------------------------FORK-------------------------------------*/
@@ -88,8 +88,7 @@ void execute(char **argv)
     }
     else
     {
-        while (wait(&status) != pid)
-            ;
+        while (wait(&status) != pid);
     }
 }
 
