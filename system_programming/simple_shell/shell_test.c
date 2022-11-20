@@ -14,10 +14,11 @@ void System_Test(void);
 void Fork_Test(void);
 void SystemFork(void);
 
+/*-----------------------------------MAIN-------------------------------------*/
 int main(int argc, char *argv[])
 {
     (void)argc;
-    if (0==strcmp(argv[1], "sys"))
+    if (0 == strcmp(argv[1], "sys"))
     {
         System_Test();
     }
@@ -36,7 +37,7 @@ void System_Test(void)
     red();
     printf("SystemBash@MyBash:~$ ");
     reset();
-    fgets(str, 60 , stdin);
+    fgets(str, 60, stdin);
 
     while (0 != strcmp(str, char_exit))
     {
@@ -44,7 +45,7 @@ void System_Test(void)
         red();
         printf("SystemBash@MyBash:~$ ");
         reset();
-        fgets(str, 60 , stdin);
+        fgets(str, 60, stdin);
     }
     sleep(1);
     exit(0);
@@ -59,8 +60,7 @@ void parse(char *line, char **argv)
             *line++ = '\0';
         }
         *argv++ = line;
-        while (*line != '\0' && *line != ' ' &&
-               *line != '\t' && *line != '\n')
+        while (*line != '\0' && *line != ' ' && *line != '\t' && *line != '\n')
         {
             ++line;
         }
@@ -75,14 +75,14 @@ void execute(char **argv)
 
     if ((pid = fork()) < 0)
     {
-        printf("*** ERROR: forking child process failed\n");
+        printf("ERROR: forking child process failed\n");
         exit(1);
     }
     else if (pid == 0)
     {
         if (execvp(*argv, argv) < 0)
         {
-            printf("*** ERROR: exec failed\n");
+            printf("ERROR: exec failed\n");
             exit(1);
         }
     }
