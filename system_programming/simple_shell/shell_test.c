@@ -73,7 +73,7 @@ void execute(char **argv)
     pid_t pid;
     int status;
 
-    if ((pid = fork()) < 0)
+    if ((pid = fork()) < 0) 
     {
         printf("ERROR: forking child process failed\n");
         exit(1);
@@ -86,7 +86,7 @@ void execute(char **argv)
             exit(1);
         }
     }
-    else
+    else /*wait for child*/
     {
         while (wait(&status) != pid);
     }
