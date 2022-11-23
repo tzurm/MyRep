@@ -15,28 +15,33 @@ void *routine()
     pthread_mutex_unlock(&mutex);
 }
 
-int main(int argc, char *argv[])
+int main()
 {
     pthread_t thread;
-    (void)argv;
-    (void)argc;
+
+    int status = 0;
     pthread_mutex_init(&mutex, NULL);
 
     for (i = 0; i < SIZE; ++i)
     {
-        if (pthread_create(&thread, NULL, routine, NULL) != 0)
+        status = pthread_create(&thread, NULL, routine, NULL);
+        while (0 != status)
         {
             perror("Failed to create thread");
-            return 1;
+            pthread_create(&thread, NULL, routine, NULL);
         }
         pthread_join(thread, NULL);
+        /*add join to avoid "Faild to create thread: cannot allocate memory"*/
     }
 
     pthread_mutex_destroy(&mutex);
 
     for (i = 0; i < SIZE; ++i)
     {
-        printf("%d \n", arr[i]);
+        if (arr[i] == i)
+        {
+            printf("%d \n", arr[i]);
+        }
     }
 
     return 0;
