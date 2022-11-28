@@ -12,9 +12,9 @@ void *producer_write()
 {
     while (1)
     {
-        if (spinlock == FREE)
+        if (FREE == spinlock)
         {
-            rand_num = rand()% 50;
+            rand_num = rand();
             printf("producer write:\t%d\t", rand_num);
             spinlock = LOCKED;
         }
@@ -26,7 +26,7 @@ void *consumer_read()
 {
     while (1)
     {
-        if (spinlock == LOCKED)
+        if (LOCKED == spinlock)
         {
             printf("consumer read:\t%d\n", rand_num);
             spinlock = FREE;
