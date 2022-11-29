@@ -5,44 +5,49 @@
 #include <semaphore.h> /*semaphore  */
 #include <time.h>
 #include "sll.h"
-/*
+/* -------------------------------------------------------------------------*
  *  ex6 : A producer produces a "message" and waaits until all consumers    *
  *      consumed that message exactly 1 time                                *
  *      Use 1 condition variable, 1 mutex, 1 semaphore.                     *
  *      (1 producer n consumers).                                           *
- *                                                                          */
+ * -------------------------------------------------------------------------*
+ * pseudo                                                                   *
+ * Producer_wait signal from num of threads to be ready                     *
+ * sent message and increase semaphore value                                *
+ *                                                                          *
+ * wait signal, received the message and when counter is get to num         *
+ * of threads signal to producer to ACTION!                                 *
+ * -------------------------------------------------------------------------*/
 
-#define NUM_THREAD 3
+#define NUM_THREAD 10
 
-pthread_mutex_t mutex;
 sem_t semaphore;
+pthread_mutex_t mutex;
+pthread_cond_t cond;
+
+size_t counter = 0;
 int index_user = 1;
 int rand_num = 0;
-pthread_cond_t cond;
-size_t counter = 0;
 int i = 0;
 
 void *Producer_write()
 {
-    i = NUM_THREAD;
     while (1)
     {
-        while (counter < NUM_THREAD)
-        {
-            pthread_cond_wait(&cond, &mutex);
-        }
-        counter = 0;
-
         rand_num = rand();
         printf("Sent:\t%d\n", rand_num);
 
-        /* reset post to start recvied message*/
+        pthread_mutex_lock(&mutex);
+        counter = 0;
         i = 0;
         while (i < NUM_THREAD)
         {
             sem_post(&semaphore);
             i++;
         }
+        pthread_cond_wait(&cond, &mutex);
+        pthread_mutex_unlock(&mutex);
+        
     }
     return NULL;
 }
@@ -52,23 +57,22 @@ void *Consumer_read()
     while (1)
     {
         sem_wait(&semaphore);
-        pthread_mutex_lock(&mutex);
 
-        printf("User %ld Received %d\n", counter + 1, rand_num);
-        ++index_user;
+        printf("User %ld Received %d\n", pthread_self(), rand_num);
+
+        pthread_mutex_lock(&mutex);
         ++counter;
-        /* cancel infinty loop */ /*
-           if(index_user>90)
-           {
-               exit(1);
-           }
-   */
-        pthread_mutex_unlock(&mutex);
         if (counter == NUM_THREAD)
         {
-            pthread_cond_signal(&cond);
+            pthread_cond_broadcast(&cond);
         }
+        else
+        {
+            pthread_cond_wait(&cond, &mutex);
+        }
+        pthread_mutex_unlock(&mutex);
     }
+
     return NULL;
 }
 
@@ -90,8 +94,8 @@ int main()
         pthread_create(&consumers[i], NULL, Consumer_read, NULL);
         /*need check if fail*/
     }
-    counter = NUM_THREAD;
-    pthread_cond_signal(&cond);
+
+   /* pthread_cond_broadcast(&cond);*/
 
     pthread_join(producers, NULL);
 
