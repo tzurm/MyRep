@@ -19,12 +19,12 @@ sem_t semaphore;
 int index_user = 1;
 int rand_num = 0;
 pthread_cond_t cond;
-size_t current_num_message = 0;
 size_t counter = 0;
+int i = 0;
 
 void *Producer_write()
 {
-    int i = NUM_THREAD;
+    i = NUM_THREAD;
     while (1)
     {
         while (counter < NUM_THREAD)
@@ -36,13 +36,13 @@ void *Producer_write()
         rand_num = rand();
         printf("Sent:\t%d\n", rand_num);
 
-        i = NUM_THREAD;
-        while (i > 0)
+        /* reset post to start recvied message*/
+        i = 0;
+        while (i < NUM_THREAD)
         {
             sem_post(&semaphore);
-            --i;
+            i++;
         }
-        
     }
     return NULL;
 }
@@ -54,14 +54,15 @@ void *Consumer_read()
         sem_wait(&semaphore);
         pthread_mutex_lock(&mutex);
 
-        printf("User %d Received %d\n", index_user, rand_num);
+        printf("User %ld Received %d\n", counter + 1, rand_num);
         ++index_user;
         ++counter;
-        if(index_user>90)
-        {
-            exit(1);
-        }
-
+        /* cancel infinty loop */ /*
+           if(index_user>90)
+           {
+               exit(1);
+           }
+   */
         pthread_mutex_unlock(&mutex);
         if (counter == NUM_THREAD)
         {
@@ -89,7 +90,7 @@ int main()
         pthread_create(&consumers[i], NULL, Consumer_read, NULL);
         /*need check if fail*/
     }
-    counter=NUM_THREAD;
+    counter = NUM_THREAD;
     pthread_cond_signal(&cond);
 
     pthread_join(producers, NULL);
