@@ -1,7 +1,8 @@
 #include <stdio.h>						/*	printf		*/
 #include <stdlib.h>						/*	malloc		*/
 #include <malloc.h>						/*	check heap	*/
-	
+#include "mm.h"
+
 static int static_func(int var);		/*	Static func */
 extern int extern_func(int num);		/*	Extern func */
 int *heap_variable = NULL;				/*	Heap var	*/
@@ -19,7 +20,6 @@ static int static_func(int num)
 {
 	return (num += 1);
 }
-
 
 size_t recursion(size_t num) 
 {
@@ -42,15 +42,3 @@ size_t recursion(size_t num)
 }
 
 
-int main(int argc, char *argv[], char *envp[])
-{
-
-    size_t run_num_times = 500;
-	heap_variable = (int *)malloc(10);			/*	malloc 			*/
-	
-  	recursion(run_num_times);
- 	free(heap_variable);
-    return 0;
-}
-
-/* (3) string literal located in data segment or only read or code segment */

@@ -1,28 +1,50 @@
-#include <stdio.h>/*printf*/
-#include <stdlib.h>/*free*/
+#include <stdio.h>      /*printf()*/
+#include <string.h>     /*memset*/
+#include <sys/types.h>  /*size_t*/
 
+#include "ext2.h"/*header file*/
 
-#include "ext2.h"
-#define SIZE 30
-void PrintInode(inode_t *inode);
+#define SMALL 64
+#define BIG   44000
+#define EXIT "exit"
 
-int main()
+int main(int argc, char const *argv[])
 {
-    char device_path[SIZE] = "/dev/ram0";
-    char file_name[SIZE] = "findme.txt";
-    super_block_t *super_block = GetSuperBlock(device_path);
-    group_desc_t *group_descriptor = GetGroupDesc(device_path);
-    inode_t *inode = ReadInode(2, device_path);
-    
-    PrintSuperBlock(super_block);
-    PrintGroupDesc(group_descriptor);
-    PrintInode(inode);
-    FindInDir(file_name, inode, device_path);
-    inode = ReadInode(13, device_path);
-    PrintInode(inode);
-    PrintFileContent(inode, device_path);
+    int inode = 0;
+    size_t i = 0;
+    char small_buffer[SMALL] = {0};
+    char big_buffer[BIG] = {0};
+    char * runner = NULL;
+
+    if (3 != argc)
+    {
+        printf("invalid input!\n");
+        return -1;
+    }
     
 
-    free(super_block);
+    inode = OpenFile(argv[1], argv[2]);
+    printf("%d\n", inode);
+
+    runner = ReadBytes(inode, small_buffer, SMALL);
+
+    for (i = 0; i < SMALL; i++)
+    {
+        printf("%c", *runner);
+        ++runner;
+    }
+    printf("\n");
+    printf("\n");
+
+    runner = Read(inode, big_buffer);
+
+    for (i = 0; i < 41000; i++)
+    {
+        printf("%c", *runner);
+        ++runner;
+    }
+    printf("\n");
+
     return 0;
 }
+

@@ -61,7 +61,7 @@ int main()
     {
         printf("not found\n");
     }
-    printf("%d Found in index: %d\n", arr[3], RecBinarySearch(arr, 0, len - 1, arr[3]));
+    printf("%d Found in index: %d\n", arr[(len-1)/2], RecBinarySearch(arr, 0, len - 1, arr[(len-1)/2]));
 
     printf("------------------IterBinarySearch---------------------------\n");
     printf("Found : %d\n", *(IterBinarySearch(arr, &arr[6], len)));

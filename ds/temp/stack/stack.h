@@ -21,7 +21,8 @@ size_t Size(stack_t *stack);
 
 size_t Capacity(stack_t *stack);
 
+void SortedInsert(stack_t *stack, int value);
+
+void SortStack(stack_t *stack);
 
 #endif
-
-
