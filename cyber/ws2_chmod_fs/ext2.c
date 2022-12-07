@@ -5,10 +5,12 @@
 #include <stdlib.h> /*free*/
 #include <unistd.h> /*fread ,pread*/
 #include <string.h> /*strchr*/
+#include <math.h>   /*math*/
 
 #include "ext2_fs.h"
 #include "ext2.h"
 
+#define CAST_OCT 100000
 #define BOOT_BLOCK 1024
 #define PATH_SIGN "/"
 #define END_OF_FILE 0
@@ -25,6 +27,8 @@ int file_discriptor_key = 0;
 
 super_block_t super;
 group_desc_t group;
+
+static int OctalToDecimal(int num);
 
 static int DeviceOpen(const char *device)
 {
@@ -202,7 +206,7 @@ void *Read(const int inode_num, void *buffer)
     return buffer;
 }
 
-void ReadBytesToBit(const int inode_num, unsigned short chmod_num)
+void MyChmod(const int inode_num, int chmod_num)
 {
     inode_t inode;
 
@@ -213,18 +217,28 @@ void ReadBytesToBit(const int inode_num, unsigned short chmod_num)
     printf(" %b\n", inode.i_mode);
     /*change to 777 33279*/
     /*no write 555 -> 33133*/
-    if (777 == chmod_num)
-    {
-        inode.i_mode = (unsigned short)33279;
-    }
-    if (555 == chmod_num)
-    {
-        inode.i_mode = (unsigned short)33133;
-    }
+    inode.i_mode = (unsigned short)OctalToDecimal(chmod_num + CAST_OCT);
+
     InodeWriter(&inode, inode_num);
     InodeReader(&inode, inode_num);
     printf("after\n");
     printf("%o", inode.i_mode);
     printf("\t-u--g--o-\n\trwxrwxrwx\n");
     printf(" %b\n", inode.i_mode);
+}
+
+static int OctalToDecimal(int num)
+{
+    int x = 0;
+    int ans = 0;
+
+    while (num > 0)
+    {
+        int y = num % 10;
+        num /= 10;
+        ans += y * pow(8, x);
+        ++x;
+    }
+
+    return ans;
 }

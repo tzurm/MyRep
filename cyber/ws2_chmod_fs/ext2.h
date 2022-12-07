@@ -34,6 +34,6 @@ Parameters:
 */
 void *Read(const int inode_num, void *buffer);
 
-void ReadBytesToBit(const int inode_num, unsigned short chmod_num);
+void MyChmod(const int inode_num, int chmod_num);
 
 #endif
