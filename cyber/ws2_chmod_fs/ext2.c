@@ -211,20 +211,25 @@ void MyChmod(const int inode_num, int chmod_num)
     inode_t inode;
 
     InodeReader(&inode, inode_num);
-    printf("before\n");
-    printf("%o", inode.i_mode);
-    printf("\t-u--g--o-\n\trwxrwxrwx\n");
-    printf(" %b\n", inode.i_mode);
-    
+    system("ls -l  /home/tzur/my_ram/");
+   /* printf("before\n");
+      printf("%o", inode.i_mode);
+      printf("\t-u--g--o-\n\trwxrwxrwx\n");
+      printf(" %b\n", inode.i_mode);*/
+
     /*change to 777 100777 */
     inode.i_mode = (unsigned short)OctalToDecimal(chmod_num + CAST_OCT);
 
     InodeWriter(&inode, inode_num);
     InodeReader(&inode, inode_num);
-    printf("after\n");
-    printf("%o", inode.i_mode);
-    printf("\t-u--g--o-\n\trwxrwxrwx\n");
-    printf(" %b\n", inode.i_mode);
+  /*   printf("after\n");
+     printf("%o", inode.i_mode);
+      printf("\t-u--g--o-\n\trwxrwxrwx\n");
+      printf(" %b\n", inode.i_mode);*/
+
+    system("sudo umount /dev/ram0");
+    system("sudo mount /dev/ram0 /home/tzur/my_ram");
+    system("ls -l  /home/tzur/my_ram/");
 }
 
 /*change to 100777 33279*/

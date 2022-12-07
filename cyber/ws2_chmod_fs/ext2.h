@@ -1,5 +1,5 @@
-#ifndef __ILRD_CR02_EXT2_SPIDER_H__
-#define __ILRD_CR02_EXT2_SPIDER_H__
+#ifndef __ILRD_CR02_EXT2_H__
+#define __ILRD_CR02_EXT2_H__
 
 /*
 Description:     
