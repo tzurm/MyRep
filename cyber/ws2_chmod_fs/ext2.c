@@ -215,8 +215,8 @@ void MyChmod(const int inode_num, int chmod_num)
     printf("%o", inode.i_mode);
     printf("\t-u--g--o-\n\trwxrwxrwx\n");
     printf(" %b\n", inode.i_mode);
-    /*change to 777 33279*/
-    /*no write 555 -> 33133*/
+    
+    /*change to 777 100777*/
     inode.i_mode = (unsigned short)OctalToDecimal(chmod_num + CAST_OCT);
 
     InodeWriter(&inode, inode_num);
@@ -227,6 +227,7 @@ void MyChmod(const int inode_num, int chmod_num)
     printf(" %b\n", inode.i_mode);
 }
 
+/*change to 100777 33279*/
 static int OctalToDecimal(int num)
 {
     int x = 0;
