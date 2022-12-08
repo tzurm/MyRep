@@ -26,7 +26,7 @@ int file_discriptor_key = 0;
 super_block_t super;
 group_desc_t group;
 
-static int DiviceOpen(const char *device)
+static int DeviceOpen(const char *device)
 {
     /*add assert*/
     file_discriptor_key = open(device, O_RDONLY);
@@ -151,11 +151,13 @@ static int GetInodeFromName(int directory, char *path)
     return return_inode;
 }
 
+/******************************************************************************/
+
 int OpenFile(const char *device, const char *path)
 {
     inode_t inode;
 
-    DiviceOpen(device);
+    DeviceOpen(device);
     pread(file_discriptor_key, &super, SUPER_BLOCK_SIZE, BOOT_BLOCK);
     block_size = 1024 << super.s_log_block_size;
     pread(file_discriptor_key, &group, GROUP_DESC_SIZE, block_size);
