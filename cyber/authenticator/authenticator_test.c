@@ -13,14 +13,15 @@ int main()
     char *password = "123456";
     char *notusername = "pop";
     char *notpass = "12345";
-
+ /*-----------------------------------------------------------Test AddUser----*/
     AddUser(username, password);
-    AddUser("Mark", "mypass123");
+    AddUser("user0", "mypass123");
     AddUser("user1", "12345678");
-
+ /*------------------------------------------------------Test Authenticate----*/
+ 
     PrintAuthenticateTest(username, password); /*found*/
     PrintAuthenticateTest("tzur", "123456"); /*found*/
-    PrintAuthenticateTest("Mark",  "mypass123"); /*found*/
+    PrintAuthenticateTest("user0",  "mypass123"); /*found*/
     PrintAuthenticateTest(username, notpass); /*not found*/
     PrintAuthenticateTest(notusername, notpass); /*not found*/
 

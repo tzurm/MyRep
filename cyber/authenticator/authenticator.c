@@ -50,10 +50,12 @@ int AddUser(const char *user_name, const char *password)
 int Authenticate(const char *user_name, const char *password)
 {
 
-    char line[128] = "";        /*to read the current line and keep scan*/
+    char line[256] = "";        /*to read the current line and keep scan*/
     char *hashed_password = ""; /*to compare hash to hash*/
-    char *data_hash = "-";
     FILE *file = NULL;
+
+    assert(strlen(user_name) < MAX_USERNAME_LEN);
+    assert(strlen(password) < MAX_PASSWORD_LEN);
 
     file = fopen("mydatabase", "r");
     if (NULL == file)
@@ -68,15 +70,15 @@ int Authenticate(const char *user_name, const char *password)
         if (strstr(line, user_name))
         {
             /* If the user name was found, check if the password matches */
-            hashed_password = crypt(password, "spider"); 
-            data_hash = strstr(line, hashed_password); /*copy with \n*/  /*problem if dont find the needle*/
-            if (0 == strncmp(hashed_password, data_hash, sizeof(hashed_password)))
+            hashed_password = crypt(password, "spider");
+            if (strstr(line, hashed_password)) /*check the hash password*/
             {
                 fclose(file);
                 return 1;
             }
         }
     }
+
     fclose(file);
-    return -1; /*user not found*/
+    return -1; /*user not found or password not correct*/
 }
