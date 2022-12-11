@@ -20,6 +20,7 @@ int AddUser(const char *user_name, const char *password)
     char line[256] = ""; /*to read the current line and keep scan*/
     int status = 0;
     char *hashed_password = "0";
+    char tmp_user_name[10] = "";
     FILE *file = NULL;
 
     assert(strlen(user_name) < MAX_USERNAME_LEN);
@@ -31,9 +32,12 @@ int AddUser(const char *user_name, const char *password)
         return -1;
     }
     /*check if the user already exists*/
+     strcpy(tmp_user_name,user_name);
+    strcat(tmp_user_name, ":");
+
     while (NULL != fgets(line, sizeof(line), file))
     {
-        if (strncmp(line, user_name, strlen(user_name)) == 0)
+        if (strstr(line, tmp_user_name))
         {
             fclose(file);
             return -1;
@@ -93,7 +97,7 @@ int Authenticate(const char *user_name, const char *password)
 }
 
 /*
- * Delet user by password
+ * Delet user by user_name
  * Returns 1 on success, -1 on failure.
  */
 int DeleteUser(const char *user_name)
@@ -101,6 +105,7 @@ int DeleteUser(const char *user_name)
     FILE *file = NULL;
     FILE *tmp = NULL;
     char line[256] = "";
+    char tmp_user_name[10] = "";
     int user_found = 0;
 
     file = fopen("mydatabase", "r");
@@ -108,12 +113,13 @@ int DeleteUser(const char *user_name)
     {
         return -1;
     }
+    strcpy(tmp_user_name,user_name);
+    strcat(tmp_user_name, ":");
 
     while (NULL != fgets(line, sizeof(line), file))
     {
-        if (strstr(line, user_name))
+        if (strstr(line, tmp_user_name))
         {
-            if (strncmp(line, user_name, strlen(user_name)) == 0)
             {
                 user_found = FOUND;
                 continue; /*start over and check next line*/
@@ -139,3 +145,4 @@ int DeleteUser(const char *user_name)
 
     return -1;
 }
+
