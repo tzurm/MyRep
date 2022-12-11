@@ -14,10 +14,13 @@ int main()
     char *password = "123456";
     char *notusername = "pop";
     char *notpass = "12345";
+    
     /*--------------------------------------------------------Test AddUser----*/
     AddUser(username, password);
     AddUser("user0", "mypass123");
     AddUser("user1", "12345678");
+
+
     /*---------------------------------------------------Test Authenticate----*/
 
     PrintAuthenticateTest(username, password);   /*found*/
@@ -26,7 +29,9 @@ int main()
     PrintAuthenticateTest("joo", notpass);       /*not found*/
     PrintAuthenticateTest(notusername, notpass); /*not found*/
 
+
     /*-----------------------------------------------------Test DeleteUser----*/
+
     printf("delete 'tzur' user and then check authenction\n");
     DeleteUser("tzur");
     PrintAuthenticateTest(username, password); /*not found*/
