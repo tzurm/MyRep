@@ -5,9 +5,10 @@
 #include <crypt.h>  /*crypt*/
 #include "authenticator.h"
 
-#define PATH_SPIDER "/home/tzur/git/tzur.mantzur/cyber/authenticator"
 #define MAX_USERNAME_LEN 32
 #define MAX_PASSWORD_LEN 64
+#define FOUND 1
+#define NOT_FOUND -1
 
 /*
  * Adds a new user to the user file with the given user name and password.
@@ -63,22 +64,66 @@ int Authenticate(const char *user_name, const char *password)
         return -1;
     }
 
-    /* Read each line of the file */
     while (NULL != fgets(line, sizeof(line), file))
     {
-        /* Check if the line contains the user name */
-        if (strstr(line, user_name))
+
+        if (strstr(line, user_name)) /* Check if user name in line */
         {
-            /* If the user name was found, check if the password matches */
+            /* Check if the password matches by find the hahs in line */
             hashed_password = crypt(password, "spider");
-            if (strstr(line, hashed_password)) /*check the hash password*/
+            if (strstr(line, hashed_password))
             {
                 fclose(file);
-                return 1;
+                return FOUND;
             }
         }
     }
 
     fclose(file);
-    return -1; /*user not found or password not correct*/
+    return NOT_FOUND;
+}
+
+/*
+ * Delet user by password
+ * Returns 1 on success, -1 on failure.
+ */
+int DeleteUser(const char *user_name)
+{
+    FILE *file = NULL;
+    FILE *tmp = NULL;
+    char line[256] = "";
+    int user_found = 0;
+
+    file = fopen("mydatabase", "r");
+    if (NULL == file)
+    {
+        return -1;
+    }
+
+    while (NULL != fgets(line, sizeof(line), file))
+    {
+        if (strstr(line, user_name))
+        {
+            user_found = FOUND;
+            continue; /*start over and check next line*/
+        }
+
+        /* If the user was not found, write the current line to a temporary file */
+        tmp = fopen("mydatabase.tmp", "a");
+        fputs(line, tmp);
+        fclose(tmp);
+    }
+
+    /* When done to check every line,
+    this tmp file contains only lines without the selected user name */
+
+    fclose(file);
+
+    if (FOUND == user_found)
+    {
+        rename("mydatabase.tmp", "mydatabase");
+        return 1;
+    }
+    
+    return -1;
 }
