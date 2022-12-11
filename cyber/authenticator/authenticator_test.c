@@ -42,5 +42,5 @@ int main()
 
 static void PrintAuthenticateTest(const char *user_name, const char *password)
 {
-    (1 == Authenticate(user_name, password)) ? printf("%s found\n", user_name) : printf("%s not found\n", user_name);
+    (1 == Authenticate(user_name, password)) ? printf("%s verified\n", user_name) : printf("%s not found\n", user_name);
 }

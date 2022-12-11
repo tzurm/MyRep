@@ -36,6 +36,7 @@ int AddUser(const char *user_name, const char *password)
     status = fprintf(file, "%s:%s\n", user_name, hashed_password);
     if (status < 0)
     {
+        fclose(file);
         return -1;
     }
 
