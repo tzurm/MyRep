@@ -12,13 +12,9 @@ int DeleteUser(const char *user_name);
 int main()
 {
     
-    /*--------------------------------------------------------Test AddUser----*/
-    
-    /*---------------------------------------------------Test Authenticate----*/
 
-    PrintAuthenticateTest("tzur");   /*found*/
- 
-    /*-----------------------------------------------------Test DeleteUser----*/
+    PrintAuthenticateTest("labuser2");   
+   /* PrintAuthenticateTest("labuser1");   */
 
     return 1;
 }
@@ -31,11 +27,3 @@ static void PrintAuthenticateTest(const char *user_name)
 
 
 
-/*
-
-PAM functions that need to be implemented:
-pam_sm_authenticate()
-pam_sm_setcred()
-pam_sm_acct_mgmt()
-pam_sm_open_session()
-*/

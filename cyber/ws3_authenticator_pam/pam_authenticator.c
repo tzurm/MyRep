@@ -63,7 +63,7 @@ int Authenticate(const char *user_name)
 
     printf("enter password for %s user\n", user_name);
 
-    return_val = pam_start("spiderpig", user_name, &conv, &pam_handle);
+    return_val = pam_start("group_cofig_cyber", user_name, &conv, &pam_handle);
     if (return_val != PAM_SUCCESS)
     {
         return -1;

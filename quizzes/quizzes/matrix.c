@@ -7,16 +7,16 @@
 
 void SetMatrixZeros(int arr[ROW][COL], int row, int col)
 {
+
     int arr_row[ROW] = {false};
     int arr_col[COL] = {false};
     int i = 0;
     int j = 0;
-
-    for (i = 0; i < row; ++j)
+    for (i = 0; i < row; ++i)
     {
         arr_row[i] = false;
     }
-    for (i = 0; i < col; ++j)
+    for (i = 0; i < col; ++i)
     {
         arr_col[i] = false;
     }

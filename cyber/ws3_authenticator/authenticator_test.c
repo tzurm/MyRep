@@ -21,6 +21,7 @@ int main()
     printf("user\tstatus\n-------------------------\n");
     /*--------------------------------------------------------Test AddUser----*/
     AddUserTest(username, password);
+    AddUserTest(username, password);
     AddUserTest("tzur111", "mypass123");
     AddUserTest("tzu", "mypass123");
     AddUserTest("t", "mypass123");
