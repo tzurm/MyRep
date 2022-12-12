@@ -76,13 +76,15 @@ int Authenticate(const char *user_name)
     }
 
     return_val = pam_end(pam_handle, return_val);
-    
+
     if (return_val != PAM_SUCCESS)
     {
         return -1;
     }
     if (return_val == PAM_SUCCESS)
+    {
         return FOUND;
+    }
     return -1;
 }
 
