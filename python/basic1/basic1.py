@@ -36,8 +36,8 @@ def IsEven(num):
   else:
     print(num , "not even")
 """--------------------------------------ex2---------------------------------"""
-def PrintMultiString(string,num=1):
-  print(string* num)
+def PrintMultiString(string, num = 1):
+  print(string * num)
 """--------------------------------------ex3---------------------------------"""
 def IsYearLeap(year):
   if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
@@ -57,11 +57,11 @@ def FlipInt(num):
 def GradeToLetter(grade):
     if grade >= 90:
         return "A"
-    elif grade >= 80:
-        return "B"
     elif grade >= 70:
+        return "B"
+    elif grade >= 50:
         return "C"
-    elif grade >= 60:
+    elif grade >= 10:
         return "D"
     else:
         return "F"
@@ -101,9 +101,11 @@ def main():
 
   print(color.BOLD + "Ex4.IsInt"+color.END)
   print(num1, "is",IsInt(num1))
+  max_int = "pop"
+  print(max_int, "is",IsInt(max_int))
   
   print(color.BOLD + "Ex6.Translate"+color.END)
-  print("31 is", GradeToLetter(31))
+  print("30 is", GradeToLetter(30))
   print("88 is", GradeToLetter(88))
   print("100 is", GradeToLetter(99))
   
