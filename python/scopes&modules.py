@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
+import basic2 
+import MyPackage
+import module3
+from MyPackage import _foo
 import sys
+
 class color:
   BOLD = '\033[1m'
   END = '\033[0m'
   
-global_var1 = 6
+global_var1 = "66666"
 
-"""--------------------------------------q1---------------------------------"""
+"""--------------------------------------q1----------------------------------"""
 print(color.BOLD + "Q1"+color.END)
 def foo(n):
   n = 4
@@ -47,7 +52,7 @@ def foo5(a = []):
   print(a)
 foo5()
 foo5()
-"""--------------------------------------q2---------------------------------"""
+"""--------------------------------------q2----------------------------------"""
 print(color.BOLD + "Q2"+color.END)
 def fooQ2():
   x = 5
@@ -55,20 +60,43 @@ x = 50
 x+=1
 fooQ2()
 print(x)
-"""-------------------------------------"""
+"""--------------------------------------q3----------------------------------"""
+print(color.BOLD + "Q3"+color.END)
+def fooQ3(y):
+  global x
+  print(locals())
+  x = 5
+x = 50
+fooQ3(x)
+print(x)
 """-------------------------------------"""
 
 """--------------------------------------ex1---------------------------------"""
-def IsGlobal():
-  return 'global_var1' in globals()
+def IsGlobal(var):
+  """print(locals())
+  print(globals())"""
+  return var in globals()
 
 """--------------------------------------main-------------------------------"""     
 def main():
   
   print(color.BOLD + "EX1"+color.END)
-  print(global_var1,"is global", IsGlobal())
+  print(global_var1,"is global", IsGlobal("global_var1"))
+  
+  print(color.BOLD + "EX2.import basic2"+color.END)
+  list3 = [1,2,3,4,5] 
+  print(color.BOLD + "    Ex3.CountOccurrence from basic2"+color.END)
+  basic2.CountOccurrence("ttttzzzuur")
+  print(color.BOLD + "    Ex6.RotateLeft from basic2"+color.END)
+  print("before:\t",list3,"\n","after:\t",basic2.RotateLeft(list3,2),sep="")
 
-
+  print(color.BOLD + "EX3.CreateMyPackage"+color.END)
+  MyPackage.foo()  
+  MyPackage.bar()
+  MyPackage._bar()
+  _foo()
+  module3._staticfunc()
+  
 if __name__ == "__main__":
     main()
     

@@ -89,8 +89,5 @@ def main():
   print(color.BOLD + "Ex6.RotateLeft"+color.END)
   print("before:\t",list3,"\n","after:\t",RotateLeft(list3,2),sep="")
   
-
-  
-  
 if __name__ == "__main__":
   main()
