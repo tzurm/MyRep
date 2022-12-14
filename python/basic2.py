@@ -9,14 +9,14 @@ class color:
 """--------------------------------------ex1---------------------------------"""
 def ListSquared():
   squares = []
-  for i in range(11):
+  for i in range(101):
     squares.append(i**2)
   print(squares)
   
 def ListSquaredWhile():
   squares = []
   i = 0
-  while i<=10:
+  while i<=100:
     squares.append(i**2)
     i += 1
   print(squares)
@@ -26,13 +26,13 @@ def EvenForRange():
   print (evens)
   
 def EvenForRange1():
-  evens = [i for i in range(0,11,2)]
+  evens = [i for i in range(0,101,2)]
   print (evens)
   
 def EvenWhile():
   evens = []
   i = 0
-  while i<=11:
+  while i<=100:
     evens.append(i)
     i += 2
   print(evens)
@@ -56,12 +56,14 @@ def Intersection(list1,list2):
 """--------------------------------------ex6---------------------------------"""
 def RotateLeft(list1):
   return list1[1:] + [list1[0]]
+"""  return list1[slice(1, len(list1))] + [list1[0]]"""
 
 """--------------------------------------main-------------------------------"""     
 def main():
   
-  list1=["value", "more value", "other value"] 
-  list2=["first value", "sec value", "other value", "value"]
+  list1 = ["value", "more value", "other value"] 
+  list2 = ["first value", "sec value", "other value", "value"]
+  list3 = [1,2,3,4,5] 
   newlist=()
   print(color.BOLD + "Ex1.ListSquared"+color.END)
   ListSquared()
@@ -76,8 +78,9 @@ def main():
   PrintListItems(list1)
   print(color.BOLD + "Ex5.UnionSamesValuesInTwoLists"+color.END)
   newlist = Intersection(list1,list2)
-  print("list1 =\t",list1,"\n","list2 =\t",list2,"\n","new list = ",newlist,sep="")
+  print("list1 =\t",list1,"\n","list2 =\t",list2,"\n","new ls = ",newlist,sep="")
   print(color.BOLD + "Ex6.RotateLeft"+color.END)
-  print(RotateLeft(list1))
+  print("before:\t",list3,"\n","after:\t",RotateLeft(list3),sep="")
+  
 if __name__ == "__main__":
   main()
