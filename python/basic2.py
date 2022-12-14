@@ -54,9 +54,8 @@ def PrintListItems(mylist):
 def Intersection(list1,list2):
   return [val for val in list1 if val in list2]
 """--------------------------------------ex6---------------------------------"""
-def RotateLeft(list1):
-  return list1[1:] + [list1[0]]
-"""  return list1[slice(1, len(list1))] + [list1[0]]"""
+def RotateLeft(list1,num_rot):
+  return list1[num_rot:] + list1[:num_rot]
 
 """--------------------------------------main-------------------------------"""     
 def main():
@@ -80,7 +79,10 @@ def main():
   newlist = Intersection(list1,list2)
   print("list1 =\t",list1,"\n","list2 =\t",list2,"\n","new ls = ",newlist,sep="")
   print(color.BOLD + "Ex6.RotateLeft"+color.END)
-  print("before:\t",list3,"\n","after:\t",RotateLeft(list3),sep="")
+  print("before:\t",list3,"\n","after:\t",RotateLeft(list3,2),sep="")
+  
+
+  
   
 if __name__ == "__main__":
   main()
