@@ -50,6 +50,11 @@ def CountOccurrence(mystr):
 def PrintListItems(mylist):
   for i, item in enumerate(mylist):
     print(i, item)
+    
+def PrintDictItems(dict):
+    for index, (key, element) in enumerate(dict.items()):
+      print(f"{index}: {key}: {element}")
+
 """--------------------------------------ex5---------------------------------"""
 def Intersection(list1,list2):
   return [val for val in list1 if val in list2]
@@ -60,6 +65,7 @@ def RotateLeft(list1,num_rot):
 """--------------------------------------main-------------------------------"""     
 def main():
   
+  dict = {'Tzur': ("28","RGC"), 'Andrey': ("25","PTC"), 'dummy' : ("0","IL")}
   list1 = ["value", "more value", "other value"] 
   list2 = ["first value", "sec value", "other value", "value"]
   list3 = [1,2,3,4,5] 
@@ -75,6 +81,7 @@ def main():
   CountOccurrence("ttttzzzuur")
   print(color.BOLD + "Ex4.PrintListItems"+color.END)
   PrintListItems(list1)
+  PrintDictItems(dict)
   print(color.BOLD + "Ex5.UnionSamesValuesInTwoLists"+color.END)
   newlist = Intersection(list1,list2)
   print("list1 =\t",list1,"\n","list2 =\t",list2,"\n","new ls = ",newlist,sep="")
