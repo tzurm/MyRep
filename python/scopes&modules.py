@@ -95,7 +95,7 @@ def main():
   MyPackage.bar()
   MyPackage._bar()
   _foo()
-  module3._staticfunc()
+  module3.__staticfunc()
   
 if __name__ == "__main__":
     main()

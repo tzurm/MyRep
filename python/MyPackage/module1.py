@@ -4,4 +4,3 @@ def foo():
 def _foo():
   print("I'm _foo from module 1")
   
-
