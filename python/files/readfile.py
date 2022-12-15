@@ -6,15 +6,20 @@ class color:
   END = '\033[0m'
 
 def PrintInUppercaseManger(file_name):
-  with open(file_name, 'r') as file:
-    contents = file.read()
-    print(contents.upper())
-
-def PrintContent(file_name):
-  file = open(file_name, 'r')
   try:
+    with open(file_name, 'r') as file:
+      contents = file.read()
+      print(contents.upper())
+  except IOError:
+    print("Error: Could not read file.")
+    
+def PrintContent(file_name):
+  try:
+    file = open(file_name, 'r')
     contents = file.read()
     print(contents.upper())
+  except IOError:
+    print("Error: Could not read file.")
   finally:
     file.close()
 
