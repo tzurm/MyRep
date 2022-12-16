@@ -6,7 +6,7 @@ class color:
   END = '\033[0m'
 
 
-"""--------------------------------------Ex1---------------------------------"""
+"""--------------------------------------Ex1-3-------------------------------"""
 class Point:
     """Represent a point."""
 
@@ -24,11 +24,8 @@ class Point:
     def PrintPoint(self):
       print("(", self.x, ",", self.y,")")  
 
-"""--------------------------------------Ex2---------------------------------"""
 
-"""--------------------------------------ex3---------------------------------"""
-
-"""--------------------------------------main-------------------------------"""     
+"""--------------------------------------main--------------------------------"""     
 def main():
   
   print(color.BOLD + "Ex1.PointClass"+color.END)
@@ -36,14 +33,11 @@ def main():
   p2 = Point(1.9, 2.9)
   p3 = Point(3,4)
   p4 = Point(48, 55)
-  assert p1.x == 0.0
-  assert p1.y == 0.0
+  
   p1.PrintPoint()
   p2.PrintPoint()
   print(p3.DistanceFromOrigin())
-  print(p4.DistanceFromOrigin())
-
-  
+  print(p4.DistanceFromOrigin())  
   
 if __name__ == "__main__":
   main()
