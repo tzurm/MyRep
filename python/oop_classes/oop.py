@@ -32,7 +32,7 @@ def main():
   p1 = Point()
   p2 = Point(1.9, 2.9)
   p3 = Point(3,4)
-  p4 = Point(48, 55)
+  p4 = Point(20, 55)
   
   p1.PrintPoint()
   p2.PrintPoint()

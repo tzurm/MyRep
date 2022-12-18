@@ -44,6 +44,16 @@ def SevenBoomMap(num):
       not None
   return [i for i in map(seven_boom, range(num)) if i is not None]
 
+"""--------------------------------------Ex4---------------------------------"""
+def ListToDictV1(ls):
+	return {i: ls[i] for i in range (len(ls))}
+  
+def ListToDictV2(ls):
+  result = {}
+  for i in range(len(ls)):
+    result[i] = ls[i]
+  return result
+	
 """--------------------------------------Ex5-------------------------------"""
 def CountArgs(*args, **kwarg):
   return len(args)+len(kwarg)
@@ -73,6 +83,10 @@ def main():
   print(SevenBoomComp(50))
   print(color.BOLD + "Ex3.SevenBoomMap"+color.END)
   print(SevenBoomMap(50))
+  print(color.BOLD + "Ex4.ListToDict"+color.END)
+  ls = ['a', 'b', 'c']
+  print(ListToDictV1(ls))
+  print(ListToDictV2(ls))
   print(color.BOLD + "Ex5.CountArgs"+color.END)
   print(CountArgs("hello" , 4,5,6,7,8 ,name = "hello" ,y = "world"))
   print(color.BOLD + "Ex6.PrintNamed"+color.END)
