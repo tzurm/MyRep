@@ -22,7 +22,7 @@ class X(object):
 	def del_the_hidden_attribute(self):
   		del self.__a
 """
-
+"""Approved by Arie"""
 
 """--------------------------------------Ex1---------------------------------"""
 class Point:
