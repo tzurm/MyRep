@@ -77,6 +77,9 @@ def IsGlobal(var):
   print(globals())"""
   return var in globals()
 
+def _foo():
+  print("pop")
+
 """--------------------------------------main-------------------------------"""     
 def main():
   
@@ -94,6 +97,7 @@ def main():
   MyPackage.foo()  
   MyPackage.bar()
   MyPackage._bar()
+  print("try _foo")
   _foo()
   module3.__staticfunc()
   

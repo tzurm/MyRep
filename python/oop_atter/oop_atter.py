@@ -39,7 +39,6 @@ class X(object):
     self.a = a
   
   def __getattr__(self, attr):
-    
     print(f"Attribute '{attr}' does not exist")
 
 

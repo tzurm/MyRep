@@ -13,7 +13,7 @@ int main()
 {
     
 
-    PrintAuthenticateTest("labuser2");   
+    PrintAuthenticateTest("tzur");   
    /* PrintAuthenticateTest("labuser1");   */
 
     return 1;

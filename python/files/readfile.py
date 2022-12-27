@@ -12,6 +12,8 @@ def PrintInUppercaseManger(file_name):
       print(contents.upper())
   except IOError:
     print("Error: Could not read file.")
+  finally:
+    file.close()
     
 def PrintContent(file_name):
   try:
