@@ -1,1 +1,0 @@
-ip = sys.argv[1]

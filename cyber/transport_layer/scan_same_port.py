@@ -4,25 +4,24 @@ import socket
 import sys
 
 def scan_port(ip, port):
-  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  s.settimeout(0.5)
-  try:
-    s.connect((ip, port))
+  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+  sock.settimeout(0.00001)
+  if 0 == sock.connect_ex((ip, port)):
+    sock.close()
     return True
-  except:
-    return False
-  finally:
-    s.close()
+  sock.close()
+  return False
 
-def scan_network(ip):
+def scan_network(ip,port):
   ip_parts = ip.split('.')
   base_ip = '.'.join(ip_parts[:-1]) + '.'
-  for i in range(1, 256):
+  for i in range(0, 255):
     current_ip = base_ip + str(i)
-    for port in range(1, 65535):
-      if scan_port(current_ip, port):
-        print(f"{current_ip}:{port} is open")
-
-ip = input("Enter ip ") #change for argv  - ip = sys.argv[1]
-print("scanning...")
-scan_network(ip)
+    if scan_port(current_ip, port):   
+      print(current_ip, ":", port, "is open")
+      
+ip = sys.argv[1]
+port = (int)(sys.argv[2])
+print("Start scanning...")
+scan_network(ip,port)
+print("Scanning complete.")
