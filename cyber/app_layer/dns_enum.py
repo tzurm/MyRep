@@ -3,7 +3,7 @@ import requests
 import threading
 
 
-# Function to make a request to a URL
+# function to make a request to a URL
 def make_request(full_url):
     try:
         r = requests.get(full_url, timeout = 0.5)
