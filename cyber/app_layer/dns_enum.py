@@ -16,12 +16,12 @@ def main():
     
     url = "wikipedia.org/wiki"
     try:
-        with open("ISO_639-1.txt", "r") as file:
+        with open("common.txt", "r") as file:
             words = file.read().splitlines()
     except EnvironmentError:
         print("Error: cant open file")
     for word in words:
-        full_url = "https://" + word[0:2] + "." + url
+        full_url = "https://" + word[0:4] + "." + url
         thread = threading.Thread(target=make_request, args=(full_url,))
         thread.start()
         
