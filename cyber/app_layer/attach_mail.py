@@ -14,10 +14,12 @@ def main():
     # Open the file to be attached
     with open('ISO_639-1.txt', 'rb') as f:
         # Create the email message
+        from_mail = 'sender@gmail.com'
+        to_email = 'user2@gmail.com' 
         msg = MIMEMultipart()
         msg['Subject'] = 'You Won 2,000,000$ FREE!!'
-        msg['From'] = 'only.trash123@outlook.com'
-        msg['To'] = 'recvier@gmail.com'
+        msg['From'] = from_mail
+        msg['To'] = to_email
         body = '<a href="http://i.ytimg.com/vi/0vxCFIGCqnI/maxresdefault.jpg">to confrim click here.</a>' 
         msg.attach(MIMEText(body, 'html'))
         attachment = MIMEBase('application', 'octet-stream')
@@ -29,8 +31,8 @@ def main():
     # Connect to the server and send the email
     server = smtplib.SMTP('smtp.office365.com', 587)
     server.starttls()
-    server.login('only.trash123@outlook.com', file_contents)
-    server.sendmail('only.trash123@outlook.com', 'recvier@gmail.com', msg.as_string())
+    server.login(from_mail, file_contents)
+    server.sendmail(from_mail, to_email, msg.as_string())
     server.quit()
     
 if __name__ == "__main__":
