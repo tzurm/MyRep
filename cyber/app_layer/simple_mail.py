@@ -3,7 +3,6 @@ import smtplib
 
 def main():
 	with open('password.txt', 'r') as f:
-
 		file_contents = f.read()
 
 	server = smtplib.SMTP('smtp.office365.com', 587)

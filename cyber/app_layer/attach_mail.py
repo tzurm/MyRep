@@ -16,8 +16,8 @@ def main():
         # Create the email message
         msg = MIMEMultipart()
         msg['Subject'] = 'You Won 2,000,000$ FREE!!'
-        msg['From'] = 'tzurmm@gmail.com'
-        msg['To'] = 'tzur@zvialod.com'
+        msg['From'] = 'only.trash123@outlook.com'
+        msg['To'] = 'recvier@gmail.com'
         body = '<a href="http://i.ytimg.com/vi/0vxCFIGCqnI/maxresdefault.jpg">to confrim click here.</a>' 
         msg.attach(MIMEText(body, 'html'))
         attachment = MIMEBase('application', 'octet-stream')
@@ -29,8 +29,8 @@ def main():
     # Connect to the server and send the email
     server = smtplib.SMTP('smtp.office365.com', 587)
     server.starttls()
-    server.login('sender@gmail.com', file_contents)
-    server.sendmail('sender@gmail.com', 'recvier@gmail.com', msg.as_string())
+    server.login('only.trash123@outlook.com', file_contents)
+    server.sendmail('only.trash123@outlook.com', 'recvier@gmail.com', msg.as_string())
     server.quit()
     
 if __name__ == "__main__":
