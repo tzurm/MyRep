@@ -6,26 +6,24 @@ import threading
 # function to make a request to a URL
 def make_request(full_url):
     try:
-        r = requests.get(full_url, timeout = 0.5)
-        return True
+        r = requests.get(full_url, timeout = 3)
+        print(full_url)
     except:
-        return False
+        pass
     
     
 def main():
-    count = 0
+    
     url = "wikipedia.org/wiki"
     try:
-        with open("ISO_639-1_Code.txt", "r") as file:
+        with open("ISO_639-1.txt", "r") as file:
             words = file.read().splitlines()
     except EnvironmentError:
         print("Error: cant open file")
     for word in words:
         full_url = "https://" + word[0:2] + "." + url
-        if make_request(full_url):
-            print(full_url)
-            count += 1
-    print("Found", count , "urls")
+        thread = threading.Thread(target=make_request, args=(full_url,))
+        thread.start()
         
 if __name__ == "__main__":
     main()
