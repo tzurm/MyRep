@@ -12,7 +12,7 @@ def check_duplicate(list):
         notify = 'notify-send "ALERT: Arp Spoofing!"'
         os.system(notify)
         
-        os.system("arp -v > arp_cache.logs")    # overwrite
+        os.system("cat /proc/net/arp  > arp_cache.logs")    # overwrite
         os.system("date >> arp_cache.logs")     # append timestamp
 
 def detect_arp_spoofing():

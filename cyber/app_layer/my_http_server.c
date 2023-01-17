@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#define PORT 8000
+#define PORT 7899
 #define BUFFER_SIZE 1024
 
 /*
@@ -63,24 +63,29 @@ int main()
         int newsockfd = accept(sockfd, (struct sockaddr *)&host_addr,
                                (socklen_t *)&host_addrlen);
         if (newsockfd < 0) {
-            perror("webserver (accept)");
+            perror("webserver can't accept)");
             continue;
         }
         printf("connection accepted\n");
 
         /* Read from the socket*/
         valread = read(newsockfd, buffer, BUFFER_SIZE);
+        /* Echo back to the user his data*/
+      	valwrite = write(newsockfd, buffer, valread);
         if (valread < 0) {
-            perror("webserver (read)");
+            perror("webserver can't read)");
             continue;
         }
 
         /* Write to the socket*/
         valwrite = write(newsockfd, resp, strlen(resp));
+        printf("Received: %s\n", buffer);
         if (valwrite < 0) {
-            perror("webserver (write)");
+            perror("webserver can't write");
             continue;
         }
+        
+        
 
         close(newsockfd);
     }
