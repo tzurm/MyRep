@@ -1,8 +1,8 @@
-#include <stdio.h>      /*  printf                          */
-#include <arpa/inet.h>  /*  create, bind, listen, accept    */
-#include <errno.h>      /*  errno message                   */
-#include <sys/socket.h> /*  socket API                      */
-#include <unistd.h>     /* read, write                      */
+#include <stdio.h>      /*  printf                     			    */
+#include <arpa/inet.h>  /*  host_addrlen						    */
+#include <errno.h>      /*  errno message                  			*/
+#include <sys/socket.h> /*  socket API (bind, listen, accept...)    */
+#include <unistd.h>     /* read, write                      		*/
 
 #define PORT 60003
 #define BUFFER_SIZE 1024
@@ -46,7 +46,7 @@ int main()
     printf("socket successfully bound to address\n");
 
     /* Listen for incoming connections*/
-    if (listen(sockfd, SOMAXCONN) != 0)             /*  SOMAXCONN define by OS , max num of connections*/
+    if (listen(sockfd, SOMAXCONN) != 0)             /*  SOMAXCONN define by OS ,soc max connections*/
     {
         perror("webserver couldn't listen");
         return 1;
