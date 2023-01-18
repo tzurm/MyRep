@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#define PORT 7899
+#define PORT 7878
 #define BUFFER_SIZE 1024
 
 /*
@@ -31,7 +31,7 @@ int main()
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd == -1) 
     {
-        perror("webserver (socket)");
+        perror("webserver can't create socket)");
         return 1;
     }
     printf("socket created successfully\n");
@@ -70,8 +70,6 @@ int main()
 
         /* Read from the socket*/
         valread = read(newsockfd, buffer, BUFFER_SIZE);
-        /* Echo back to the user his data*/
-      	valwrite = write(newsockfd, buffer, valread);
         if (valread < 0) {
             perror("webserver can't read)");
             continue;

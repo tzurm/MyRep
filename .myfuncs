@@ -14,5 +14,5 @@ alias dump='objdump -d'
 alias c='clear'
 alias gitadd='git add .'
 alias gitcom='git commit -m ' 
-alias gitpush='git push https://tzur.mantzur:312117278@git.infinitylabs.co.il/ilrd/ramat-gan/cr2/tzur.mantzur.git' 
+alias gitpush='git push' 
 
