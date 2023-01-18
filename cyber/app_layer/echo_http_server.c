@@ -7,11 +7,23 @@
 #define PORT 60003
 #define BUFFER_SIZE 1024
 
-/*
- *  guide how to create http server code:
- *  https://bruinsslot.jp/post/simple-http-webserver-in-c/
- *
- */
+/*--------------------------------------------------------------------------*
+ *                                                                          *
+ *  guide how to create http server code:                                   *
+ *  https://bruinsslot.jp/post/simple-http-webserver-in-c/                  *
+ *	tcp socket                                                              *
+ *	https://www.cs.dartmouth.edu/~campbell/cs50/socketprogramming.html      *
+ *                                                                          *
+ *  pseudo                                                                  *
+ *  create socket , define the address and the ip                           *
+ *  bind the address to the socket                                          *
+ *  listen for incoming connections                                         *
+ *  accept incoming connections                                             *
+ *  read from the socket                                                    *
+ *  echo back to the user his data                                          *
+ *  back to read , close when done                                          *
+ *                                                                          *
+ *--------------------------------------------------------------------------*/
 
 int main()
 {
