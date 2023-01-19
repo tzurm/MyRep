@@ -22,6 +22,7 @@ def scan_network(ip,port):
   for i in range(0, 255):
     count += 1
     current_ip = base_ip + str(i)
+    print(current_ip)
     if scan_port(current_ip, port):   
       print(current_ip, ":", port, "is open")
   print("Complete scanned", count ,"IP address.")
