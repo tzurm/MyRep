@@ -3,7 +3,7 @@
 import socket
 import rsa
 
-HOST = "192.168.0.198"  
+HOST = "192.168.0.168"  
 PORT = 4567
 
 # Generate a public/private key pair
@@ -18,8 +18,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         
         # Send the public key to the client
         conn.sendall(pubkey.save_pkcs1())
+        # Receive the file name
+        file_name = conn.recv(1024).decode()
         
-        file_name = input("Enter a name for the received file: ")
         with open(file_name, "wb") as f:
             while True:
                 data = conn.recv(1024)
