@@ -18,7 +18,8 @@ int main()
     int allow = 0;
 
     printf("Enter your username, please: ");
-    gets(username);
+    fgets(username, sizeof(username), stdin);
+    username[strcspn(username, "\n")] = 0;
 
     if (IsAllowedUser(username))
     {
@@ -34,15 +35,4 @@ int main()
 }
 /*
 gcc *.c -o tt -fno-stack-protector
-*/
-
-/*
--fstdarg-opt
-           Optimize the prologue of variadic argument functions with respect
-           to usage of those arguments.
-
-           NOTE: In Ubuntu 14.10 and later versions,
-           -fstack-protector-strong is enabled by default for C, C++, ObjC,
-           ObjC++, if none of -fno-stack-protector, -nostdlib, nor
-           -ffreestanding are found.
 */

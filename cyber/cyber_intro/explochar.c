@@ -15,17 +15,17 @@ void PrivilegedAction()
 int main()
 {
     char username[8];
-    int allow = 0;
+    char allow = '0';
 
     printf("Enter your username, please: ");
     gets(username);
 
     if (IsAllowedUser(username))
     {
-        allow = 1;
+        allow = 'z';
     }
 
-    if (allow)
+    if (allow == 'z')
     {
         PrivilegedAction();
     }
