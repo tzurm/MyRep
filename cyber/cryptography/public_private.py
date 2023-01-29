@@ -8,7 +8,7 @@ e = 7
 d = 3
 
 # Bob encrypts the message using Alice's public key
-message = 13
+message = 32
 ciphertext = (message**e) % n
 
 # Bob sends the encrypted message to Alice
@@ -17,4 +17,4 @@ ciphertext = (message**e) % n
 plaintext = (ciphertext ** d) % n
 
 # Alice can now read the message
-print(plaintext)  # Output: 12
+print(plaintext)  # Output: 32

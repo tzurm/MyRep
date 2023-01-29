@@ -6,15 +6,13 @@ import socket
 
 def main():
     
+    host = sys.argv[1]                                          # get arguments by command line
+    port = int(sys.argv[2])
     if len(sys.argv) < 3:
         print("Usage: ./echo.py [ip server] [port]")
         sys.exit()
                                                                     # create a socket (endpoint for send or recvie data )
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:    # ipv4 / tcp socket 
-
-        host = sys.argv[1]                                          # get arguments by command line
-        port = int(sys.argv[2])
-                                                                    
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:    # ipv4 / tcp socket                                      
         s.bind((host, port))                                        # bind the socket to a public host, and a port                                 
         s.listen(1)                                                 # set the socket to listen only 1 incoming connection
         while True:                                                                                                   
