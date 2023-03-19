@@ -3321,7 +3321,9 @@ __old_malloc (size_t bytes)
           ar_ptr == arena_for_chunk (mem2chunk (victim)));
   return victim;
 }
-libc_hidden_def (__libc_malloc)
+libc_hidden_def (__libc_malloc)												
+
+/*------------------------------------my_malloc-------------------------------*/
 void *__libc_malloc(const size_t size)
 {
     static void *prev_ptr = NULL;
@@ -3343,7 +3345,7 @@ void *__libc_malloc(const size_t size)
 
     return ptr;
 }
-
+/*--------------------------------end_my_malloc-------------------------------*/
 
 void
 __libc_free (void *mem)

@@ -48,43 +48,19 @@ void *my_malloc(size_t size)
 
 int main()
 {
-    char *password;
+	char *password;
+	size_t i=0;
+	while(i < 3)
+	{
+	    password = (char *)my_malloc((20) * sizeof(char));
 
-    password = (char *)my_malloc((15) * sizeof(char));
-    if (password == NULL)
-    {
-        printf("ERROR: could not allocate memory: memory overflow\n");
-        return 1;
-    }
+	    printf("Enter password (8 chars): ");
+	    scanf("%s", password);
+	    ++i; 
+	}
+	    free(password);
 
-    printf("Enter password (8 chars): ");
-    scanf("%s", password);
-    printf("The password you entered is: %s\n", password);
-
-    password = (char *)my_malloc((15) * sizeof(char));
-    if (password == NULL)
-    {
-        printf("ERROR: could not allocate memory: memory overflow\n");
-        return 1;
-    }
-
-    printf("Enter password (8 chars): ");
-    scanf("%s", password);
-    printf("The password you entered is: %s\n", password);
-
-    password = (char *)my_malloc((15) * sizeof(char));
-    if (password == NULL)
-    {
-        printf("ERROR: could not allocate memory: memory overflow\n");
-        return 1;
-    }
-
-    printf("Enter password (8 chars): ");
-    scanf("%s", password);
-    printf("The password you entered is: %s\n", password);
-    free(password);
-
-    return 0;
+	return 0;
 }
 
 /*
