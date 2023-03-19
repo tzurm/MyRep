@@ -6,6 +6,14 @@ from datetime import timedelta
 import itertools
 import threading
 
+def bruteforce_list(pwsd):                      #ssh bruteforce
+    with open('pass_ssh', 'r') as f:
+        passwords = f.read().splitlines()
+    for password in passwords:
+        if init_sha256(password)==init_sha256(pwsd):
+            print("found", password)
+            break
+
 def init_sha256(password):
     encode_crackme = password.encode('utf-8')   # encoded before hashing
     hash_crackme = sha256(encode_crackme)       # hashing
@@ -81,10 +89,12 @@ def check_time(func):
     print((func.__name__), ":", timedelta(seconds=end-start))
 
 """--------------------------------TEST--------------------------------------"""
-hex_crackme = init_sha256("12345")
+bruteforce_list("kali")
+
+hex_crackme = init_sha256("58247987")
 check_time(bruteforce_sha256)
 
-hex_crackme = init_sha1("12345")
+hex_crackme = init_sha1("58247987")
 check_time(bruteforce_sha1)
 
 hex_crackme = init_sha256("azurm")
